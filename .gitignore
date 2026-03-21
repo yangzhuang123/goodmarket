@@ -29,3 +29,25 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Frontend ###
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+frontend/admin/dist/
+frontend/front/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db

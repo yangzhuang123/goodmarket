@@ -1,6 +1,6 @@
 export default {
-	baseUrl: 'http://localhost:8080/springboot48cmuaub/',
-	name: '/springboot48cmuaub',
+	baseUrl: 'http://localhost:8080/goodmarket/',
+	name: '/goodmarket',
 	indexNav: [
 		{
 			name: '商品信息',

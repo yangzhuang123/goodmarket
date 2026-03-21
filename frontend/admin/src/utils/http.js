@@ -6,7 +6,7 @@ import {Message} from 'element-ui'
 const http = axios.create({
 	timeout: 1000 * 86400,
 	withCredentials: true,
-	baseURL: '/springboot48cmuaub',
+	baseURL: '/goodmarket',
 	headers: {
 		'Content-Type': 'application/json; charset=utf-8'
 	}

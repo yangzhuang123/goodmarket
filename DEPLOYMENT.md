@@ -1,9 +1,10 @@
-# 前后端分离部署文档
+# 好物集市 - 前后端分离部署文档
 
 ## 项目架构
 
 本项目已改造为完全的前后端分离架构：
 
+- **项目名称**：好物集市（GoodMarket）
 - **后端项目**：Spring Boot 2.2.2.RELEASE + MyBatis Plus
 - **前端项目**：Vue.js 2.6.10 + Element UI
 - **通信方式**：RESTful API + Axios
@@ -11,21 +12,30 @@
 ## 项目结构
 
 ```
-springboot48cmuaub/
-├── src/main/java/com/          # 后端代码
-├── src/main/resources/          # 后端资源
-│   ├── mapper/               # MyBatis映射文件
-│   └── application.yml       # 后端配置
-├── frontend/                 # 前端项目
-│   └── admin/               # 管理后台前端
+goodmarket/
+├── backend/                  # 后端项目
+│   ├── src/main/java/com/   # 后端代码
+│   ├── src/main/resources/  # 后端资源
+│   │   ├── mapper/          # MyBatis映射文件
+│   │   └── application.yml  # 后端配置
+│   ├── db/                  # 数据库脚本
+│   └── pom.xml              # Maven 配置
+├── frontend/                # 前端项目
+│   ├── admin/               # 管理后台前端
+│   │   ├── src/             # 前端源码
+│   │   ├── public/          # 静态资源
+│   │   ├── dist/            # 构建产物
+│   │   ├── package.json     # 前端配置
+│   │   ├── vue.config.js    # Vue配置
+│   │   ├── .env.development # 开发环境变量
+│   │   └── .env.production  # 生产环境变量
+│   └── front/               # 用户前端
 │       ├── src/             # 前端源码
-│       ├── public/           # 静态资源
+│       ├── public/          # 静态资源
 │       ├── dist/            # 构建产物
-│       ├── package.json      # 前端配置
-│       ├── vue.config.js     # Vue配置
-│       ├── .env.development # 开发环境变量
-│       └── .env.production  # 生产环境变量
-└── db/                     # 数据库脚本
+│       ├── package.json     # 前端配置
+│       └── vue.config.js    # Vue配置
+└── DEPLOYMENT.md            # 部署文档
 ```
 
 ## 开发环境部署
@@ -34,7 +44,7 @@ springboot48cmuaub/
 
 ```bash
 # 进入后端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub
+cd /Users/young/Desktop/shop/springboot48cmuaub/backend
 
 # 设置 JAVA_HOME 环境变量
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home
@@ -44,10 +54,10 @@ mvn spring-boot:run
 
 # 或者使用打包方式启动
 mvn clean package -DskipTests
-java -jar target/springboot48cmuaub-0.0.1-SNAPSHOT.jar
+java -jar target/goodmarket-0.0.1-SNAPSHOT.jar
 ```
 
-**后端服务地址**：`http://localhost:8080/springboot48cmuaub`
+**后端服务地址**：`http://localhost:8080/goodmarket`
 
 ### 2. 启动前端开发服务器
 
@@ -71,8 +81,8 @@ npm run serve
 - `vue.config.js`：开发服务器配置
 
 **API 请求配置**：
-- 开发环境：使用代理 `/springboot48cmuaub` → `http://localhost:8080/springboot48cmuaub`
-- 生产环境：直接请求 `http://localhost:8080/springboot48cmuaub`
+- 开发环境：使用代理 `/goodmarket` → `http://localhost:8080/goodmarket`
+- 生产环境：直接请求 `http://localhost:8080/goodmarket`
 
 ## 生产环境部署
 
@@ -105,8 +115,8 @@ server {
     }
 
     # 后端 API 代理
-    location /springboot48cmuaub/ {
-        proxy_pass http://localhost:8080/springboot48cmuaub/;
+    location /goodmarket/ {
+        proxy_pass http://localhost:8080/goodmarket/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -130,8 +140,8 @@ server {
     </Directory>
 
     # 后端 API 代理
-    ProxyPass /springboot48cmuaub/ http://localhost:8080/springboot48cmuaub/
-    ProxyPassReverse /springboot48cmuaub/ http://localhost:8080/springboot48cmuaub/
+    ProxyPass /goodmarket/ http://localhost:8080/goodmarket/
+    ProxyPassReverse /goodmarket/ http://localhost:8080/goodmarket/
 </VirtualHost>
 ```
 
@@ -139,16 +149,16 @@ server {
 
 ```bash
 # 进入后端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub
+cd /Users/young/Desktop/shop/springboot48cmuaub/backend
 
 # 打包项目
 mvn clean package -DskipTests
 
 # 运行打包后的 jar 文件
-java -jar target/springboot48cmuaub-0.0.1-SNAPSHOT.jar
+java -jar target/goodmarket-0.0.1-SNAPSHOT.jar
 
 # 或者使用 nohup 后台运行
-nohup java -jar target/springboot48cmuaub-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+nohup java -jar target/goodmarket-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 ```
 
 ### 4. 生产环境配置
@@ -158,16 +168,16 @@ nohup java -jar target/springboot48cmuaub-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 编辑 `frontend/admin/.env.production` 文件：
 ```
 NODE_ENV=production
-VUE_APP_API_BASE_URL=http://your-backend-server.com/springboot48cmuaub
+VUE_APP_API_BASE_URL=http://your-backend-server.com/goodmarket
 ```
 
 **修改后端配置**：
 
-编辑 `src/main/resources/application.yml` 文件：
+编辑 `backend/src/main/resources/application.yml` 文件：
 ```yaml
 spring:
     datasource:
-        url: jdbc:mysql://your-database-server:3306/springboot48cmuaub?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&useSSL=false
+        url: jdbc:mysql://your-database-server:3306/goodmarket?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&useSSL=false
         username: your-username
         password: your-password
 ```
@@ -186,12 +196,13 @@ spring:
 ## 访问地址
 
 ### 开发环境
-- **前端**：http://localhost:8081
-- **后端 API**：http://localhost:8080/springboot48cmuaub
+- **管理后台前端**：http://localhost:8081
+- **用户前端**：http://localhost:8083
+- **后端 API**：http://localhost:8080/goodmarket
 
 ### 生产环境
 - **前端**：http://your-domain.com
-- **后端 API**：http://your-backend-server.com/springboot48cmuaub
+- **后端 API**：http://your-backend-server.com/goodmarket
 
 ## 常见问题
 
@@ -265,6 +276,7 @@ mysql -h localhost -u root -p
 
 本项目已成功改造为前后端分离架构，具备以下特点：
 
+✅ **项目命名**：好物集市（GoodMarket）
 ✅ **代码分离**：前后端代码完全独立
 ✅ **独立部署**：前后端可以独立部署和扩展
 ✅ **开发效率**：支持并行开发和测试

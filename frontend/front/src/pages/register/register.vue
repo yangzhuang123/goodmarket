@@ -4,7 +4,7 @@
 		<div class="container">
 			<el-form class='rgs-form animate__animated animate__fadeInDown' v-if="pageFlag=='register'" ref="registerForm" :model="registerForm" :rules="rules">
 				<div class="rgs-form2">
-					<div class="title">基于SpringBoot的个性化网上商城系统的设计与实现</p></div>
+					<div class="title">好物集市</p></div>
 					<el-form-item class="list-item" v-if="tableName=='yonghu'" prop="yonghuming">
 						<div class="label" :class="changeRules('yonghuming')?'required':''">用户名：</div>
 						<el-input v-model="registerForm.yonghuming"  placeholder="请输入用户名" />

@@ -3,7 +3,7 @@
 		<div class="login-container">
 			<el-form ref="loginForm" :model="loginForm" :rules="rules" class="login_form animate__animated animate__fadeInDown">
 				<div class="login_form2">
-					<div class="login-title">基于SpringBoot的个性化网上商城系统的设计与实现</div>
+					<div class="login-title">好物集市</div>
 					<div v-if="loginType==1" class="list-item" prop="username">
 						<div class="lable">
 							账号：

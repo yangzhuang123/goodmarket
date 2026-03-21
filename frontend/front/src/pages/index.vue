@@ -4,7 +4,7 @@
 			<div class="top-container">
 				<!-- info -->
 				<div class="top_title">
-					<span @click="goMenu('/index/home')">基于SpringBoot的个性化网上商城系统的设计与实现</span>
+					<span @click="goMenu('/index/home')">好物集市</span>
 				</div>
 				<div class="top_tel"></div>
 			

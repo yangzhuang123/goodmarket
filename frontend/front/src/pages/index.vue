@@ -44,7 +44,37 @@
 			</div>
 
 
-			<div class="menu-preview">
+			<div class="banner-preview" v-if="carouselChange() && showBanner">
+				<div class="banner-close-btn" @click="showBanner = false">
+					<span class="icon iconfont icon-guanbi1"></span>
+				</div>
+				<div class="swiper-container mySwiper3">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
+							<div class="swiper-item">
+								<el-image v-if="preHttp(item.value)" @click="carouselClick(item.url)" :src="item.value" fit="cover"></el-image>
+								<el-image v-else @click="carouselClick(item.url)" :src="baseUrl + item.value" fit="cover"></el-image>
+							</div>
+						</div>
+					</div>
+					<div class="banner-hidden">
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<!-- Add Arrows -->
+					<div class="swiper-button-next">
+						<span class="icon iconfont icon-jiantou18"></span>
+					</div>
+					<div class="swiper-button-prev">
+						<span class="icon iconfont icon-jiantou39"></span>
+					</div>
+				</div>
+			</div>
+			<div class="banner-toggle-btn" v-if="!showBanner" @click="showBanner = true">
+				<span class="icon iconfont icon-xiala"></span>
+				<span class="text">展开轮播图</span>
+			</div>
+			<div class="menu-preview" v-if="isHomePage()">
 				<div class="menu-list">
 					<div class="menu-home" :class="activeMenu=='/index/home'?'menu-active':''" @click="goMenu('/index/home')">
 						<div class="title">
@@ -83,31 +113,7 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="banner-preview" v-if="carouselChange()">
-				<div class="swiper-container mySwiper3">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
-							<div class="swiper-item">
-								<el-image v-if="preHttp(item.value)" @click="carouselClick(item.url)" :src="item.value" fit="cover"></el-image>
-								<el-image v-else @click="carouselClick(item.url)" :src="baseUrl + item.value" fit="cover"></el-image>
-							</div>
-						</div>
-					</div>
-					<div class="banner-hidden">
-					</div>
-					<!-- Add Pagination -->
-					<div class="swiper-pagination"></div>
-					<!-- Add Arrows -->
-					<div class="swiper-button-next">
-						<span class="icon iconfont icon-jiantou18"></span>
-					</div>
-					<div class="swiper-button-prev">
-						<span class="icon iconfont icon-jiantou39"></span>
-					</div>
-				</div>
-			</div>
-			<router-view id="scrollView"></router-view>
+			<router-view id="scrollView" :class="{'has-top-margin': !isHomePage()}"></router-view>
 			
 			<div class="bottom-preview">
 				<div class="footer"><div v-html="bottomContent"></div></div>
@@ -258,6 +264,7 @@ export default {
 			],
 			bottomContent: '',
 			showType4: -1,
+			showBanner: true,
 		}
 	},
 	async created() {
@@ -317,9 +324,7 @@ export default {
 			}
 			this.Token = localStorage.getItem('frontToken')
 			if(arr[1]!='/index/home'){
-				var element = document.getElementById('scrollView');
-				var distance = element.offsetTop;
-				window.scrollTo( 0, distance )
+				window.scrollTo( 0, 70 )
 			}else{
 				window.scrollTo( 0, 0 )
 			}
@@ -396,7 +401,14 @@ export default {
 		carouselChange(){
 			let url = window.location.href
 			let arr = url.split('#')
-			return (this.carouselForm.inHome&&arr[1]=='/index/home')||(this.carouselForm.inOther&&arr[1]!='/index/home')
+			// 只有系统首页展示轮播图
+			return arr[1]=='/index/home'
+		},
+		isHomePage(){
+			let url = window.location.href
+			let arr = url.split('#')
+			// 只在系统首页展示菜单导航栏
+			return arr[1]=='/index/home'
 		},
 		goBackend() {
 			localStorage.setItem('Token', localStorage.getItem('frontToken'));
@@ -612,123 +624,74 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.top-el-dropdown-menu {
 		border: 1px solid #EBEEF5;
-		border-radius: 4px;
-		padding: 10px 0;
-		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+		border-radius: 8px;
+		padding: 8px 0;
+		box-shadow: 0 4px 20px rgba(0,0,0,.12);
 		margin: 18px 0;
 		background: #fff;
-		.shop-item {
+		.shop-item, .service-item, .user-item, .register-item {
 			border: 0;
-			padding: 0 8px;
-			margin: 0 0px;
-			color: inherit;
+			padding: 0 16px;
+			margin: 0;
+			color: #333;
 			background: #fff;
 			width: auto;
-			font-size: inherit;
-			line-height: 32px;
-			height: 32px;
+			font-size: 14px;
+			line-height: 40px;
+			height: 40px;
+			transition: all 0.3s ease;
 			.icon {
 				color: inherit;
 				font-size: inherit;
+				margin-right: 8px;
 			}
 		}
-		.shop-item:hover {
+		.shop-item:hover, .service-item:hover, .user-item:hover, .register-item:hover {
 			color: #fff;
-			background: #000;
-		}
-		.service-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 0px;
-			color: inherit;
-			background: #fff;
-			width: auto;
-			font-size: inherit;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: inherit;
-			}
-		}
-		.service-item:hover {
-			color: #fff;
-			background: #000;
-		}
-		.user-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 0px;
-			color: inherit;
-			background: #fff;
-			width: auto;
-			font-size: inherit;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: inherit;
-			}
-		}
-		.user-item:hover {
-			color: #fff;
-			background: #000;
-		}
-		.register-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 0px;
-			color: inherit;
-			background: #fff;
-			width: auto;
-			font-size: inherit;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: inherit;
-			}
-		}
-		.register-item:hover {
-			color: #fff;
-			background: #000;
+			background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
 		}
 	}
 	.main-containers {
 		.body-containers {
 			padding: 0;
 			margin: 0;
-			background: #fff;
+			background: #f5f7fa;
 			min-height: 100vh;
 			position: relative;
 			.top-container {
-				padding: 0;
+				padding: 0 60px;
 				z-index: 1002;
-				color: #424953;
+				color: #fff;
 				display: flex;
 				font-size: 16px;
-				border-bottom: 0px solid #1f292f;
-				box-shadow: none;
-				background: #fff;
+				border-bottom: none;
+				box-shadow: 0 2px 20px rgba(0,0,0,.1);
+				background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
 				width: 100%;
-				justify-content: flex-start;
+				justify-content: space-between;
 				align-items: center;
-				position: inherit;
-				height: 60px;
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 70px;
 				.top_title {
 					flex: 1 1 auto;
 					position: relative;
 					order: 1;
 					span {
 						padding: 0;
-						color: #000;
-						font-size: 22px;
-						line-height: 44px;
+						color: #fff;
+						font-size: 26px;
+						font-weight: 600;
+						line-height: 70px;
+						cursor: pointer;
+						letter-spacing: 2px;
+						text-shadow: 0 2px 4px rgba(0,0,0,.1);
 					}
 				}
 				.top_tel {
 					margin: 0 10px;
-					color: #000;
+					color: #fff;
 					font-size: 16px;
 				}
 				.dropdown-box {
@@ -743,12 +706,14 @@ export default {
 						font-size: inherit;
 						align-items: center;
 						.top_avatar2 {
-							border-radius: 100%;
+							border-radius: 50%;
 							margin: 0 10px;
 							object-fit: cover;
 							display: inline-block;
 							width: 40px;
 							height: 40px;
+							border: 2px solid rgba(255,255,255,0.5);
+							box-shadow: 0 2px 8px rgba(0,0,0,.15);
 						}
 						.top_label2 {
 							color: inherit;
@@ -756,33 +721,37 @@ export default {
 							line-height: 32px;
 						}
 						.top_nickname2 {
-							color: inherit;
-							font-size: inherit;
+							color: #fff;
+							font-size: 15px;
 							line-height: 32px;
+							font-weight: 500;
 						}
 						.icon {
 							margin: 0 0 0 5px;
-							color: #666;
+							color: rgba(255,255,255,0.8);
 							font-size: 14px;
 						}
 						.login-item {
-							border: 0;
-							padding: 0 8px;
-							margin: 0 0px;
-							color: #fff;
-							background: #5DB5B7;
+							border: none;
+							padding: 0 24px;
+							margin: 0;
+							color: #5DB5B7;
+							background: #fff;
 							width: auto;
-							font-size: inherit;
-							line-height: 32px;
-							height: 32px;
-							.icon {
-								color: inherit;
-								font-size: inherit;
-							}
+							font-size: 15px;
+							font-weight: 500;
+							line-height: 40px;
+							height: 40px;
+							border-radius: 20px;
+							cursor: pointer;
+							transition: all 0.3s ease;
+							box-shadow: 0 2px 8px rgba(0,0,0,.1);
 						}
 						.login-item:hover {
 							color: #fff;
-							background: #2d7173;
+							background: rgba(255,255,255,0.2);
+							transform: translateY(-2px);
+							box-shadow: 0 4px 12px rgba(0,0,0,.15);
 						}
 					}
 				}
@@ -790,14 +759,14 @@ export default {
 			.menu-preview {
 				.el-scrollbar {
 					height: 100%;
-			  
+				
 					& /deep/ .scrollbar-wrapper-vertical {
 						overflow-x: hidden;
 					}
-			  
+				
 					& /deep/ .scrollbar-wrapper-horizontal {
 						overflow-y: hidden;
-			  
+				
 						.el-scrollbar__view {
 							white-space: nowrap;
 						}
@@ -805,31 +774,33 @@ export default {
 				}
 				padding: 0;
 				margin: 0;
-				background: #FFF;
+				background: #fff;
 				width: 100%;
-				border-color: #A7A7A7;
-				border-width: 1px 0;
+				border-color: transparent;
+				border-width: 0;
 				border-style: solid;
+				box-shadow: 0 2px 10px rgba(0,0,0,.05);
 				.menu-list {
-					padding: 0;
+					padding: 0 60px;
 					display: flex;
 					width: 100%;
 					justify-content: center;
 					position: relative;
 					flex-wrap: wrap;
-					// 首页
-					.menu-home {
-						color: #000;
+					.menu-home, .menu-item {
+						color: #333;
 						display: flex;
 						align-items: center;
-						height: 100px;
+						height: 60px;
+						transition: all 0.3s ease;
 						.title {
 							cursor: pointer;
-							padding: 0 30px;
-							color: #000;
+							padding: 0 25px;
+							color: #333;
 							display: flex;
+							align-items: center;
 							.icon {
-								padding: 0 10px;
+								padding: 0 8px 0 0;
 								margin: 0;
 								color: inherit;
 								display: none;
@@ -839,75 +810,75 @@ export default {
 								height: 50px;
 							}
 							.text {
-								padding: 0 10px;
+								padding: 0;
 								color: inherit;
-								font-size: 18px;
-								line-height: 30px;
-								height: 30px;
+								font-size: 16px;
+								font-weight: 500;
+								line-height: 60px;
+								height: 60px;
+								position: relative;
 							}
 						}
 					}
-					.menu-home:hover {
+					.menu-home:hover, .menu-item:hover {
 						.title {
 							color: #5DB5B7;
 							background: none;
+							.text::after {
+								content: '';
+								position: absolute;
+								bottom: 0;
+								left: 50%;
+								transform: translateX(-50%);
+								width: 30px;
+								height: 3px;
+								background: #5DB5B7;
+								border-radius: 2px;
+							}
 						}
 					}
-					.menu-home.menu-active {
+					.menu-home.menu-active, .menu-item.menu-active {
 						.title {
 							color: #5DB5B7;
 							background: none;
+							.text::after {
+								content: '';
+								position: absolute;
+								bottom: 0;
+								left: 50%;
+								transform: translateX(-50%);
+								width: 30px;
+								height: 3px;
+								background: #5DB5B7;
+								border-radius: 2px;
+							}
 						}
 					}
-					// 其他盒子
 					.menu-item {
-						color: #000;
-						flex: 0 0 auto;
-						display: flex;
-						align-items: center;
-						height: 100px;
 						.title {
-							cursor: pointer;
-							padding: 0 30px;
-							color: #000;
-							border-left: 1px solid #D8D8D8;
-							display: flex;
-							span {
-								padding: 0 10px;
-								margin: 0;
-								color: inherit;
-								display: none;
-								width: 14px;
-								font-size: 14px;
-								line-height: 50px;
-								height: 50px;
-							}
-							.text {
-								padding: 0 10px;
-								color: inherit;
-								font-size: 18px;
-								line-height: 30px;
-								height: 30px;
-							}
+							border-left: none;
 						}
 						.menu-child-list {
-							border-top: 1px solid #A7A7A7;
-							padding: 0;
+							border: none;
+							padding: 10px 0;
 							z-index: 11;
 							left: 0;
-							background: #FFF;
-							bottom: -60px;
+							background: #fff;
+							bottom: -70px;
 							display: flex;
 							width: 100%;
-							line-height: 60px;
+							line-height: 50px;
 							justify-content: center;
 							position: absolute;
-							height: 60px;
+							height: auto;
+							box-shadow: 0 4px 20px rgba(0,0,0,.1);
+							border-radius: 0 0 8px 8px;
 							.child-item {
 								cursor: pointer;
 								padding: 0 20px;
-								color: #000000;
-								font-size: 15px;
+								color: #333;
+								font-size: 14px;
+								transition: all 0.3s ease;
 							}
 							.child-item:hover {
 								color: #5DB5B7;
@@ -915,22 +886,9 @@ export default {
 							}
 						}
 					}
-					.menu-item:hover {
-						.title {
-							color: #5DB5B7;
-							background: none;
-						}
-					}
-					.menu-item.menu-active {
-						.title {
-							color: #5DB5B7;
-							background: none;
-						}
-					}
-					// 购物车
-					.menu-shop {
+					.menu-shop, .menu-service, .menu-user {
 						cursor: pointer;
-						color: #fff;
+						color: #333;
 						display: none;
 						line-height: 50px;
 						height: 50px;
@@ -954,107 +912,46 @@ export default {
 								line-height: 50px;
 								height: 50px;
 							}
-						}
-					}
-					.menu-shop:hover {
-						.title {
-							background: #36ca61;
-						}
-					}
-					.menu-shop.menu-active {
-						.title {
-							background: #55ff00;
-						}
-					}
-					// 客服
-					.menu-service {
-						cursor: pointer;
-						color: #fff;
-						display: none;
-						line-height: 50px;
-						height: 50px;
-						.title {
-							padding: 0 20px;
-							display: flex;
-							height: 50px;
-							.icon {
-								padding: 0 10px;
-								margin: 0;
-								color: inherit;
-								width: 14px;
-								font-size: 14px;
-								line-height: 50px;
-								height: 50px;
-							}
-							.text {
-								padding: 0 10px;
-								color: inherit;
-								font-size: 14px;
-								line-height: 50px;
-								height: 50px;
-							}
-						}
-					}
-					.menu-service:hover {
-						.title {
-							background: #000;
-						}
-					}
-					.menu-service.menu-active {
-						.title {
-							background: #000;
-						}
-					}
-					// 个人中心
-					.menu-user {
-						color: #000;
-						flex: 0 0 auto;
-						display: none;
-						align-items: center;
-						height: 100px;
-						.title {
-							cursor: pointer;
-							padding: 0 30px;
-							color: #000;
-							border-left: 1px solid #D8D8D8;
-							display: flex;
-							.icon {
-								padding: 0 10px;
-								margin: 0;
-								color: inherit;
-								display: none;
-								width: 14px;
-								font-size: 14px;
-								line-height: 50px;
-								height: 50px;
-							}
-							.text {
-								padding: 0 10px;
-								color: inherit;
-								font-size: 16px;
-								line-height: 30px;
-								height: 30px;
-							}
-						}
-					}
-					.menu-user:hover {
-						.title {
-							color: #5DB5B7;
-							background: none;
-						}
-					}
-					.menu-user.menu-active {
-						.title {
-							color: #5DB5B7;
-							background: none;
 						}
 					}
 				}
 			}
 			.banner-preview {
-				margin: 0 auto;
+				margin: 0;
 				width: 100%;
+				max-width: 100%;
+				padding: 0;
 				height: auto;
+				position: relative;
+				.banner-close-btn {
+					position: absolute;
+					top: 20px;
+					right: 20px;
+					z-index: 1000;
+					width: 40px;
+					height: 40px;
+					background: rgba(0,0,0,0.5);
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					cursor: pointer;
+					transition: all 0.3s ease;
+					.icon {
+						color: #fff;
+						font-size: 20px;
+					}
+				}
+				.banner-close-btn:hover {
+					background: rgba(0,0,0,0.7);
+					transform: scale(1.1);
+				}
+				.swiper-container {
+					border-radius: 0;
+					overflow: hidden;
+					box-shadow: none;
+					width: 100%;
+				}
 				.swiper-button-prev:after {
 					display:none;
 				}
@@ -1068,7 +965,8 @@ export default {
 						.el-image {
 							object-fit: cover;
 							width: 100%;
-							height: 600px;
+							height: 500px;
+							display: block;
 						}
 					}
 				}
@@ -1076,43 +974,56 @@ export default {
 				@keyframes wave2 {from { left: 0 } to { left: -1009px }}
 				.swiper-pagination {
 					left: 0;
-					bottom: 10px;
+					bottom: 20px;
 					width: 100%;
 					/deep/ span.swiper-pagination-bullet {
 						border-radius: 100%;
-						margin: 0 4px;
-						background: #000;
+						margin: 0 6px;
+						background: #fff;
 						display: inline-block;
-						width: 8px;
-						opacity: .2;
-						height: 8px;
+						width: 10px;
+						opacity: .5;
+						height: 10px;
+						transition: all 0.3s ease;
 					}
 					/deep/ span.swiper-pagination-bullet:hover {
 						background: #fff;
 						opacity: 1;
+						transform: scale(1.2);
 					}
 					/deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 						background: #fff;
 						opacity: 1;
+						width: 30px;
+						border-radius: 5px;
 					}
 				}
 				.swiper-button-next {
-					margin: -12px calc((100% - 1200px)/2) 0 0;
+					margin: -20px 60px 0 0;
 					top: 50%;
-					width: 24px;
-					height: 24px;
+					width: 50px;
+					height: 50px;
+					background: rgba(255,255,255,0.3);
+					border-radius: 50%;
+					transition: all 0.3s ease;
 					.icon {
 						color: #fff;
 						width: 24px;
 						font-size: 24px;
 						height: 24px;
 					}
+				}
+				.swiper-button-next:hover {
+					background: rgba(255,255,255,0.5);
 				}
 				.swiper-button-prev {
-					margin: -12px 0 0 calc((100% - 1200px)/2);
+					margin: -20px 0 0 60px;
 					top: 50%;
-					width: 24px;
-					height: 24px;
+					width: 50px;
+					height: 50px;
+					background: rgba(255,255,255,0.3);
+					border-radius: 50%;
+					transition: all 0.3s ease;
 					.icon {
 						color: #fff;
 						width: 24px;
@@ -1120,20 +1031,52 @@ export default {
 						height: 24px;
 					}
 				}
+				.swiper-button-prev:hover {
+					background: rgba(255,255,255,0.5);
+				}
+			}
+			.banner-toggle-btn {
+				margin: 10px auto;
+				padding: 8px 20px;
+				background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+				color: #fff;
+				border-radius: 20px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 5px;
+				cursor: pointer;
+				width: fit-content;
+				font-size: 14px;
+				transition: all 0.3s ease;
+				box-shadow: 0 2px 10px rgba(93,181,183,0.3);
+				.icon {
+					font-size: 12px;
+					transform: rotate(180deg);
+				}
+			}
+			.banner-toggle-btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 15px rgba(93,181,183,0.4);
+			}
+			#scrollView.has-top-margin .breadcrumb-preview {
+				padding-top: 85px;
 			}
 			.bottom-preview {
 				width: 100%;
 				height: auto;
 				.footer {
-					padding: 20px calc(50% - 625px);
+					padding: 30px calc(50% - 625px);
 					margin: 0 auto;
 					overflow: hidden;
 					color: #fff;
-					background: #262626;
+					background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
 					width: 100%;
-					min-height: 120px;
+					min-height: 100px;
 					text-align: center;
-					height: 120px;
+					height: auto;
+					font-size: 14px;
+					line-height: 1.8;
 				}
 			}
 		}
@@ -1147,6 +1090,7 @@ export default {
 		overflow-y: scroll;
 		border: 1px solid #eeeeee;
 		background: #fff;
+		border-radius: 8px;
 
 		.left-content {
 			float: left;

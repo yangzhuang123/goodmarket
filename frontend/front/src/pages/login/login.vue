@@ -208,8 +208,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.login-container {
-		background-repeat: no-repeat;
-		background: url(http://codegen.caihongy.cn/20241104/f36a96ebedfc4cbb9a6cfb7e1443ebb5.webp);
+		background: #f5f5f5;
 		display: flex;
 		width: 100%;
 		min-height: 100vh;
@@ -217,63 +216,68 @@ export default {
 		align-items: center;
 		background-position: center center;
 		position: relative;
-		background: url(http://codegen.caihongy.cn/20241104/f36a96ebedfc4cbb9a6cfb7e1443ebb5.webp);
 		.login_form {
 			padding: 0;
 			margin: 0;
-			background: #FFF;
-			width: 600px;
+			background: rgba(255, 255, 255, 0.95);
+			width: 500px;
 			height: auto;
+			border-radius: 20px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			backdrop-filter: blur(10px);
 			.login_form2 {
-				padding: 0 80px;
+				padding: 40px 50px;
 				margin: 0;
-				background: #fff;
+				background: transparent;
 				width: 100%;
 				.login-title {
-					margin: 40px 0 30px -40px;
-					color: #000;
+					margin: 0 0 40px 0;
+					color: #5DB5B7;
 					font-weight: 700;
-					width: calc(100% + 80px);
-					font-size: 18px;
-					line-height: auto;
+					width: 100%;
+					font-size: 32px;
+					line-height: 1;
 					text-align: center;
+					letter-spacing: 2px;
 				}
 				.list-item {
-					border: 1px solid #CACACA;
-					border-radius: 30px;
-					box-shadow: inset 0px 4px 10px 0px rgba(0,0,0,0.3);
-					margin: 0 0 30px 0;
-					background: none;
+					border: 2px solid #e0e0e0;
+					border-radius: 12px;
+					box-shadow: none;
+					margin: 0 0 25px 0;
+					background: #fff;
 					display: flex;
 					width: 100%;
 					align-items: center;
+					transition: all 0.3s ease;
 					.lable {
-						color: #000000;
-						width: 120px;
-						font-size: 16px;
-						line-height: 60px;
+						color: #666;
+						width: 80px;
+						font-size: 15px;
+						line-height: 50px;
 						text-align: center;
+						font-weight: 500;
 					}
 					input {
 						border: 0px solid #ddd;
-						padding: 0 10px;
-						color: #000000;
+						padding: 0 15px;
+						color: #333;
 						flex: 1;
-						background: none;
+						background: transparent;
 						width: 100%;
 						font-size: 15px;
-						height: 60px;
+						height: 50px;
 					}
 					input:focus {
 						border: 0px solid #f7db61;
-						padding: 0 10px;
+						padding: 0 15px;
 						outline: none;
-						color: #000000;
+						color: #333;
 						flex: 1;
-						background: none;
+						background: transparent;
 						width: 100%;
 						font-size: 15px;
-						height: 60px;
+						height: 50px;
 					}
 					.password-box {
 						flex: 1;
@@ -283,80 +287,91 @@ export default {
 						align-items: center;
 						input {
 							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
+							padding: 0 15px;
+							color: #333;
 							flex: 1;
-							background: none;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						input:focus {
 							border: 0px solid #f7db61;
-							padding: 0 10px;
+							padding: 0 15px;
 							outline: none;
-							color: #000000;
+							color: #333;
 							flex: 1;
-							background: none;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.iconfont {
 							cursor: pointer;
 							z-index: 1;
-							color: #000;
+							color: #999;
 							top: 0;
-							font-size: 16px;
-							line-height: 60px;
+							font-size: 18px;
+							line-height: 50px;
 							position: absolute;
-							right: 16px;
+							right: 15px;
+							transition: color 0.3s ease;
+						}
+						.iconfont:hover {
+							color: #5DB5B7;
 						}
 					}
 					input::placeholder {
-						color: #9E9E9E;
-						font-size: 15px;
+						color: #bbb;
+						font-size: 14px;
 					}
 				}
+				.list-item:hover {
+					border-color: #5DB5B7;
+					box-shadow: 0 4px 12px rgba(93, 181, 183, 0.2);
+				}
 				.select {
-					border: 1px solid #CACACA;
-					border-radius: 30px;
-					box-shadow: inset 0px 4px 10px 0px rgba(0,0,0,0.3);
-					margin: 0 0 30px 0;
-					background: none;
+					border: 2px solid #e0e0e0;
+					border-radius: 12px;
+					box-shadow: none;
+					margin: 0 0 25px 0;
+					background: #fff;
 					display: flex;
 					width: 100%;
 					align-items: center;
-					// select
+					transition: all 0.3s ease;
 					/deep/ .el-select {
 						width: 100%;
 					}
 					/deep/ .el-select .el-input__inner {
 						border: none;
-						padding: 0 10px;
+						padding: 0 15px;
 						box-shadow: none;
-						color: rgba(64, 158, 255, 1);
-						background: none;
+						color: #333;
+						background: transparent;
 						width: 100%;
-						font-size: 16px;
-						height: 44px;
+						font-size: 15px;
+						height: 50px;
 					}
 					/deep/ .el-select .is-focus .el-input__inner {
 						border: none;
-						padding: 0 10px;
+						padding: 0 15px;
 						box-shadow: none;
 						outline: none;
-						color: rgba(85, 170, 0, 1.0);
-						background: none;
-						width: 288px;
-						font-size: 16px;
-						outline-offset: none;
-						height: 44px;
+						color: #333;
+						background: transparent;
+						width: 100%;
+						font-size: 15px;
+						height: 50px;
 					}
 					/deep/ .el-select .el-input__inner::placeholder{
-						color: #9E9E9E;
-						font-size: 15px;
+						color: #bbb;
+						font-size: 14px;
 					}
+				}
+				.select:hover {
+					border-color: #5DB5B7;
+					box-shadow: 0 4px 12px rgba(93, 181, 183, 0.2);
 				}
 				.list-btn {
 					padding: 0;
@@ -365,46 +380,61 @@ export default {
 					.login_btn {
 						border: 0;
 						cursor: pointer;
-						border-radius: 30px;
+						border-radius: 12px;
 						padding: 0 30px;
 						margin: 0 0px;
 						color: #fff;
-						background: #5DB5B7;
+						background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
 						width: 100%;
-						font-size: 24px;
-						height: 60px;
+						font-size: 18px;
+						height: 55px;
+						font-weight: 600;
+						letter-spacing: 1px;
+						transition: all 0.3s ease;
+						box-shadow: 0 8px 20px rgba(93, 181, 183, 0.3);
 					}
 					.login_btn:hover {
-						background: #2d7173;
+						background: linear-gradient(135deg, #4aa5a7 0%, #2d8587 100%);
+						transform: translateY(-2px);
+						box-shadow: 0 12px 28px rgba(93, 181, 183, 0.4);
 					}
 					.list-btn2 {
 						margin: 20px auto 0;
 						display: flex;
 						width: 100%;
 						flex-wrap: wrap;
+						justify-content: center;
 						.register_btn {
 							cursor: pointer;
-							padding: 5px;
+							padding: 8px 20px;
 							margin: 0 10px 10px 0;
-							color: #333;
-							background: #fff;
+							color: #5DB5B7;
+							background: transparent;
 							text-decoration: none;
-							font-size: 16px;
+							font-size: 15px;
+							border: 1px solid #5DB5B7;
+							border-radius: 20px;
+							transition: all 0.3s ease;
 						}
 						.register_btn:hover {
-							color: #5DB5B7;
+							color: #fff;
+							background: #5DB5B7;
 						}
 						.resetpwd_btn {
 							cursor: pointer;
-							padding: 5px;
+							padding: 8px 20px;
 							margin: 0 10px 10px 0;
-							color: #333;
-							background: #fff;
+							color: #5DB5B7;
+							background: transparent;
 							text-decoration: none;
-							font-size: 16px;
+							font-size: 15px;
+							border: 1px solid #5DB5B7;
+							border-radius: 20px;
+							transition: all 0.3s ease;
 						}
 						.resetpwd_btn:hover {
-							color: #5DB5B7;
+							color: #fff;
+							background: #5DB5B7;
 						}
 					}
 				}

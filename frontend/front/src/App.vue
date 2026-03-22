@@ -24,6 +24,10 @@
 		padding: 0;
 	}
 
+	body {
+		padding-top: 70px;
+	}
+
 	[v-cloak] {
 		display: none
 	}

@@ -8,21 +8,29 @@
 		</div>
 	
 		<div class="news-preview-pv">
-			<el-form :inline="true" :model="formSearch" class="list-form-pv">
+			<div class="filter-row">
+				<div class="search-toggle-btn" @click="showSearch = !showSearch">
+					<span class="icon iconfont icon-search"></span>
+					<span class="text">{{showSearch ? '收起查询' : '展开查询'}}</span>
+				</div>
+			</div>
+			<el-form v-show="showSearch" :inline="true" :model="formSearch" class="list-form-pv">
 				<el-form-item class="search-item">
-					<el-input v-model="title" placeholder="标题"></el-input>
+					<div class="lable">分类：</div>
+					<el-select v-model="categoryIndex" placeholder="请选择分类" @change="categoryChange" clearable>
+						<el-option label="全部" :value="0"></el-option>
+						<el-option v-for="(item,index) in categoryList" :key="index" :label="item.typename" :value="index+1"></el-option>
+					</el-select>
 				</el-form-item>
-				<el-button class="search-btn" type="primary" @click="getNewsList(1)">
-					<span class="icon iconfont icon-chakan14"></span>
+				<el-form-item class="search-item">
+					<div class="lable">标题：</div>
+					<el-input v-model="title" placeholder="请输入标题" @keydown.enter.native="getNewsList(1)" clearable></el-input>
+				</el-form-item>
+				<el-button class="search-btn" v-if=" true " type="primary" @click="getNewsList(1)">
+					<i class="el-icon-search"></i>
 					搜索
 				</el-button>
 			</el-form>
-			
-			<!-- category -->
-			<div class="category-list">
-				<div class="item" @click="categoryClick(0)" :class="categoryIndex == 0 ? 'active' : ''">全部</div>
-				<div v-for="(item,index) in categoryList" @click="categoryClick(index+1)" :key="index" class="item" :class="categoryIndex == index+1 ? 'active' : ''">{{item.typename}}</div>
-			</div>
 			<div class="list10 index-pv1">
 				<div v-for="(item,index) in newsList" :key="index" class="list-item animation-box" @click="toNewsDetail(item)">
 					<div class="img">
@@ -126,6 +134,7 @@
 				categoryList: [],
 				hotList: [],
 				recommendList: [],
+				showSearch: false,
 			}
 		},
 		created() {
@@ -133,6 +142,8 @@
 			
 			this.getHotList()
 			this.getRecommendList()
+			// 页面加载时滚动到顶部
+			window.scrollTo(0, 0);
 		},
 		watch:{
 			$route(newValue){
@@ -228,6 +239,35 @@
 				width: 1250px;
 				font-size: 16px;
 				position: relative;
+				.filter-row {
+						padding: 10px 20px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background: #fff;
+						border-bottom: 1px solid #eee;
+						.search-toggle-btn {
+								padding: 8px 16px;
+								background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+								color: #fff;
+								border-radius: 16px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								gap: 5px;
+								cursor: pointer;
+								font-size: 13px;
+								transition: all 0.3s ease;
+								box-shadow: 0 2px 8px rgba(93,181,183,0.3);
+								.icon {
+										font-size: 13px;
+									}
+							}
+							.search-toggle-btn:hover {
+									transform: translateY(-2px);
+									box-shadow: 0 4px 12px rgba(93,181,183,0.4);
+							}
+				}
 				.list-form-pv {
 						padding: 10px;
 						background: none;
@@ -238,43 +278,66 @@
 						flex-wrap: wrap;
 						height: auto;
 						.search-item {
-								margin: 0 10px;
-								.el-input {
-										width: 100%;
-									}
-				.el-input /deep/ .el-input__inner {
-										border: 1px solid #ccc;
-										border-radius: 4px;
+								display: flex;
+								align-items: center;
+								margin: 0 0px 10px 0;
+								/deep/.el-form-item__content {
+									display: flex;
+									align-items: center;
+								}
+								.lable {
 										padding: 0 10px;
-										margin: 0;
-										color: #333;
+										color: #9E9E9E;
+										white-space: nowrap;
+										display: inline-block;
 										width: auto;
 										font-size: 16px;
-										line-height: 42px;
-										min-width: 350px;
-										height: 42px;
+										line-height: 40px;
 									}
-			}
-			.search-btn {
-								cursor: pointer;
-								border: 0;
-								border-radius: 4px;
-								padding: 0px 15px;
-								margin: 0 10px 0 0;
-								color: #fff;
-								background: #03abe9;
-								width: auto;
-								font-size: inherit;
-								line-height: 42px;
-								height: 42px;
-								.icon {
-										margin: 0 3px 0 0;
-										color: #fff;
-										font-size: inherit;
+								.el-input {
+										width: auto;
 									}
-			}
-		}
-		.category-list {
+								.el-input /deep/ .el-input__inner {
+											border: 1px solid #ccc;
+											border-radius: 4px;
+											padding: 0 10px;
+											margin: 0 5px 0 0;
+											color: #333;
+											width: auto;
+											font-size: 16px;
+											line-height: 40px;
+											min-width: 200px;
+											height: 40px;
+										}
+								.el-select {
+										width: 100%;
+									}
+								.el-select /deep/ .el-input__inner {
+										}
+								.el-select {
+										width: 100%;
+									}
+							}
+							.search-btn {
+									cursor: pointer;
+									border: 0;
+									border-radius: 4px;
+									padding: 0px 15px;
+									margin: 0 10px 0 10px;
+									color: #fff;
+									background: #018cc0;
+									width: auto;
+									font-size: inherit;
+									line-height: 40px;
+									height: 40px;
+									.icon {
+											margin: 0 10px 0 0;
+											color: #fff;
+											font-size: inherit;
+										}
+							}
+				}
+				.category-list {
 						padding: 20px 0;
 						margin: 0;
 						background: #fff;

@@ -12,9 +12,9 @@
 					<div class="system_subtitle">{{systemIntroductionDetail.subtitle}}</div>
 				</div>
 				<div class="system_img">
-					<img :src="baseUrl + systemIntroductionDetail.picture1">
-					<img :src="baseUrl + systemIntroductionDetail.picture2">
-					<img :src="baseUrl + systemIntroductionDetail.picture3">
+					<el-image :src="baseUrl + systemIntroductionDetail.picture1" :preview-src-list="[baseUrl + systemIntroductionDetail.picture1, baseUrl + systemIntroductionDetail.picture2, baseUrl + systemIntroductionDetail.picture3]" fit="cover" />
+					<el-image :src="baseUrl + systemIntroductionDetail.picture2" :preview-src-list="[baseUrl + systemIntroductionDetail.picture1, baseUrl + systemIntroductionDetail.picture2, baseUrl + systemIntroductionDetail.picture3]" fit="cover" />
+					<el-image :src="baseUrl + systemIntroductionDetail.picture3" :preview-src-list="[baseUrl + systemIntroductionDetail.picture1, baseUrl + systemIntroductionDetail.picture2, baseUrl + systemIntroductionDetail.picture3]" fit="cover" />
 				</div>
 				<div class="system_content ql-snow ql-editor" v-html="systemIntroductionDetail.content"></div>
 				<div class="system_idea1" />
@@ -27,40 +27,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- 系统简介 -->
-		<!-- 新闻资讯 -->
-		<div id="animate_newsnews" class="news animate__animated">
-			<div class="news_title_box">
-				<span class="news_title">公告资讯</span>
-				<span class="news_subhead">{{'news'.toUpperCase()}}</span>
-			</div>
-			<div class="list list11 index-pv1">
-				<div class="left_box">
-					<div class="list-item" v-for="(item,index) in newsList" :key="index" v-if="index<Number(2)" @click="toDetail('newsDetail', item)">
-						<div class="img"><img :src="baseUrl + item.picture" alt=""></div>
-						<div class="infoBox">
-							<div class="name">{{item.title}}</div>
-							<div class="time">{{item.addtime}}</div>
-							<div class="desc">{{ item.introduction }}</div>
-						</div>
-					</div>
-				</div>
-				<div class="right_box">
-					<div class="list-item" :class="newsIndex11==index?'list-item-active':''" @click="newsTabClick11(index)"  v-for="(item,index) in newsList" :key="index" v-if="index>=Number(2)&&index<(Number(2) + Number(4))">
-						<div class="name">{{item.title}}</div>
-						<div class="list-item2" @click="toDetail('newsDetail', item)">
-							<div class="desc">{{ item.introduction }}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="moreBtn" @click="moreBtn('news')">
-				<span class="text">查看更多</span>
-				<i class="icon iconfont icon-gengduo1"></i>
-			</div>
-		</div>
-		<!-- 新闻资讯 -->
-		<!-- 商品推荐 -->
+	<!-- 系统简介 -->
+	<!-- 商品推荐 -->
 		<div id="animate_recommendshangpinxinxi" class="recommend animate__animated">
 			<div class="recommend_title_box">
 				<span class="recommend_title">商品信息推荐</span>
@@ -68,9 +36,9 @@
 			</div>
 			<div v-if="shangpinxinxiRecommend.length" class="list list16 index-pv1">
 				<div v-for="item,index in shangpinxinxiRecommend" :key="index"  @click="toDetail('shangpinxinxiDetail', item)" class="list-item animation-box">
-					<div class="img">
-						<img v-if="preHttp(item.tupian)" :src="item.tupian.split(',')[0]" alt="" />
-						<img v-else :src="baseUrl + (item.tupian?item.tupian.split(',')[0]:'')" alt="" />
+					<div class="img" @click.stop>
+						<el-image v-if="preHttp(item.tupian)" :src="item.tupian.split(',')[0]" :preview-src-list="[item.tupian.split(',')[0]]" fit="cover" />
+						<el-image v-else :src="baseUrl + (item.tupian?item.tupian.split(',')[0]:'')" :preview-src-list="[baseUrl + (item.tupian?item.tupian.split(',')[0]:'')]" fit="cover" />
 					</div>
 					<div class="infoBox">
 						<div class="info-left">
@@ -108,6 +76,38 @@
 			</div>
 		</div>
 		<!-- 商品推荐 -->
+		<!-- 新闻资讯 -->
+		<div id="animate_newsnews" class="news animate__animated">
+			<div class="news_title_box">
+				<span class="news_title">公告资讯</span>
+				<span class="news_subhead">{{'news'.toUpperCase()}}</span>
+			</div>
+			<div class="list list11 index-pv1">
+				<div class="left_box">
+					<div class="list-item" v-for="(item,index) in newsList" :key="index" v-if="index<Number(2)" @click="toDetail('newsDetail', item)">
+						<div class="img" @click.stop><el-image :src="baseUrl + item.picture" :preview-src-list="[baseUrl + item.picture]" fit="cover" /></div>
+						<div class="infoBox">
+							<div class="name">{{item.title}}</div>
+							<div class="time">{{item.addtime}}</div>
+							<div class="desc">{{ item.introduction }}</div>
+						</div>
+					</div>
+				</div>
+				<div class="right_box">
+					<div class="list-item" :class="newsIndex11==index?'list-item-active':''" @click="newsTabClick11(index)"  v-for="(item,index) in newsList" :key="index" v-if="index>=Number(2)&&index<(Number(2) + Number(4))">
+						<div class="name">{{item.title}}</div>
+						<div class="list-item2" @click="toDetail('newsDetail', item)">
+							<div class="desc">{{ item.introduction }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="moreBtn" @click="moreBtn('news')">
+				<span class="text">查看更多</span>
+				<i class="icon iconfont icon-gengduo1"></i>
+			</div>
+		</div>
+		<!-- 新闻资讯 -->
 	</div>
 </template>
 
@@ -237,199 +237,178 @@ import Swiper from "swiper";
 	.home-preview {
 		margin: 0px auto;
 		flex-direction: column;
-		background: #fff;
+		background: #f5f7fa;
 		display: flex;
 		width: 100%;
 		#system {
-			padding: 0px calc(50% - 625px);
-			background: url(http://codegen.caihongy.cn/20241105/fec6af9d39bc4f278f92196e5dc7d882.webp) no-repeat bottom;
+			padding: 60px calc(50% - 625px);
+			background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 			width: 100%;
 			position: relative;
 			height: auto;
 			order: 3;
 			.system_item {
-				padding: 0;
+				padding: 40px;
 				margin: 0;
 				z-index: 9;
 				overflow: hidden;
-				background: none;
+				background: #fff;
 				display: block;
 				width: 100%;
 				flex-wrap: wrap;
+				border-radius: 16px;
+				box-shadow: 0 4px 20px rgba(0,0,0,.08);
 				.system_title_box {
 					padding: 0;
-					margin: 50px auto 0;
+					margin: 0 auto 30px;
 					background: none;
 					width: 100%;
 					position: relative;
-					text-align: left;
+					text-align: center;
 					height: auto;
 					.system_title {
 						padding: 0;
-						margin: 0 0 0px 0;
-						color: #000000;
+						margin: 0 0 10px;
+						color: #333;
 						background: none;
 						display: inline-block;
 						width: auto;
-						font-size: 40px;
+						font-size: 32px;
+						font-weight: 600;
 						line-height: inherit;
 						height: auto;
 					}
 					.system_subtitle {
-						margin: 0 0 10px;
+						margin: 0;
 						color: #5DB5B7;
 						display: block;
 						width: 100%;
-						font-size: 30px;
+						font-size: 16px;
 						line-height: 1.5;
-						text-align: left;
+						text-align: center;
+						font-weight: 400;
 					}
 				}
 				.system_img {
 					padding: 0;
-					margin: 20px 0 0;
+					margin: 20px auto;
 					background: none;
 					display: flex;
 					gap: 20px;
 					width: auto;
 					align-items: center;
-					float: left;
+					justify-content: center;
 					flex-wrap: wrap;
-					height: 500px;
-					img:nth-child(1) {
+					height: auto;
+					img, .el-image {
 						margin: 0;
 						object-fit: cover;
 						display: block;
-						width: 246px;
-						height: 360px;
+						width: 280px;
+						height: 200px;
+						border-radius: 12px;
+						box-shadow: 0 4px 15px rgba(0,0,0,.1);
+						transition: all 0.3s ease;
+						cursor: pointer;
 					}
-					img:nth-child(2) {
-						margin: 0;
-						object-fit: cover;
-						display: block;
-						width: 246px;
-						height: 360px;
-					}
-					img:nth-child(3) {
-						margin: 0;
-						object-fit: cover;
-						display: block;
-						width: 246px;
-						height: 360px;
+					img:hover, .el-image:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 8px 25px rgba(0,0,0,.15);
 					}
 				}
 				.system_content {
-					padding: 0;
-					margin: 100px 0 10px 0;
+					padding: 20px 0;
+					margin: 20px 0;
 					overflow: hidden;
-					color: #000000;
+					color: #666;
 					background: none;
-					width: 450px;
-					font-size: 16px;
-					line-height: 30px;
-					float: right;
+					width: 100%;
+					font-size: 15px;
+					line-height: 28px;
 					height: auto;
+					text-align: center;
 				}
-				.system_idea1 {
-					background: url(http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg) 0% 0% / cover no-repeat;
+				.system_idea1, .system_idea2, .system_idea3, .system_idea4 {
 					display: none;
-					width: 285px;
-					height: 100px;
-				}
-				.system_idea2 {
-					background: url(http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg) 0% 0% / cover no-repeat;
-					display: none;
-					width: 285px;
-					height: 100px;
-				}
-				.system_idea3 {
-					background: url(http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg) 0% 0% / cover no-repeat;
-					display: none;
-					width: 285px;
-					height: 100px;
-				}
-				.system_idea4 {
-					background: url(http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg) 0% 0% / cover no-repeat;
-					display: none;
-					width: 285px;
-					height: 100px;
 				}
 				.system_more {
-					border: 0;
+					border: none;
 					cursor: pointer;
-					margin: 80px 0 0;
-					top: 0;
-					background: none;
-					display: block;
+					margin: 30px auto 0;
+					background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+					display: inline-block;
 					width: auto;
-					line-height: 32px;
-					position: absolute;
-					right: calc(50% - 625px);
-					border-bottom: 2px solid #5DB5B7;
+					line-height: 44px;
+					position: relative;
+					padding: 0 30px;
+					border-radius: 22px;
 					text-align: center;
+					transition: all 0.3s ease;
+					box-shadow: 0 4px 15px rgba(93,181,183,.3);
 					span:nth-child(1) {
-						color: #9E9E9E;
+						color: #fff;
 						font-size: 15px;
+						font-weight: 500;
 					}
 					span:nth-child(2) {
-						color: #333;
-						display: none;
+						color: #fff;
+						display: inline-block;
 						font-size: 15px;
+						margin-left: 5px;
 					}
 				}
 				.system_more:hover {
-					cursor: pointer;
-					opacity: 1;
+					transform: translateY(-2px);
+					box-shadow: 0 6px 20px rgba(93,181,183,.4);
 				}
 			}
 		}
 		.news {
-			padding: 30px calc(50% - 625px);
+			padding: 60px calc(50% - 625px);
 			margin: 0;
-			background: url(http://codegen.caihongy.cn/20241105/c9ba40563845438b8dd19c83a96af3b4.webp) no-repeat bottom;
+			background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 			width: 100%;
 			position: relative;
 			order: 1;
 			.news_title_box {
 				padding: 0;
-				margin: 0;
+				margin: 0 auto 40px;
 				background: none;
 				width: 100%;
 				position: relative;
-				text-align: left;
+				text-align: center;
 				height: auto;
 				.news_title {
 					padding: 0;
-					margin: 0 0 0px 0;
-					color: #000000;
+					margin: 0 0 10px;
+					color: #333;
 					background: none;
 					display: inline-block;
 					width: auto;
-					font-size: 40px;
+					font-size: 32px;
+					font-weight: 600;
 					line-height: inherit;
 					height: auto;
 				}
 				.news_subhead {
-					margin: 0 0 10px;
+					margin: 0;
 					color: #5DB5B7;
 					display: block;
 					width: 100%;
-					font-size: 30px;
+					font-size: 14px;
 					line-height: 1.5;
-					text-align: left;
+					text-align: center;
+					font-weight: 400;
+					letter-spacing: 2px;
 				}
 			}
 			.index-pv1 .animation-box:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
+				transform: translateY(-5px);
 				transition: 0.3s;
 				z-index: 1;
 			}
 			.index-pv1 .animation-box img:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
+				transform: scale(1.05);
 				transition: 0.3s;
 			}
 			.list11 {
@@ -440,23 +419,33 @@ import Swiper from "swiper";
 				display: flex;
 				width: 100%;
 				justify-content: space-between;
+				gap: 30px;
 				.left_box {
-					width: 48%;
+					width: 55%;
+					display: grid;
+					grid-template-columns: 1fr;
+					gap: 20px;
 					.list-item {
 						border: none;
 						cursor: pointer;
-						padding: 0 0 25px;
+						padding: 0;
 						margin: 0;
 						overflow: hidden;
 						display: flex;
 						width: 100%;
 						border-width: 0;
 						justify-content: space-between;
+						background: #fff;
+						border-radius: 16px;
+						overflow: hidden;
+						transition: all 0.3s ease;
+						box-shadow: 0 4px 15px rgba(0,0,0,.08);
 						.img {
 							flex: 0 0 auto;
-							width: 200px;
-							height: 200px;
-							img {
+							width: 220px;
+							height: 180px;
+							cursor: pointer;
+							img, .el-image {
 								object-fit: cover;
 								width: 100%;
 								transition: all 0.3s;
@@ -464,38 +453,49 @@ import Swiper from "swiper";
 							}
 						}
 						.infoBox {
-							padding: 20px;
-							background: #F9F9F9;
+							padding: 25px;
+							background: transparent;
 							flex: 1 1 auto;
 							width: 100%;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
 							.name {
 								overflow: hidden;
-								color: #666;
+								color: #333;
 								white-space: nowrap;
 								font-weight: 600;
 								width: 100%;
-								font-size: 16px;
-								line-height: 26px;
+								font-size: 18px;
+								line-height: 28px;
 								text-overflow: ellipsis;
 							}
 							.time {
-								border-radius: 5px;
-								margin: 10px 0;
+								border-radius: 20px;
+								margin: 12px 0;
 								color: #fff;
-								background: #5DB5B7;
-								width: 150px;
-								font-size: 14px;
+								background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+								width: fit-content;
+								padding: 4px 15px;
+								font-size: 12px;
 								text-align: center;
+								display: inline-block;
 							}
 							.desc {
 								overflow: hidden;
-								color: #858585;
+								color: #666;
 								line-height: 24px;
 								height: 72px;
+								font-size: 14px;
+								display: -webkit-box;
+								-webkit-line-clamp: 3;
+								-webkit-box-orient: vertical;
 							}
 						}
 					}
 					.list-item:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 8px 25px rgba(0,0,0,.12);
 						.img {
 							img {
 								transform: scale(1.05);
@@ -509,157 +509,176 @@ import Swiper from "swiper";
 					}
 				}
 				.right_box {
-					padding: 0 0 0 30px;
+					padding: 0;
 					overflow: hidden;
-					width: 48%;
-					height: 418px;
+					width: 42%;
+					height: auto;
+					min-height: 340px;
+					background: #fff;
+					border-radius: 16px;
+					box-shadow: 0 4px 15px rgba(0,0,0,.08);
+					padding: 20px;
 					.list-item {
 						position: relative;
+						margin-bottom: 12px;
 						.name {
 							cursor: pointer;
-							padding: 0 50px 0 25px;
+							padding: 0 45px 0 20px;
 							overflow: hidden;
-							color: #353535;
+							color: #333;
 							white-space: nowrap;
-							font-weight: normal;
+							font-weight: 500;
 							width: 100%;
 							font-size: 15px;
-							line-height: 40px;
+							line-height: 48px;
 							position: relative;
 							text-overflow: ellipsis;
+							background: #f8f9fa;
+							border-radius: 10px;
+							transition: all 0.3s ease;
 						}
 						.name::before {
-							color:  #666;
+							color: #5DB5B7;
 							top: 0;
 							font-weight: normal;
-							font-size: 22px;
-							line-height: 40px;
+							font-size: 18px;
+							line-height: 48px;
 							position: absolute;
-							right: 25px;
+							right: 18px;
 							content: "+";
+							transition: all 0.3s ease;
 						}
 						.list-item2 {
-							border: 1px dashed #bbbbbb;
-							padding: 0 25px;
+							border: none;
+							padding: 0 20px;
 							margin: 0;
 							overflow: hidden;
 							display: block;
-							border-width: 0 0 1px;
 							opacity: 0;
-							transition: all 0.5s;
+							transition: all 0.3s;
 							height: 0;
+							background: #f8f9fa;
+							border-radius: 0 0 10px 10px;
 							.desc {
 								cursor: pointer;
-								margin: 10px 0 0;
+								margin: 10px 0;
 								overflow: hidden;
-								color: #909090;
+								color: #666;
 								font-size: 14px;
-								line-height: 25px;
-								height: 200px;
+								line-height: 24px;
+								height: auto;
+								max-height: 100px;
 							}
 						}
 					}
 					.list-item.list-item-active {
 						.name {
-							color: #FFF;
-							background: #5DB5B7;
+							color: #fff;
+							background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+							border-radius: 10px 10px 0 0;
 						}
 						.name::before {
 							color: #fff;
 							content: "-";
 						}
 						.list-item2 {
-							padding: 0 25px 16px;
-							margin: 0 0 10px;
+							padding: 10px 20px;
+							margin: 0;
 							display: block;
 							opacity: 1;
-							transition: all 0.5s;
-							height: 174px;
+							transition: all 0.3s;
+							height: auto;
 						}
 					}
 				}
 			}
 			.moreBtn {
-				border: 0;
+				border: none;
 				cursor: pointer;
-				margin: 80px 0 0;
-				top: 0;
-				background: none;
-				display: block;
+				margin: 40px auto 0;
+				background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+				display: inline-block;
 				width: auto;
-				line-height: 32px;
-				position: absolute;
-				right: calc(50% - 625px);
-				border-bottom: 2px solid #5DB5B7;
+				line-height: 44px;
+				position: relative;
+				padding: 0 30px;
+				border-radius: 22px;
 				text-align: center;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(93,181,183,.3);
 				.text {
-					color: #9E9E9E;
+					color: #fff;
 					font-size: 15px;
+					font-weight: 500;
 				}
 				.icon {
-					color: #000;
-					display: none;
+					color: #fff;
+					display: inline-block;
 					font-size: 15px;
+					margin-left: 5px;
 				}
+			}
+			.moreBtn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(93,181,183,.4);
 			}
 		}
 		.recommend {
-			padding: 0 calc(50% - 625px);
+			padding: 60px calc(50% - 625px);
 			margin: 0;
-			background: url(http://codegen.caihongy.cn/20241105/de478d9056db48f2b1bb4df58e4742af.webp) no-repeat center;
+			background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 			width: 100%;
 			position: relative;
 			order: 2;
 			.recommend_title_box {
 				padding: 0;
-				margin: 40px auto 0;
+				margin: 0 auto 40px;
 				background: none;
 				width: 100%;
 				position: relative;
-				text-align: left;
+				text-align: center;
 				height: auto;
 				.recommend_title {
 					padding: 0;
-					margin: 0 0 0px 0;
-					color: #000000;
+					margin: 0 0 10px;
+					color: #333;
 					background: none;
 					display: inline-block;
 					width: auto;
-					font-size: 40px;
+					font-size: 32px;
+					font-weight: 600;
 					line-height: inherit;
 					height: auto;
 				}
 				.recommend_subhead {
-					margin: 0 0 10px;
+					margin: 0;
 					color: #5DB5B7;
 					display: block;
 					width: 100%;
-					font-size: 30px;
+					font-size: 14px;
 					line-height: 1.5;
-					text-align: left;
+					text-align: center;
+					font-weight: 400;
+					letter-spacing: 2px;
 				}
 			}
 			.index-pv1 .animation-box {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
+				transform: none;
 				z-index: initial;
 			}
 			
 			.index-pv1 .animation-box:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, -10px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
+				transform: translateY(-5px);
 				transition: 0.3s;
 				z-index: 1;
 			}
 			
 			.index-pv1 .animation-box img {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
+				transform: none;
 			}
 			
 			.index-pv1 .animation-box img:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
+				transform: scale(1.05);
 				transition: 0.3s;
 			}
 			.list16 {
@@ -667,223 +686,144 @@ import Swiper from "swiper";
 				margin: 20px auto 0;
 				color: #5DB5B7;
 				background: none;
-				display: flex;
+				display: grid;
 				width: 100%;
 				font-size: 14px;
-				justify-content: space-between;
-				flex-wrap: wrap;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 25px;
 				height: auto;
 				.list-item {
 					padding: 0;
-					margin: 0 0 30px;
-					background: none;
+					margin: 0;
+					background: #fff;
 					display: flex;
-					width: 49%;
+					flex-direction: column;
+					width: 100%;
 					position: relative;
 					height: auto;
+					border-radius: 16px;
+					overflow: hidden;
+					box-shadow: 0 4px 15px rgba(0,0,0,.08);
+					transition: all 0.3s ease;
 					.img {
-						border: 0px solid #777777;
-						padding: 0px;
+						border: none;
+						padding: 0;
 						overflow: hidden;
 						background: none;
-						width: 200px;
+						width: 100%;
 						height: 200px;
-						img {
+						cursor: pointer;
+						img, .el-image {
 							object-fit: cover;
 							display: block;
 							width: 100%;
 							height: 100%;
+							transition: all 0.3s ease;
 						}
 					}
 					.infoBox {
-						padding: 0 10px;
+						padding: 20px;
 						overflow: hidden;
 						flex: 1;
 						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
 						height: auto;
 						.info-left {
 							padding: 0;
 							width: 100%;
 							.name {
-								padding: 0 10px;
+								padding: 0;
 								overflow: hidden;
-								color: #000000;
+								color: #333;
 								white-space: nowrap;
 								width: 100%;
-								font-size: 20px;
-								line-height: 30px;
+								font-size: 16px;
+								font-weight: 600;
+								line-height: 26px;
 								text-overflow: ellipsis;
+								margin-bottom: 5px;
+							}
+							.name:nth-child(2) {
+								font-size: 13px;
+								color: #888;
+								font-weight: 400;
 							}
 							.price {
-								padding: 0 10px;
-								color: #D00000;
-								font-size: 16px;
-								line-height: 2;
+								padding: 0;
+								color: #e74c3c;
+								font-size: 20px;
+								font-weight: 600;
+								line-height: 1.8;
+								margin: 8px 0;
 							}
-							.time_item {
-								padding: 0 10px;
-								display: inline-block;
+							.time_item, .publisher_item, .collect_item, .view_item {
+								padding: 0;
+								display: flex;
+								align-items: center;
+								margin-bottom: 4px;
 								.icon {
-									margin: 0 2px 0 0;
-									display: none;
-									line-height: 28px;
+									margin: 0 5px 0 0;
+									display: inline-block;
+									line-height: 20px;
+									color: #5DB5B7;
+									font-size: 12px;
 								}
 								.label {
-									line-height: 1.5;
+									line-height: 20px;
+									color: #999;
+									font-size: 12px;
+									margin-right: 4px;
 								}
 								.text {
-									line-height: 1.5;
-								}
-							}
-							.publisher_item {
-								padding: 0 10px;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									display: none;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.like_item {
-								padding: 0 10px;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									display: none;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.collect_item {
-								padding: 0 10px;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									display: none;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.view_item {
-								padding: 0 10px;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									display: none;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
+									line-height: 20px;
+									color: #666;
+									font-size: 12px;
 								}
 							}
 						}
 						.desc {
-							color: #666;
-							flex: 1;
 							display: none;
-							font-size: 14px;
-							line-height: 1.5;
 						}
 					}
 				}
 				.list-item:hover {
-					cursor: pointer;
-					background: #F4FFFF;
-					.infoBox {
-						.info-left {
-							.name {
-							}
-							.price {
-							}
-							.time_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.publisher_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.like_item {
-								.icon {
-									color: #fff;
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.collect_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.view_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-						}
-						.desc {
-							color: #fff;
-						}
+					transform: translateY(-8px);
+					box-shadow: 0 12px 35px rgba(0,0,0,.15);
+					.img img {
+						transform: scale(1.08);
 					}
 				}
 			}
 			.moreBtn {
-				border: 0;
+				border: none;
 				cursor: pointer;
-				margin: 80px 0 0;
-				top: 0;
-				background: none;
-				display: block;
+				margin: 40px auto 0;
+				background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+				display: inline-block;
 				width: auto;
-				line-height: 32px;
-				position: absolute;
-				right: calc(50% - 625px);
-				border-bottom: 2px solid #5DB5B7;
+				line-height: 44px;
+				position: relative;
+				padding: 0 30px;
+				border-radius: 22px;
 				text-align: center;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(93,181,183,.3);
 				.text {
-					color: #9E9E9E;
+					color: #fff;
 					font-size: 15px;
+					font-weight: 500;
 				}
 				.icon {
-					color: #333;
-					display: none;
+					color: #fff;
+					display: inline-block;
 					font-size: 15px;
+					margin-left: 5px;
 				}
+			}
+			.moreBtn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(93,181,183,.4);
 			}
 		}
 	}

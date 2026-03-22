@@ -13,27 +13,30 @@
 			</el-button>
 		</div>
 		<div class="list-preview">
-			<div class="category-3">
-				<div class="item" :class="swiperIndex == '-1' ? 'active' : ''" @click="getList(1, '全部')" :plain="isPlain">
-					<div class="text">全部</div>
-				</div>
-				<div class="item" :class="swiperIndex == index ? 'active' : ''" v-for="(item, index) in fenlei" :key="index" @click="getList(1, item[feileiColumn], 'btn' + index)" :ref="'btn' + index" plain>
-					<img v-if="item.image" :src="baseUrl + (item.image?item.image.split(',')[0]:'')">
-					<div class="text">{{item[feileiColumn]}}</div>
+			<div class="filter-row">
+				<div class="search-toggle-btn" @click="showSearch = !showSearch">
+					<span class="icon iconfont icon-search"></span>
+					<span class="text">{{showSearch ? '收起查询' : '展开查询'}}</span>
 				</div>
 			</div>
-			<el-form :inline="true" :model="formSearch" class="list-form-pv">
+			<el-form v-show="showSearch" :inline="true" :model="formSearch" class="list-form-pv">
+				<el-form-item class="list-item">
+					<div class="lable">商品分类：</div>
+					<el-select v-model="curFenlei" placeholder="请选择分类" @change="fenleiChange" clearable>
+						<el-option label="全部" value="全部"></el-option>
+						<el-option v-for="(item, index) in fenlei" :key="index" :label="item[feileiColumn]" :value="item[feileiColumn]"></el-option>
+					</el-select>
+				</el-form-item>
 				<el-form-item class="list-item">
 					<div class="lable">商品名称：</div>
 					<el-input v-model="formSearch.shangpinmingcheng" placeholder="商品名称" @keydown.enter.native="getList(1, curFenlei)" clearable></el-input>
 				</el-form-item>
-				<el-form-item class="list-item">
-					<div class="lable">价格：</div>
-					<el-input v-model="formSearch.pricestart" placeholder="最小价格" clearable></el-input>
-				</el-form-item>
-				<el-form-item class="list-item">
-					<el-input v-model="formSearch.priceend" placeholder="最大价格" clearable></el-input>
-				</el-form-item>
+				<el-form-item class="list-item price-range">
+				<div class="lable">价格：</div>
+				<el-input v-model="formSearch.pricestart" placeholder="最小价格" clearable></el-input>
+				<span class="price-separator">-</span>
+				<el-input v-model="formSearch.priceend" placeholder="最大价格" class="price-end-input" clearable></el-input>
+			</el-form-item>
 				<el-button class="list-search-btn" v-if=" true " type="primary" @click="getList(1, curFenlei)">
 					<i class="el-icon-search"></i>
 					查询
@@ -169,6 +172,7 @@
 				timeRange: [],
 				centerType:false,
 				previewImg: '',
+				showSearch: false,
 				previewVisible: false,
 				sortType: 'id',
 				sortOrder: 'desc',
@@ -191,6 +195,8 @@
 				fenlei = this.$route.query.homeFenlei
 			}
 			this.getList(1, fenlei);
+			// 页面加载时滚动到顶部
+			window.scrollTo(0, 0);
 		},
 		watch:{
 			$route(newValue){
@@ -199,6 +205,12 @@
 		},
 		//方法集合
 		methods: {
+			fenleiChange(val) {
+				if(!val) {
+					this.curFenlei = '全部'
+				}
+				this.getList(1, this.curFenlei)
+			},
 			selectClick2(row,index) {
 				row.check = index
 				if(index == -1){
@@ -393,6 +405,7 @@
 				flex-wrap: wrap;
 				/deep/.el-form-item__content {
 					display: flex;
+					align-items: center;
 				}
 				.lable {
 					padding: 0 10px;
@@ -405,6 +418,21 @@
 				}
 				.el-input {
 					width: auto;
+				}
+				&.price-range {
+					/deep/.el-form-item__content {
+						display: flex;
+						align-items: center;
+					}
+					.price-separator {
+						margin: 0 8px;
+						color: #666;
+					}
+					.el-input {
+						/deep/ .el-input__inner {
+							width: 90px;
+						}
+					}
 				}
 				.datetimerange {
 					border: 1px solid #ccc;
@@ -450,7 +478,7 @@
 				border: 0;
 				border-radius: 4px;
 				padding: 0px 15px;
-				margin: 0 10px 0 10px;
+				margin: 0 10px 0 20px;
 				color: #fff;
 				background: #018cc0;
 				width: auto;
@@ -538,6 +566,36 @@
 				}
 			}
 		}
+		.filter-row {
+			padding: 10px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #fff;
+			border-bottom: 1px solid #eee;
+			width: 100%;
+			.search-toggle-btn {
+				padding: 8px 16px;
+				background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
+				color: #fff;
+				border-radius: 16px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 5px;
+				cursor: pointer;
+				font-size: 13px;
+				transition: all 0.3s ease;
+				box-shadow: 0 2px 8px rgba(93,181,183,0.3);
+				.icon {
+					font-size: 13px;
+				}
+			}
+			.search-toggle-btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(93,181,183,0.4);
+			}
+		}
 		.sort_view {
 			padding: 5px 20px;
 			margin: 0px auto;
@@ -545,9 +603,7 @@
 			background: none;
 			width: 100%;
 			font-size: inherit;
-			border-color: #03cce9;
-			border-width: 10px 0 0;
-			border-style: solid;
+			border: none;
 			.price-sort-btn {
 				border: 0;
 				border-radius: 8px;

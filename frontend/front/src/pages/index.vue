@@ -21,6 +21,10 @@
 							<span class="icon iconfont "></span>
 							登录
 						</div>
+						<div class="register-item" @click="toRegister">
+							<span class="icon iconfont icon-tianjia"></span>
+							注册
+						</div>
 					</div>
 					<el-dropdown-menu class="top-el-dropdown-menu" slot="dropdown" v-if="Token">
 						<el-dropdown-item class="shop-item" :command="'shop'">
@@ -365,6 +369,9 @@ export default {
 			}
 		},
 		toLogin() {
+		  this.$router.push('/login');
+		},
+		toRegister() {
 		  this.$router.push('/login');
 		},
 		logout() {
@@ -753,6 +760,28 @@ export default {
 							transform: translateY(-2px);
 							box-shadow: 0 4px 12px rgba(0,0,0,.15);
 						}
+						.register-item {
+							border: none;
+							padding: 0 24px;
+							margin: 0 0 0 10px;
+							color: #fff;
+							background: rgba(255,255,255,0.2);
+							width: auto;
+							font-size: 15px;
+							font-weight: 500;
+							line-height: 40px;
+							height: 40px;
+							border-radius: 20px;
+							cursor: pointer;
+							transition: all 0.3s ease;
+							box-shadow: 0 2px 8px rgba(0,0,0,.1);
+						}
+						.register-item:hover {
+							color: #fff;
+							background: rgba(255,255,255,0.3);
+							transform: translateY(-2px);
+							box-shadow: 0 4px 12px rgba(0,0,0,.15);
+						}
 					}
 				}
 			}
@@ -760,11 +789,11 @@ export default {
 				.el-scrollbar {
 					height: 100%;
 				
-					& /deep/ .scrollbar-wrapper-vertical {
+					& ::v-deep  .scrollbar-wrapper-vertical {
 						overflow-x: hidden;
 					}
 				
-					& /deep/ .scrollbar-wrapper-horizontal {
+					& ::v-deep  .scrollbar-wrapper-horizontal {
 						overflow-y: hidden;
 				
 						.el-scrollbar__view {
@@ -976,7 +1005,7 @@ export default {
 					left: 0;
 					bottom: 20px;
 					width: 100%;
-					/deep/ span.swiper-pagination-bullet {
+					::v-deep  span.swiper-pagination-bullet {
 						border-radius: 100%;
 						margin: 0 6px;
 						background: #fff;
@@ -986,12 +1015,12 @@ export default {
 						height: 10px;
 						transition: all 0.3s ease;
 					}
-					/deep/ span.swiper-pagination-bullet:hover {
+					::v-deep  span.swiper-pagination-bullet:hover {
 						background: #fff;
 						opacity: 1;
 						transform: scale(1.2);
 					}
-					/deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+					::v-deep  span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 						background: #fff;
 						opacity: 1;
 						width: 30px;

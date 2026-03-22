@@ -281,7 +281,7 @@
 								display: flex;
 								align-items: center;
 								margin: 0 0px 10px 0;
-								/deep/.el-form-item__content {
+								::v-deep .el-form-item__content {
 									display: flex;
 									align-items: center;
 								}
@@ -297,7 +297,7 @@
 								.el-input {
 										width: auto;
 									}
-								.el-input /deep/ .el-input__inner {
+								.el-input ::v-deep  .el-input__inner {
 											border: 1px solid #ccc;
 											border-radius: 4px;
 											padding: 0 10px;
@@ -312,7 +312,7 @@
 								.el-select {
 										width: 100%;
 									}
-								.el-select /deep/ .el-input__inner {
+								.el-select ::v-deep  .el-input__inner {
 										}
 								.el-select {
 										width: 100%;

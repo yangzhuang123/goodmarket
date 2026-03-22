@@ -4,7 +4,7 @@
 		<div class="container">
 			<el-form class='rgs-form animate__animated animate__fadeInDown' v-if="pageFlag=='register'" ref="registerForm" :model="registerForm" :rules="rules">
 				<div class="rgs-form2">
-					<div class="title">好物集市</p></div>
+					<div class="title">好物集市</div>
 					<el-form-item class="list-item" v-if="tableName=='yonghu'" prop="yonghuming">
 						<div class="label" :class="changeRules('yonghuming')?'required':''">用户名：</div>
 						<el-input v-model="registerForm.yonghuming"  placeholder="请输入用户名" />
@@ -54,14 +54,14 @@
 					<el-form-item v-if="tableName=='yonghu'" class="el-email list-item">
 						<div class="label required">手机号：</div>
 						<div style="display: flex;flex: 1;">
-							<input v-model="registerForm.mobile" type="text" id="mobile" name="mobile" placeholder="请输入手机号" autocomplete="off" class="emailInput">
-							<button v-if="isEndFlag" @click="sendsmscode" id="sendsmscode" type="button" class="el-btn">发送验证码</button>
+							<input v-model="registerForm.mobile" type="text" id="mobile-yonghu" name="mobile" placeholder="请输入手机号" autocomplete="off" class="emailInput">
+							<button v-if="isEndFlag" @click="sendsmscode" id="sendsmscode-yonghu" type="button" class="el-btn">发送验证码</button>
 							<button v-if="!isEndFlag" disabled="disabled" type="button" class="el-btn">{{count}}秒后重发</button>
 						</div>
 					</el-form-item>
 					<el-form-item v-if="tableName=='yonghu'" class="el-email list-item">
 						<div class="label required">验证码：</div>
-						<el-input v-model="smscode" type="text" id="smscode" name="smscode" placeholder="请输入验证码" autocomplete="off" class="el-input" />
+						<el-input v-model="smscode" type="text" id="smscode-yonghu" name="smscode" placeholder="请输入验证码" autocomplete="off" class="el-input" />
 					</el-form-item>
 					<el-form-item class="list-item" v-if="tableName=='shangjia'" prop="dianpumingcheng">
 						<div class="label" :class="changeRules('dianpumingcheng')?'required':''">店铺名称：</div>
@@ -112,14 +112,14 @@
 					<el-form-item v-if="tableName=='shangjia'" class="el-email list-item">
 						<div class="label required">手机号：</div>
 						<div style="display: flex;flex: 1;">
-							<input v-model="registerForm.mobile" type="text" id="mobile" name="mobile" placeholder="请输入手机号" autocomplete="off" class="emailInput">
-							<button v-if="isEndFlag" @click="sendsmscode" id="sendsmscode" type="button" class="el-btn">发送验证码</button>
+							<input v-model="registerForm.mobile" type="text" id="mobile-shangjia" name="mobile" placeholder="请输入手机号" autocomplete="off" class="emailInput">
+							<button v-if="isEndFlag" @click="sendsmscode" id="sendsmscode-shangjia" type="button" class="el-btn">发送验证码</button>
 							<button v-if="!isEndFlag" disabled="disabled" type="button" class="el-btn">{{count}}秒后重发</button>
 						</div>
 					</el-form-item>
 					<el-form-item v-if="tableName=='shangjia'" class="el-email list-item">
 						<div class="label required">验证码：</div>
-						<el-input v-model="smscode" type="text" id="smscode" name="smscode" placeholder="请输入验证码" autocomplete="off" class="el-input" />
+						<el-input v-model="smscode" type="text" id="smscode-shangjia" name="smscode" placeholder="请输入验证码" autocomplete="off" class="el-input" />
 					</el-form-item>
 					<div class="register-btn">
 						<div class="register-btn1">
@@ -135,7 +135,6 @@
 			</el-form>
 		</div>
 	</div>
-</div>
 </template>
 
 <script>
@@ -417,7 +416,7 @@ export default {
 					width: 100%;
 					align-items: center;
 					flex-wrap: wrap;
-					/deep/.el-form-item__content {
+					::v-deep .el-form-item__content {
 						padding: 0 0 0 120px;
 						display: block;
 						width: calc(100% - 0px);

@@ -340,10 +340,10 @@ export default {
 					width: 100%;
 					align-items: center;
 					transition: all 0.3s ease;
-					/deep/ .el-select {
+					::v-deep  .el-select {
 						width: 100%;
 					}
-					/deep/ .el-select .el-input__inner {
+					::v-deep  .el-select .el-input__inner {
 						border: none;
 						padding: 0 15px;
 						box-shadow: none;
@@ -353,7 +353,7 @@ export default {
 						font-size: 15px;
 						height: 50px;
 					}
-					/deep/ .el-select .is-focus .el-input__inner {
+					::v-deep  .el-select .is-focus .el-input__inner {
 						border: none;
 						padding: 0 15px;
 						box-shadow: none;
@@ -364,7 +364,7 @@ export default {
 						font-size: 15px;
 						height: 50px;
 					}
-					/deep/ .el-select .el-input__inner::placeholder{
+					::v-deep  .el-select .el-input__inner::placeholder{
 						color: #bbb;
 						font-size: 14px;
 					}

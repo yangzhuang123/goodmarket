@@ -403,7 +403,7 @@
 				font-size: inherit;
 				align-items: center;
 				flex-wrap: wrap;
-				/deep/.el-form-item__content {
+				::v-deep .el-form-item__content {
 					display: flex;
 					align-items: center;
 				}
@@ -420,7 +420,7 @@
 					width: auto;
 				}
 				&.price-range {
-					/deep/.el-form-item__content {
+					::v-deep .el-form-item__content {
 						display: flex;
 						align-items: center;
 					}
@@ -429,7 +429,7 @@
 						color: #666;
 					}
 					.el-input {
-						/deep/ .el-input__inner {
+						::v-deep  .el-input__inner {
 							width: 90px;
 						}
 					}
@@ -442,7 +442,7 @@
 					width: auto;
 					justify-content: center;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep  .el-input__inner {
 					border: 1px solid #ccc;
 					border-radius: 4px;
 					padding: 0 10px;
@@ -456,12 +456,12 @@
 				.el-select {
 					width: 100%;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep  .el-input__inner {
 				}
 				.el-date-editor {
 					width: auto;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep  .el-input__inner {
 					border: 1px solid #ccc;
 					border-radius: 4px;
 					padding: 0 0px 0 30px;

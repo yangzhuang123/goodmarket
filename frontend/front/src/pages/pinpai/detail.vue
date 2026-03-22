@@ -544,7 +544,7 @@
 					display: flex;
 					width: 100%;
 					height: auto;
-					/deep/ .el-form-item__label {
+					::v-deep  .el-form-item__label {
 						padding: 0 10px 0 0;
 						color: #666;
 						white-space: nowrap;
@@ -563,7 +563,7 @@
 						font-size: 14px;
 						min-height: 250px;
 						line-height: 32px;
-						/deep/ .avatar-uploader {
+						::v-deep  .avatar-uploader {
 							height: 0;
 							line-height: 0;
 						}
@@ -781,10 +781,10 @@
 			background: #fff;
 			width: 100%;
 			order: 5;
-			& /deep/ .el-tabs__header .el-tabs__nav-wrap {
+			& ::v-deep  .el-tabs__header .el-tabs__nav-wrap {
 				margin-bottom: 0;
 			}
-			/deep/ .el-tabs__header {
+			::v-deep  .el-tabs__header {
 				border-radius: 10px 10px 0 0;
 				padding: 4px 0 0 0;
 				margin: 0;
@@ -794,7 +794,7 @@
 				border-style: solid;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep  .el-tabs__header .el-tabs__item {
 				border: 0;
 				padding: 0 30px;
 				margin: 0 5px;
@@ -810,14 +810,14 @@
 				height: 50px;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep  .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				border-radius: 10px 10px 0 0;
 				color: #5FB6B8;
 				background: #fff;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep  .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				border-radius: 10px 10px 0px 0px;
 				padding: 0 30px;
@@ -829,7 +829,7 @@
 				height: 50px;
 			}
 			
-			/deep/ .el-tabs__content {
+			::v-deep  .el-tabs__content {
 				padding: 20px;
 				text-indent: 2em;
 			}

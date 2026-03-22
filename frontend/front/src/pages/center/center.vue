@@ -794,7 +794,7 @@
 			flex: 1;
 			display: grid;
 			width: 100%;
-			/deep/ .el-tabs__header {
+			::v-deep  .el-tabs__header {
 				padding: 30px 0 0 6px;
 				margin: 0 0 20px;
 				background: #66B9BB;
@@ -806,7 +806,7 @@
 				border-style: inset;
 				text-align: center;
 			}
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep  .el-tabs__header .el-tabs__item {
 				padding: 0 10px;
 				margin: 0;
 				color: #FFFFFF;
@@ -823,7 +823,7 @@
 				text-align: center;
 				height: 50px;
 			}
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep  .el-tabs__header .el-tabs__item:hover {
 				padding: 0;
 				color: #66B9BB;
 				background: #fff;
@@ -834,7 +834,7 @@
 				text-align: center;
 				height: 50px;
 			}
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep  .el-tabs__header .el-tabs__item.is-active {
 				padding: 0 10px;
 				color: #66B9BB;
 				background: #fff;
@@ -845,18 +845,18 @@
 				text-align: center;
 				height: 50px;
 			}
-			/deep/ .el-tabs__content {
+			::v-deep  .el-tabs__content {
 				padding: 0;
 				background: none;
 				flex: 1 1 auto;
 				width: 100%;
 				clear: both;
 			}
-			/deep/ .el-tabs__content .el-tab-pane {
+			::v-deep  .el-tabs__content .el-tab-pane {
 				background: none;
 				width: 100%;
 			}
-			& /deep/ .el-tabs__header {
+			& ::v-deep  .el-tabs__header {
 				.el-tabs__nav{
 					overflow: auto;
 				}
@@ -896,7 +896,7 @@
 					border-color: #ccc;
 					border-width: 0 0 1px;
 					border-style: dashed;
-					/deep/ .el-form-item__label {
+					::v-deep  .el-form-item__label {
 						padding: 0 10px 0 0;
 						color: inherit;
 						font-weight: 500;
@@ -911,7 +911,7 @@
 					.el-input {
 						width: 100%;
 					}
-					.el-input /deep/ .el-input__inner {
+					.el-input ::v-deep  .el-input__inner {
 						border: 1px solid #ddd;
 						border-radius: 0px;
 						padding: 0 12px;
@@ -921,7 +921,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-input /deep/ .el-input__inner[readonly="readonly"] {
+					.el-input ::v-deep  .el-input__inner[readonly="readonly"] {
 						border: 0;
 						cursor: not-allowed;
 						border-radius: 0px;
@@ -936,7 +936,7 @@
 					.el-select {
 						width: auto;
 					}
-					.el-select /deep/ .el-input__inner {
+					.el-select ::v-deep  .el-input__inner {
 						border: 1px solid #ddd;
 						border-radius: 0px;
 						padding: 0 10px;
@@ -946,7 +946,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-select /deep/ .is-disabled .el-input__inner {
+					.el-select ::v-deep  .is-disabled .el-input__inner {
 						border: 0;
 						cursor: not-allowed;
 						border-radius: 0px;
@@ -961,7 +961,7 @@
 					.el-date-editor {
 						width: 100%;
 					}
-					.el-date-editor /deep/ .el-input__inner {
+					.el-date-editor ::v-deep  .el-input__inner {
 						border: 1px solid #ddd;
 						border-radius: 0px;
 						padding: 0 10px 0 30px;
@@ -971,7 +971,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-date-editor /deep/ .el-input__inner[readonly="readonly"] {
+					.el-date-editor ::v-deep  .el-input__inner[readonly="readonly"] {
 						border: 0;
 						cursor: not-allowed;
 						border-radius: 0px;
@@ -983,7 +983,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					/deep/ .el-upload--picture-card {
+					::v-deep  .el-upload--picture-card {
 						background: transparent;
 						border: 0;
 						border-radius: 0;
@@ -992,7 +992,7 @@
 						line-height: initial;
 						vertical-align: middle;
 					}
-					/deep/ .upload .upload-img {
+					::v-deep  .upload .upload-img {
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1005,7 +1005,7 @@
 						text-align: center;
 						height: 80px;
 					}
-					/deep/ .el-upload-list .el-upload-list__item {
+					::v-deep  .el-upload-list .el-upload-list__item {
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1020,7 +1020,7 @@
 						font-size: 14px;
 						line-height: 1.8;
 					}
-					/deep/ .el-upload .el-icon-plus {
+					::v-deep  .el-upload .el-icon-plus {
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1033,11 +1033,11 @@
 						text-align: center;
 						height: 80px;
 					}
-					/deep/ .el-upload__tip {
+					::v-deep  .el-upload__tip {
 						color: #838fa1;
 						font-size: 16px;
 					}
-					/deep/ .el-input__inner::placeholder {
+					::v-deep  .el-input__inner::placeholder {
 						color: #999;
 						font-size: inherit;
 					}
@@ -1047,7 +1047,7 @@
 						.el-input {
 							width: auto;
 						}
-						.el-input /deep/ .el-input__inner {
+						.el-input ::v-deep  .el-input__inner {
 							border: 1px solid #ddd;
 							border-radius: 0px;
 							padding: 0 12px;

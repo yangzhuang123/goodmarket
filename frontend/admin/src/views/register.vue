@@ -1,137 +1,145 @@
 <template>
-	<div>
-		<div class="register-container">
-			<el-form v-if="pageFlag=='register'" ref="ruleForm" class="rgs-form animate__animated animate__backInDown" :model="ruleForm" :rules="rules">
-				<div class="rgs-form2">
-					<div class="title">好物集市</div>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('yonghuming')?'required':''">用户名：</div>
-						<el-input  v-model="ruleForm.yonghuming"  autocomplete="off" placeholder="用户名"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('mima')?'required':''">密码：</div>
-						<el-input  v-model="ruleForm.mima"  autocomplete="off" placeholder="密码"  type="password"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('mima')?'required':''">确认密码：</div>
-						<el-input  v-model="ruleForm.mima2" autocomplete="off" placeholder="确认密码" type="password" />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('xingming')?'required':''">姓名：</div>
-						<el-input  v-model="ruleForm.xingming"  autocomplete="off" placeholder="姓名"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('touxiang')?'required':''">头像：</div>
-						<file-upload
-							tip="点击上传头像"
-							action="file/upload"
-							:limit="3"
-							:multiple="true"
-							:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
-							@change="yonghutouxiangUploadChange"
-						></file-upload>
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('xingbie')?'required':''">性别：</div>
-						<el-select v-model="ruleForm.xingbie" placeholder="请选择性别" >
-							<el-option
-								v-for="(item,index) in yonghuxingbieOptions"
-								v-bind:key="index"
-								:label="item"
-								:value="item">
-							</el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('nianling')?'required':''">年龄：</div>
-						<el-input  v-model.number="ruleForm.nianling"  autocomplete="off" placeholder="年龄"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('youxiang')?'required':''">邮箱：</div>
-						<el-input  v-model="ruleForm.youxiang"  autocomplete="off" placeholder="邮箱"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item email" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('mobile')?'required':''">手机号码：</div>
-						<div style="display: flex;flex: 1;">
-							<input v-model="ruleForm.mobile" autocomplete="off" placeholder="手机号"/>
-							<button v-if="isEndFlag" type="success" class="register-code" @click="sendsmscode()">发送验证码</button>
-							<button v-if="!isEndFlag" type="success" class="register-code" disabled="disabled">{{SecondToDate}}</button>
-						</div>
-					</el-form-item>
-					<el-form-item class="list-item email-code" v-if="tableName=='yonghu'">
-						<div class="lable" :class="changeRules('mobile')?'required':''">验证码：</div>
-						<el-input  v-model="smscode" autocomplete="off" placeholder="验证码" />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('dianpumingcheng')?'required':''">店铺名称：</div>
-						<el-input  v-model="ruleForm.dianpumingcheng"  autocomplete="off" placeholder="店铺名称"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('mima')?'required':''">密码：</div>
-						<el-input  v-model="ruleForm.mima"  autocomplete="off" placeholder="密码"  type="password"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('mima')?'required':''">确认密码：</div>
-						<el-input  v-model="ruleForm.mima2" autocomplete="off" placeholder="确认密码" type="password" />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('shangjiaxingming')?'required':''">商家姓名：</div>
-						<el-input  v-model="ruleForm.shangjiaxingming"  autocomplete="off" placeholder="商家姓名"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('touxiang')?'required':''">头像：</div>
-						<file-upload
-							tip="点击上传头像"
-							action="file/upload"
-							:limit="3"
-							:multiple="true"
-							:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
-							@change="shangjiatouxiangUploadChange"
-						></file-upload>
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('xingbie')?'required':''">性别：</div>
-						<el-select v-model="ruleForm.xingbie" placeholder="请选择性别" >
-							<el-option
-								v-for="(item,index) in shangjiaxingbieOptions"
-								v-bind:key="index"
-								:label="item"
-								:value="item">
-							</el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('nianling')?'required':''">年龄：</div>
-						<el-input  v-model.number="ruleForm.nianling"  autocomplete="off" placeholder="年龄"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('youxiang')?'required':''">邮箱：</div>
-						<el-input  v-model="ruleForm.youxiang"  autocomplete="off" placeholder="邮箱"  type="text"  />
-					</el-form-item>
-					<el-form-item class="list-item email" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('mobile')?'required':''">手机号码：</div>
-						<div style="display: flex;flex: 1;">
-							<input v-model="ruleForm.mobile" autocomplete="off" placeholder="手机号"/>
-							<button v-if="isEndFlag" type="success" class="register-code" @click="sendsmscode()">发送验证码</button>
-							<button v-if="!isEndFlag" type="success" class="register-code" disabled="disabled">{{SecondToDate}}</button>
-						</div>
-					</el-form-item>
-					<el-form-item class="list-item email-code" v-if="tableName=='shangjia'">
-						<div class="lable" :class="changeRules('mobile')?'required':''">验证码：</div>
-						<el-input  v-model="smscode" autocomplete="off" placeholder="验证码" />
-					</el-form-item>
-					<div class="register-btn">
-						<div class="register-btn1">
-							<button type="button" class="r-btn" @click="login()">注册</button>
-						</div>
-						<div class="register-btn2">
-							<div class="r-login" @click="close()">已有账号，直接登录</div>
-						</div>
+	<div class="register-container">
+		<div class="register-left">
+			<div class="register-left-content">
+				<h1 class="brand-title">好物集市</h1>
+				<p class="brand-subtitle">一站式购物管理平台</p>
+				<div class="features">
+					<div class="feature-item">
+						<i class="el-icon-goods"></i>
+						<span>商品管理</span>
+					</div>
+					<div class="feature-item">
+						<i class="el-icon-document"></i>
+						<span>订单处理</span>
+					</div>
+					<div class="feature-item">
+						<i class="el-icon-user"></i>
+						<span>用户管理</span>
 					</div>
 				</div>
-				<div class="idea-box1">注册</div>
-				<div class="idea-box2">输入您的账号和密码以注册帐户</div>
-			</el-form>
+			</div>
+		</div>
+		<div class="register-right">
+			<div class="register-form-wrapper animate__animated animate__fadeInRight">
+				<div class="form-header">
+					<h2>欢迎注册</h2>
+					<p v-if="tableName=='shangjia'">创建商家账号，开始您的创业之旅</p>
+					<p v-else>创建用户账号，享受购物乐趣</p>
+				</div>
+				<el-form ref="ruleForm" class="register-form" :model="ruleForm" :rules="rules">
+					<div class="form-group" v-if="tableName=='yonghu'">
+						<label :class="changeRules('yonghuming')?'required':''">用户名</label>
+						<div class="input-wrapper">
+							<i class="el-icon-user"></i>
+							<el-input v-model="ruleForm.yonghuming" autocomplete="off" placeholder="请输入用户名" type="text" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mima')?'required':''">密码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-lock"></i>
+							<el-input v-model="ruleForm.mima" autocomplete="off" placeholder="请输入密码" type="password" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mima')?'required':''">确认密码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-lock"></i>
+							<el-input v-model="ruleForm.mima2" autocomplete="off" placeholder="请确认密码" type="password" />
+						</div>
+					</div>
+					<div class="form-group" v-if="tableName=='yonghu'">
+						<label :class="changeRules('xingming')?'required':''">姓名</label>
+						<div class="input-wrapper">
+							<i class="el-icon-user"></i>
+							<el-input v-model="ruleForm.xingming" autocomplete="off" placeholder="请输入姓名" type="text" />
+						</div>
+					</div>
+					<div class="form-group" v-if="tableName=='shangjia'">
+						<label :class="changeRules('dianpumingcheng')?'required':''">店铺名称</label>
+						<div class="input-wrapper">
+							<i class="el-icon-shop"></i>
+							<el-input v-model="ruleForm.dianpumingcheng" autocomplete="off" placeholder="请输入店铺名称" type="text" />
+						</div>
+					</div>
+					<div class="form-group" v-if="tableName=='shangjia'">
+						<label :class="changeRules('shangjiaxingming')?'required':''">商家姓名</label>
+						<div class="input-wrapper">
+							<i class="el-icon-user"></i>
+							<el-input v-model="ruleForm.shangjiaxingming" autocomplete="off" placeholder="请输入商家姓名" type="text" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label>头像</label>
+						<file-upload
+							tip="点击上传头像"
+							action="file/upload"
+							:limit="3"
+							:multiple="true"
+							:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
+							@change="tableName=='yonghu' ? yonghutouxiangUploadChange : shangjiatouxiangUploadChange"
+						></file-upload>
+					</div>
+					<div class="form-group">
+						<label>性别</label>
+						<div class="input-wrapper">
+							<i class="el-icon-user"></i>
+							<el-select v-model="ruleForm.xingbie" placeholder="请选择性别" >
+								<el-option
+									v-for="(item,index) in tableName=='yonghu' ? yonghuxingbieOptions : shangjiaxingbieOptions"
+									v-bind:key="index"
+									:label="item"
+									:value="item">
+								</el-option>
+							</el-select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>年龄</label>
+						<div class="input-wrapper">
+							<i class="el-icon-time"></i>
+							<el-input v-model.number="ruleForm.nianling" autocomplete="off" placeholder="请输入年龄" type="text" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label>邮箱</label>
+						<div class="input-wrapper">
+							<i class="el-icon-message"></i>
+							<el-input v-model="ruleForm.youxiang" autocomplete="off" placeholder="请输入邮箱" type="text" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mobile')?'required':''">手机号码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-mobile"></i>
+							<input v-model="ruleForm.mobile" autocomplete="off" placeholder="请输入手机号"/>
+							<button v-if="isEndFlag" type="success" class="register-code" @click="sendsmscode()">发送验证码</button>
+							<button v-if="!isEndFlag" type="success" class="register-code" disabled="disabled">{{SecondToDate}}</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mobile')?'required':''">验证码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-key"></i>
+							<el-input v-model="smscode" autocomplete="off" placeholder="请输入验证码" />
+						</div>
+					</div>
+					<div class="form-actions">
+						<el-button 
+							type="primary" 
+							@click="login()" 
+							class="register-btn"
+						>
+							注册
+						</el-button>
+					</div>
+					<div class="form-footer">
+						<span>已有账号？</span>
+						<el-button type="text" @click="close()">直接登录</el-button>
+					</div>
+				</el-form>
+			</div>
 		</div>
 	</div>
 </template>
@@ -392,334 +400,407 @@ export default {
 
 <style lang="scss" scoped>
 .register-container {
-	position: relative;
-	background: url(http://codegen.caihongy.cn/20201206/eaa69c2b4fa742f2b5acefd921a772fc.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background: url(http://codegen.caihongy.cn/20201206/eaa69c2b4fa742f2b5acefd921a772fc.jpg);
-	display: block;
-	width: 100%;
+	display: flex;
 	min-height: 100vh;
-	justify-content: flex-start;
+	width: 100%;
+}
+
+.register-left {
+	flex: 1;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	display: flex;
 	align-items: center;
-	background-position: center center;
-	.rgs-form {
-		.rgs-form2 {
-		width: 100%;
-		}
-		padding: 130px 40px 40px;
-		margin: 0;
-		z-index: 1000;
-		display: flex;
-		min-height: 100vh;
-		flex-wrap: wrap;
-		border-radius: 0;
-		box-shadow: inset 0px 0px 0px 0px #000;
-		flex-direction: column;
-		background: #fff;
-		width: 640px;
-		align-items: flex-start;
-		position: relative;
-		height: auto;
-		.title {
-			padding: 0 40px;
-			margin: 0 0 20px 0;
-			color: #000;
-			top: 40px;
-			left: 0;
-			background: none;
-			font-weight: 600;
-			width: 100%;
-			font-size: 28px;
-			line-height: 40px;
-			position: absolute;
-			text-align: left;
-		}
-		.list-item {
-			padding: 0 0 0 0px;
-			margin: 0 0 10px;
-			width: 100%;
-			position: relative;
-			height: auto;
-			::v-deep .el-form-item__content {
-			}
-			.lable {
-				padding: 0;
-				color: #333;
-				width: 100%;
-				font-size: 16px;
-				line-height: 34px;
-				text-align: left;
-			}
-			.el-input {
-				width: 100%;
-			}
-			.el-input ::v-deep .el-input__inner {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			.el-input ::v-deep .el-input__inner:focus {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			.el-input-number {
-				width: 100%;
-			}
-			.el-input-number ::v-deep .el-input__inner {
-				text-align: center;
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			.el-input-number ::v-deep .el-input__inner:focus {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			.el-input-number ::v-deep .el-input-number__decrease {
-				display: none;
-			}
-			.el-input-number ::v-deep .el-input-number__increase {
-				display: none;
-			}
-			.el-select {
-				width: 100%;
-			}
-			.el-select ::v-deep .el-input__inner {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 38px;
-			}
-			.el-select ::v-deep .el-input__inner:focus {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 38px;
-			}
-			.el-date-editor {
-				width: 100%;
-			}
-			.el-date-editor ::v-deep .el-input__inner {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px 0 30px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 38px;
-			}
-			.el-date-editor ::v-deep .el-input__inner:focus {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px 0 30px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 38px;
-			}
-			.el-date-editor.el-input {
-				width: 100%;
-			}
-			::v-deep .el-upload--picture-card {
-				background: transparent;
-				border: 0;
-				border-radius: 0;
-				width: auto;
-				height: auto;
-				line-height: initial;
-				vertical-align: middle;
-			}
-			::v-deep .upload .upload-img {
-				border: 1px solid #efeff7;
-				cursor: pointer;
-				border-radius: 0px;
-				color: #999;
-				background: #fff;
-				width: 90px;
-				font-size: 24px;
-				line-height: 60px;
-				text-align: center;
-				height: 60px;
-			}
-			::v-deep .el-upload-list .el-upload-list__item {
-				border: 1px solid #efeff7;
-				cursor: pointer;
-				border-radius: 0px;
-				color: #999;
-				background: #fff;
-				width: 90px;
-				font-size: 24px;
-				line-height: 60px;
-				text-align: center;
-				height: 60px;
-			}
-			::v-deep .el-upload .el-icon-plus {
-				border: 1px solid #efeff7;
-				cursor: pointer;
-				border-radius: 0px;
-				color: #999;
-				background: #fff;
-				width: 90px;
-				font-size: 24px;
-				line-height: 60px;
-				text-align: center;
-				height: 60px;
-			}
-			::v-deep .el-upload__tip {
-				color: #666;
-				font-size: 15px;
-			}
-			::v-deep .el-input__inner::placeholder {
-				color: #999;
-				font-size: 16px;
-			}
-			.required {
-				position: relative;
-			}
-			.required::after{
-				color: red;
-				left: 0;
-				position: inherit;
-				content: "*";
-				order: -1;
-			}
-			.editor {
-				background: #fff;
-				width: 100%;
-				height: auto;
-			}
-			.editor>.avatar-uploader {
-				line-height: 0;
-				height: 0;
-			}
-		}
-		.list-item.email {
-			input {
-				border: 1px solid #efeff7;
-				border-radius: 4px 0 0 4px;
-				padding: 0 10px;
-				margin: 0;
-				color: #666;
-				background: #fff;
-				flex: 1;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			input:focus {
-				border: 1px solid #efeff7;
-				border-radius: 4px 0 0 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 14px;
-				height: 38px;
-			}
-			input::placeholder {
-				color: #999;
-				font-size: 16px;
-			}
-			button {
-				border: 0px solid #efeff7;
-				cursor: pointer;
-				border-radius: 0 4px 4px 0;
-				padding: 0;
-				margin: 1px 0 0;
-				color: #333;
-				background: #0d6efd20;
-				width: 150px;
-				font-size: 15px;
-				height: 38px;
-			}
-			button:hover {
-				opacity: 0.8;
-			}
-		}
-		.register-btn {
-			width: 100%;
-		}
-		.register-btn1 {
-			width: 100%;
-		}
-		.register-btn2 {
-			width: 100%;
-		}
-		.r-btn {
-			border: 0px solid rgba(0, 0, 0, 1);
-			cursor: pointer;
-			border-radius: 4px;
-			padding: 0 10px;
-			margin: 20px auto 5px;
-			color: #fff;
-			background: #0d6efd;
-			display: block;
-			width: 100%;
-			font-size: 16px;
-			height: 44px;
-		}
-		.r-btn:hover {
-			border: 0px solid rgba(0, 0, 0, 1);
-			opacity: 0.8;
-		}
-		.r-login {
-			cursor: pointer;
-			padding: 0;
-			color: #666;
-			display: inline-block;
-			text-decoration: underline;
-			width: 100%;
-			font-size: 15px;
-			line-height: 40px;
-			text-align: right;
-		}
-		.r-login:hover {
-			opacity: 1;
-		}
+	justify-content: center;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+		animation: pulse 15s ease-in-out infinite;
 	}
-	.idea-box1 {
-		background: none;
-		font-weight: 600;
-		width: 560px;
-		font-size: 20px;
-		height: 30px;
-		order: -2;
+
+	@keyframes pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.1); }
 	}
-	.idea-box2 {
-		margin: 5px 0 40px;
-		background: #fff;
-		width: 100%;
-		font-size: 16px;
-		height: 30px;
-		order: -1;
+
+	.register-left-content {
+		text-align: center;
+		color: #fff;
+		z-index: 1;
+		padding: 40px;
+
+		.brand-title {
+			font-size: 48px;
+			font-weight: 700;
+			margin-bottom: 16px;
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+		}
+
+		.brand-subtitle {
+			font-size: 18px;
+			opacity: 0.9;
+			margin-bottom: 60px;
+		}
+
+		.features {
+			display: flex;
+			gap: 40px;
+			justify-content: center;
+
+			.feature-item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 12px;
+
+				i {
+					font-size: 32px;
+					background: rgba(255,255,255,0.2);
+					width: 64px;
+					height: 64px;
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				span {
+					font-size: 14px;
+					opacity: 0.9;
+				}
+			}
+		}
 	}
 }
-	
-	::-webkit-scrollbar {
-	  display: none;
+
+.register-right {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f8fafc;
+	padding: 40px;
+
+	.register-form-wrapper {
+		width: 100%;
+		max-width: 480px;
+		background: #fff;
+		border-radius: 16px;
+		padding: 48px 40px;
+		box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+		overflow-y: auto;
+		max-height: 90vh;
+
+		.form-header {
+			text-align: center;
+			margin-bottom: 32px;
+
+			h2 {
+				font-size: 28px;
+				font-weight: 600;
+				color: #1a1a2e;
+				margin-bottom: 8px;
+			}
+
+			p {
+				color: #6b7280;
+				font-size: 14px;
+			}
+		}
+
+		.register-form {
+			.form-group {
+				margin-bottom: 24px;
+
+				label {
+					display: block;
+					font-size: 14px;
+					font-weight: 500;
+					color: #374151;
+					margin-bottom: 8px;
+
+					&.required {
+						position: relative;
+
+						&::after {
+							content: '*';
+							color: #ef4444;
+							margin-left: 4px;
+						}
+					}
+				}
+
+				.input-wrapper {
+					position: relative;
+					display: flex;
+					align-items: center;
+
+					> i:first-child {
+						position: absolute;
+						left: 16px;
+						color: #9ca3af;
+						font-size: 18px;
+					}
+
+					.el-input {
+						width: 100%;
+
+						::v-deep .el-input__inner {
+							width: 100%;
+							height: 48px;
+							padding: 0 48px;
+							border: 2px solid #e5e7eb;
+							border-radius: 10px;
+							font-size: 15px;
+							color: #1f2937;
+							transition: all 0.3s ease;
+							background: #f9fafb;
+
+							&:focus {
+								outline: none;
+								border-color: #667eea;
+								background: #fff;
+								box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+							}
+
+							&::placeholder {
+								color: #9ca3af;
+							}
+						}
+					}
+
+					.el-select {
+						width: 100%;
+
+						::v-deep .el-input__inner {
+							width: 100%;
+							height: 48px;
+							padding: 0 48px;
+							border: 2px solid #e5e7eb;
+							border-radius: 10px;
+							font-size: 15px;
+							color: #1f2937;
+							transition: all 0.3s ease;
+							background: #f9fafb;
+
+							&:focus {
+								outline: none;
+								border-color: #667eea;
+								background: #fff;
+								box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+							}
+						}
+					}
+
+					input {
+						width: 100%;
+						height: 48px;
+						padding: 0 16px;
+						border: 2px solid #e5e7eb;
+						border-radius: 10px 0 0 10px;
+						font-size: 15px;
+						color: #1f2937;
+						transition: all 0.3s ease;
+						background: #f9fafb;
+
+						&:focus {
+							outline: none;
+							border-color: #667eea;
+							background: #fff;
+							box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+						}
+
+						&::placeholder {
+							color: #9ca3af;
+						}
+					}
+
+					.register-code {
+						border: none;
+						cursor: pointer;
+						border-radius: 0 10px 10px 0;
+						padding: 0 20px;
+						color: #667eea;
+						background: rgba(102, 126, 234, 0.1);
+						font-size: 14px;
+						height: 48px;
+						font-weight: 500;
+						transition: all 0.3s ease;
+
+						&:hover:not(:disabled) {
+							background: rgba(102, 126, 234, 0.2);
+						}
+
+						&:disabled {
+							color: #9ca3af;
+							cursor: not-allowed;
+						}
+					}
+				}
+
+				::v-deep .el-upload--picture-card {
+					background: transparent;
+					border: 0;
+					border-radius: 0;
+					width: auto;
+					height: auto;
+					line-height: initial;
+					vertical-align: middle;
+				}
+
+				::v-deep .upload .upload-img {
+					border: 2px dashed #e5e7eb;
+					cursor: pointer;
+					border-radius: 10px;
+					color: #9ca3af;
+					background: #f9fafb;
+					width: 100px;
+					font-size: 24px;
+					line-height: 80px;
+					text-align: center;
+					height: 80px;
+					transition: all 0.3s ease;
+
+					&:hover {
+						border-color: #667eea;
+						background: rgba(102, 126, 234, 0.05);
+					}
+				}
+
+				::v-deep .el-upload-list .el-upload-list__item {
+					border: 2px solid #e5e7eb;
+					cursor: pointer;
+					border-radius: 10px;
+					color: #999;
+					background: #fff;
+					width: 100px;
+					font-size: 24px;
+					line-height: 80px;
+					text-align: center;
+					height: 80px;
+				}
+
+				::v-deep .el-upload .el-icon-plus {
+					border: 2px dashed #e5e7eb;
+					cursor: pointer;
+					border-radius: 10px;
+					color: #9ca3af;
+					background: #f9fafb;
+					width: 100px;
+					font-size: 24px;
+					line-height: 80px;
+					text-align: center;
+					height: 80px;
+					transition: all 0.3s ease;
+
+					&:hover {
+						border-color: #667eea;
+						background: rgba(102, 126, 234, 0.05);
+					}
+				}
+
+				::v-deep .el-upload__tip {
+					color: #6b7280;
+					font-size: 14px;
+					margin-top: 8px;
+				}
+			}
+
+			.form-actions {
+				margin-top: 32px;
+
+				.register-btn {
+					width: 100%;
+					height: 48px;
+					font-size: 16px;
+					font-weight: 600;
+					border-radius: 10px;
+					background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+					border: none;
+					transition: all 0.3s ease;
+
+					&:hover {
+						transform: translateY(-2px);
+						box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+					}
+
+					&:active {
+						transform: translateY(0);
+					}
+				}
+			}
+
+			.form-footer {
+				text-align: center;
+				margin-top: 24px;
+				padding-top: 24px;
+				border-top: 1px solid #e5e7eb;
+				color: #6b7280;
+				font-size: 14px;
+
+				.el-button--text {
+					color: #667eea;
+					font-weight: 500;
+					padding: 0 4px;
+
+					&:hover {
+						color: #764ba2;
+					}
+				}
+			}
+		}
 	}
+}
+
+@media (max-width: 768px) {
+	.register-container {
+		flex-direction: column;
+	}
+
+	.register-left {
+		padding: 60px 20px;
+
+		.register-left-content {
+			.brand-title {
+				font-size: 36px;
+			}
+
+			.brand-subtitle {
+				margin-bottom: 30px;
+			}
+
+			.features {
+				gap: 20px;
+
+				.feature-item {
+					i {
+						font-size: 24px;
+						width: 50px;
+						height: 50px;
+					}
+
+					span {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+
+	.register-right {
+		padding: 30px 20px;
+
+		.register-form-wrapper {
+			padding: 32px 24px;
+			max-height: 80vh;
+		}
+	}
+}
 </style>

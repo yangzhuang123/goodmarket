@@ -3,53 +3,53 @@
 		<!-- 列表页 -->
 		<template v-if="showFlag">
 			<el-form class="center-form-pv" :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm">
-				<el-row :style='{"padding":"10px","background":"#fff","display":"block"}' >
-					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">名称</label>
-						<el-input v-model="searchForm.name" placeholder="名称" @keydown.enter.native="search()" clearable></el-input>
-					</div>
-					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}' class="select" label="券类型" prop="type">
-						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">券类型</label>
-						<el-select clearable v-model="searchForm.type" placeholder="请选择券类型" >
-							<el-option v-for="(item,index) in typeOptions" v-bind:key="index" :label="item" :value="item"></el-option>
-						</el-select>
-					</div>
-					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">生效时间</label>
-						<el-date-picker v-model="searchForm.startimestart" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="生效时间起始"></el-date-picker>
-						至
-						<el-date-picker v-model="searchForm.startimeend" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="生效时间结束"></el-date-picker>
-					</div>
-					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">过期时间</label>
-						<el-date-picker v-model="searchForm.endtimestart" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="过期时间起始"></el-date-picker>
-						至
-						<el-date-picker v-model="searchForm.endtimeend" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="过期时间结束"></el-date-picker>
-					</div>
-					<el-button class="search" type="success" @click="search()">
-						<span class="icon iconfont icon-fangdajing07" :style='{"margin":"0 2px","fontSize":"16px","color":"#fff","height":"40px"}'></span>
-						查询
-					</el-button>
-				</el-row>
+					<el-row :style='{"padding":"20px","background":"#fff","borderRadius":"8px","boxShadow":"0 2px 4px rgba(0,0,0,0.1)","display":"flex","flexWrap":"wrap","alignItems":"center","gap":"20px"}' >
+						<div :style='{"display":"flex","alignItems":"center","gap":"8px"}'>
+							<label :style='{"color":"#333","fontWeight":"500","whiteSpace":"nowrap"}' class="item-label">名称</label>
+							<el-input v-model="searchForm.name" placeholder="请输入优惠券名称" @keydown.enter.native="search()" clearable :style='{"width":"200px"}'></el-input>
+						</div>
+						<div :style='{"display":"flex","alignItems":"center","gap":"8px"}' class="select" label="券类型" prop="type">
+							<label :style='{"color":"#333","fontWeight":"500","whiteSpace":"nowrap"}' class="item-label">券类型</label>
+							<el-select clearable v-model="searchForm.type" placeholder="请选择券类型" :style='{"width":"150px"}'>
+								<el-option v-for="(item,index) in typeOptions" v-bind:key="index" :label="item" :value="item"></el-option>
+							</el-select>
+						</div>
+						<div :style='{"display":"flex","alignItems":"center","gap":"8px"}'>
+							<label :style='{"color":"#333","fontWeight":"500","whiteSpace":"nowrap"}' class="item-label">生效时间</label>
+							<el-date-picker v-model="searchForm.startimestart" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="起始时间" :style='{"width":"200px"}'></el-date-picker>
+							<span :style='{"color":"#999","whiteSpace":"nowrap"}'>至</span>
+							<el-date-picker v-model="searchForm.startimeend" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="结束时间" :style='{"width":"200px"}'></el-date-picker>
+						</div>
+						<div :style='{"display":"flex","alignItems":"center","gap":"8px"}'>
+							<label :style='{"color":"#333","fontWeight":"500","whiteSpace":"nowrap"}' class="item-label">过期时间</label>
+							<el-date-picker v-model="searchForm.endtimestart" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="起始时间" :style='{"width":"200px"}'></el-date-picker>
+							<span :style='{"color":"#999","whiteSpace":"nowrap"}'>至</span>
+							<el-date-picker v-model="searchForm.endtimeend" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss" placeholder="结束时间" :style='{"width":"200px"}'></el-date-picker>
+						</div>
+						<el-button class="search" type="primary" @click="search()" :style='{"marginLeft":"auto"}'>
+							<i class="el-icon-search" :style='{"marginRight":"5px"}'></i>
+							查询
+						</el-button>
+					</el-row>
 
-				<el-row class="actions" :style='{"padding":"10px","margin":"20px 0","flexWrap":"wrap","background":"#fff","display":"flex"}'>
-					<el-button class="add" v-if="isAuth('coupon','新增')" type="success" @click="addOrUpdateHandler()">
-						<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"34px"}'></span>
-						添加
-					</el-button>
-					<el-button class="del" v-if="isAuth('coupon','删除')" :disabled="dataListSelections.length?false:true" type="danger" @click="deleteHandler()">
-						<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"34px"}'></span>
-						删除
-					</el-button>
-
-
-				</el-row>
+				<el-row class="actions" :style='{"padding":"15px 20px","margin":"20px 0","flexWrap":"wrap","background":"#fff","borderRadius":"8px","boxShadow":"0 2px 4px rgba(0,0,0,0.1)","display":"flex","alignItems":"center","gap":"10px"}'>
+						<el-button class="add" v-if="isAuth('coupon','新增')" type="primary" @click="addOrUpdateHandler()">
+							<i class="el-icon-plus" :style='{"marginRight":"5px"}'></i>
+							添加优惠券
+						</el-button>
+						<el-button class="del" v-if="isAuth('coupon','删除')" :disabled="dataListSelections.length?false:true" type="danger" @click="deleteHandler()">
+							<i class="el-icon-delete" :style='{"marginRight":"5px"}'></i>
+							批量删除
+						</el-button>
+						
+						
+					</el-row>
 			</el-form>
 			<div :style='{"width":"100%","padding":"0","fontSize":"14px","color":"#000"}'>
 				<el-table class="tables"
 					:stripe='true'
-					:style='{"padding":"10px 0","borderColor":"#eee","borderRadius":"20px 20px 0 0","borderWidth":"1px 0 0 1px","background":"#fff","width":"100%","fontSize":"inherit","borderStyle":"solid"}' 
-					:border='true'
+					:style='{"background":"#fff","width":"100%","fontSize":"inherit","borderRadius":"8px","boxShadow":"0 2px 4px rgba(0,0,0,0.1)","overflow":"hidden"}' 
+					:border='false'
 					v-if="isAuth('coupon','查看')"
 					:data="dataList"
 					v-loading="dataListLoading"
@@ -114,20 +114,16 @@
 					</el-table-column>
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
-							<el-button class="view" v-if=" isAuth('coupon','查看')" type="success" @click="addOrUpdateHandler(scope.row.id,'info')">
-								<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"40px"}'></span>
+							<el-button class="view" v-if=" isAuth('coupon','查看')" type="info" size="small" @click="addOrUpdateHandler(scope.row.id,'info')">
+								<i class="el-icon-view" :style='{"marginRight":"3px"}'></i>
 								查看
 							</el-button>
-							<el-button class="edit" v-if=" isAuth('coupon','修改') " type="success" @click="addOrUpdateHandler(scope.row.id)">
-								<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"40px"}'></span>
+							<el-button class="edit" v-if=" isAuth('coupon','修改') " type="primary" size="small" @click="addOrUpdateHandler(scope.row.id)">
+								<i class="el-icon-edit" :style='{"marginRight":"3px"}'></i>
 								修改
 							</el-button>
-
-
-
-
-							<el-button class="del" v-if="isAuth('coupon','删除') " type="primary" @click="deleteHandler(scope.row.id )">
-								<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"40px"}'></span>
+							<el-button class="del" v-if="isAuth('coupon','删除') " type="danger" size="small" @click="deleteHandler(scope.row.id )">
+								<i class="el-icon-delete" :style='{"marginRight":"3px"}'></i>
 								删除
 							</el-button>
 						</template>
@@ -135,19 +131,19 @@
 				</el-table>
 			</div>
 			<el-pagination
-				@size-change="sizeChangeHandle"
-				@current-change="currentChangeHandle"
-				:current-page="pageIndex"
-				background
-				:page-sizes="[10, 50, 100, 200]"
-				:page-size="pageSize"
-				:layout="layouts.join()"
-				:total="totalPage"
-				prev-text="上一页 "
-				next-text="下一页 "
-				:hide-on-single-page="false"
-				:style='{"padding":"0","boxShadow":"inset 0px 3px 6px 0px #ccc","margin":"20px auto 0","whiteSpace":"nowrap","color":"#333","textAlign":"center","background":"#fff","width":"60%","fontSize":"inherit","fontWeight":"500"}'
-			></el-pagination>
+					@size-change="sizeChangeHandle"
+					@current-change="currentChangeHandle"
+					:current-page="pageIndex"
+					background
+					:page-sizes="[10, 50, 100, 200]"
+					:page-size="pageSize"
+					:layout="layouts.join()"
+					:total="totalPage"
+					prev-text="上一页"
+					next-text="下一页"
+					:hide-on-single-page="false"
+					:style='{"margin":"20px auto 0","textAlign":"center","background":"#fff","borderRadius":"8px","boxShadow":"0 2px 4px rgba(0,0,0,0.1)","padding":"15px","width":"fit-content"}'
+				></el-pagination>
 		</template>
 		
 		<!-- 添加/修改页面  将父组件的search方法传递给子组件-->

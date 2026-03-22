@@ -21,7 +21,7 @@ goodmarket/
 │   ├── db/                  # 数据库脚本
 │   └── pom.xml              # Maven 配置
 ├── frontend/                # 前端项目
-│   ├── admin/               # 管理后台前端
+│   ├── admin/               # 管理后台前端（商家/管理员使用）
 │   │   ├── src/             # 前端源码
 │   │   ├── public/          # 静态资源
 │   │   ├── dist/            # 构建产物
@@ -29,7 +29,7 @@ goodmarket/
 │   │   ├── vue.config.js    # Vue配置
 │   │   ├── .env.development # 开发环境变量
 │   │   └── .env.production  # 生产环境变量
-│   └── front/               # 用户前端
+│   └── front/               # 用户前端（普通用户使用）
 │       ├── src/             # 前端源码
 │       ├── public/          # 静态资源
 │       ├── dist/            # 构建产物
@@ -40,11 +40,38 @@ goodmarket/
 
 ## 端口分配
 
-| 服务 | 端口 | 说明 |
-|------|------|------|
-| 后端 API | 8080 | Spring Boot 后端服务 |
-| 管理后台前端 | 8081 | Vue 开发服务器（如被占用会自动切换） |
-| 用户前端 | 8082 | Vue 开发服务器 |
+| 服务 | 端口 | 说明 | 使用对象 |
+|------|------|------|----------|
+| 后端 API | 8080 | Spring Boot 后端服务 | 所有前端 |
+| 管理后台前端 | 8081 | Vue 开发服务器（如被占用会自动切换） | 商家/管理员 |
+| 用户前端 | 8082 | Vue 开发服务器 | 普通用户 |
+
+## 前端项目说明
+
+### 管理后台前端（admin）
+- **位置**：`frontend/admin/`
+- **端口**：8081
+- **使用对象**：商家、管理员
+- **主要功能**：
+  - 商品管理（添加、编辑、删除商品）
+  - 订单管理（查看、处理订单）
+  - 用户管理（查看用户信息）
+  - 优惠券管理（创建、发放优惠券）
+  - 商家管理（审核商家信息）
+  - 品牌管理（管理商品品牌）
+  - 商品分类管理（管理商品分类）
+
+### 用户前端（front）
+- **位置**：`frontend/front/`
+- **端口**：8082
+- **使用对象**：普通用户
+- **主要功能**：
+  - 商品浏览（查看商品列表、详情）
+  - 购物车管理（添加、删除商品）
+  - 订单管理（查看订单状态、订单详情）
+  - 个人中心（修改个人信息、收货地址）
+  - 优惠券领取（领取、使用优惠券）
+  - 商品收藏（收藏喜欢的商品）
 
 ## 开发环境部署
 
@@ -67,10 +94,10 @@ java -jar target/goodmarket-0.0.1-SNAPSHOT.jar
 
 **后端服务地址**：`http://localhost:8080/goodmarket`
 
-### 2. 启动前端开发服务器
+### 2. 启动管理后台前端开发服务器
 
 ```bash
-# 进入前端项目目录
+# 进入管理后台前端项目目录
 cd /Users/young/Desktop/shop/goodmarket/frontend/admin
 
 # 安装依赖（首次运行需要）
@@ -83,9 +110,27 @@ NODE_OPTIONS=--openssl-legacy-provider npm run serve
 npm run serve
 ```
 
-**前端服务地址**：`http://localhost:8081`（端口被占用时会自动切换）
+**管理后台前端服务地址**：`http://localhost:8081`（端口被占用时会自动切换）
 
-### 3. 开发环境配置
+### 3. 启动用户前端开发服务器
+
+```bash
+# 进入用户前端项目目录
+cd /Users/young/Desktop/shop/goodmarket/frontend/front
+
+# 安装依赖（首次运行需要）
+npm install
+
+# 启动前端开发服务器（Node.js 17+ 需要添加环境变量）
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+
+# 如果使用 Node.js 14-16，可以直接运行
+npm run serve
+```
+
+**用户前端服务地址**：`http://localhost:8082`（端口被占用时会自动切换）
+
+### 4. 开发环境配置
 
 **前端配置文件**：
 - `.env.development`：开发环境变量
@@ -99,9 +144,23 @@ npm run serve
 
 ### 1. 构建前端项目
 
+**构建管理后台前端**：
+
 ```bash
-# 进入前端项目目录
+# 进入管理后台前端项目目录
 cd /Users/young/Desktop/shop/goodmarket/frontend/admin
+
+# 构建生产版本（Node.js 17+ 需要添加环境变量）
+NODE_OPTIONS=--openssl-legacy-provider npm run build
+
+# 构建产物生成在 dist/ 目录
+```
+
+**构建用户前端**：
+
+```bash
+# 进入用户前端项目目录
+cd /Users/young/Desktop/shop/goodmarket/frontend/front
 
 # 构建生产版本（Node.js 17+ 需要添加环境变量）
 NODE_OPTIONS=--openssl-legacy-provider npm run build
@@ -118,9 +177,16 @@ server {
     listen 80;
     server_name your-domain.com;
 
-    # 前端静态资源
+    # 管理后台前端静态资源
+    location /admin {
+        root /path/to/frontend;
+        index index.html;
+        try_files $uri $uri/ /admin/index.html;
+    }
+
+    # 用户前端静态资源
     location / {
-        root /path/to/frontend/admin/dist;
+        root /path/to/frontend/front/dist;
         index index.html;
         try_files $uri $uri/ /index.html;
     }
@@ -141,8 +207,17 @@ server {
 <VirtualHost *:80>
     ServerName your-domain.com
 
-    # 前端静态资源
-    DocumentRoot /path/to/frontend/admin/dist
+    # 用户前端静态资源
+    DocumentRoot /path/to/frontend/front/dist
+
+    <Directory /path/to/frontend/front/dist>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # 管理后台前端静态资源
+    Alias /admin /path/to/frontend/admin/dist
 
     <Directory /path/to/frontend/admin/dist>
         Options Indexes FollowSymLinks
@@ -206,12 +281,13 @@ spring:
 ## 访问地址
 
 ### 开发环境
-- **管理后台前端**：http://localhost:8081
-- **用户前端**：http://localhost:8082
+- **管理后台前端**：http://localhost:8081（商家/管理员使用）
+- **用户前端**：http://localhost:8082（普通用户使用）
 - **后端 API**：http://localhost:8080/goodmarket
 
 ### 生产环境
-- **前端**：http://your-domain.com
+- **用户前端**：http://your-domain.com（普通用户访问）
+- **管理后台前端**：http://your-domain.com/admin（商家/管理员访问）
 - **后端 API**：http://your-backend-server.com/goodmarket
 
 ## 常见问题
@@ -335,7 +411,7 @@ mvn spring-boot:run
 cd /Users/young/Desktop/shop/goodmarket/frontend/admin
 NODE_OPTIONS=--openssl-legacy-provider npm run serve
 
-# 终端3：启动用户前端（如需要）
+# 终端3：启动用户前端
 cd /Users/young/Desktop/shop/goodmarket/frontend/front
 NODE_OPTIONS=--openssl-legacy-provider npm run serve
 ```

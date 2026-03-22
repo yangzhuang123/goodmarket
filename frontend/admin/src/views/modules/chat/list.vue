@@ -1,5 +1,5 @@
 <template>
-	<div class="main-content" :style='{"padding":"20px 30px 20px 0","fontSize":"15px"}'>
+	<div class="list-content" :style='{"padding":"20px 30px 20px 0","fontSize":"15px"}'>
 		<!-- 列表页 -->
 		<div v-if="!showFlag" style="width: 100%;">
 			<el-form :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm" class="center-form-pv">

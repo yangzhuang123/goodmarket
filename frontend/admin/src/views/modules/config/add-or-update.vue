@@ -253,14 +253,14 @@
 	.el-date-editor.el-input {
 		width: auto;
 	}
-	.add-update-preview /deep/ .el-form-item {
+	.add-update-preview ::v-deep .el-form-item {
 		border: 0px solid #eee;
 		padding: 0;
 		margin: 0 0 26px 0;
 		display: inline-block;
 		width: 49%;
 	}
-	.add-update-preview .el-form-item /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
 		padding: 0 10px 0 0;
 		color: #666;
 		font-weight: 600;
@@ -270,7 +270,7 @@
 		text-align: right;
 	}
 	
-	.add-update-preview .el-form-item /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__content {
 		margin-left: 180px;
 	}
 	.add-update-preview .el-form-item span.text {
@@ -287,7 +287,7 @@
 	.add-update-preview .el-input {
 		width: 100%;
 	}
-	.add-update-preview .el-input /deep/ .el-input__inner {
+	.add-update-preview .el-input ::v-deep .el-input__inner {
 		border: 0px solid #ccc;
 		border-radius: 0px;
 		padding: 0 12px;
@@ -297,7 +297,7 @@
 		min-width: 50%;
 		height: 40px;
 	}
-	.add-update-preview .el-input /deep/ .el-input__inner[readonly="readonly"] {
+	.add-update-preview .el-input ::v-deep .el-input__inner[readonly="readonly"] {
 		border: 0px solid #ccc;
 		cursor: not-allowed;
 		border-radius: 0px;
@@ -312,7 +312,7 @@
 		text-align: left;
 		width: 100%;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input__inner {
+	.add-update-preview .el-input-number ::v-deep .el-input__inner {
 		text-align: left;
 		border: 0px solid #ccc;
 		border-radius: 0px;
@@ -323,7 +323,7 @@
 		min-width: 50%;
 		height: 40px;
 	}
-	.add-update-preview .el-input-number /deep/ .is-disabled .el-input__inner {
+	.add-update-preview .el-input-number ::v-deep .is-disabled .el-input__inner {
 		text-align: left;
 		border: 0px solid #ccc;
 		cursor: not-allowed;
@@ -335,16 +335,16 @@
 		font-size: 16px;
 		height: 40px;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input-number__decrease {
+	.add-update-preview .el-input-number ::v-deep .el-input-number__decrease {
 		display: none;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input-number__increase {
+	.add-update-preview .el-input-number ::v-deep .el-input-number__increase {
 		display: none;
 	}
 	.add-update-preview .el-select {
 		width: 100%;
 	}
-	.add-update-preview .el-select /deep/ .el-input__inner {
+	.add-update-preview .el-select ::v-deep .el-input__inner {
 		border: 0px solid #ccc;
 		border-radius: 0px;
 		padding: 0 10px;
@@ -353,7 +353,7 @@
 		font-size: 16px;
 		height: 40px;
 	}
-	.add-update-preview .el-select /deep/ .is-disabled .el-input__inner {
+	.add-update-preview .el-select ::v-deep .is-disabled .el-input__inner {
 		border: 0;
 		cursor: not-allowed;
 		border-radius: 4px;
@@ -367,7 +367,7 @@
 	.add-update-preview .el-date-editor {
 		width: 100%;
 	}
-	.add-update-preview .el-date-editor /deep/ .el-input__inner {
+	.add-update-preview .el-date-editor ::v-deep .el-input__inner {
 		border: 0px solid #ccc;
 		border-radius: 0px;
 		padding: 0 10px 0 30px;
@@ -377,7 +377,7 @@
 		font-size: 16px;
 		height: 40px;
 	}
-	.add-update-preview .el-date-editor /deep/ .el-input__inner[readonly="readonly"] {
+	.add-update-preview .el-date-editor ::v-deep .el-input__inner[readonly="readonly"] {
 		border: 0;
 		cursor: not-allowed;
 		border-radius: 0px;
@@ -456,7 +456,7 @@
 	.add-update-preview .unBtn:hover {
 		opacity: 0.8;
 	}
-	.add-update-preview /deep/ .el-upload--picture-card {
+	.add-update-preview ::v-deep .el-upload--picture-card {
 		background: transparent;
 		border: 0;
 		border-radius: 0;
@@ -466,7 +466,7 @@
 		vertical-align: middle;
 	}
 	
-	.add-update-preview /deep/ .upload .upload-img {
+	.add-update-preview ::v-deep .upload .upload-img {
 		border: 0px solid #ccc;
 		cursor: pointer;
 		border-radius: 0px;
@@ -479,7 +479,7 @@
 		height: 60px;
 	}
 	
-	.add-update-preview /deep/ .el-upload-list .el-upload-list__item {
+	.add-update-preview ::v-deep .el-upload-list .el-upload-list__item {
 		border: 0px solid #ccc;
 		cursor: pointer;
 		border-radius: 0px;
@@ -492,7 +492,7 @@
 		height: 60px;
 	}
 	
-	.add-update-preview /deep/ .el-upload .el-icon-plus {
+	.add-update-preview ::v-deep .el-upload .el-icon-plus {
 		border: 0px solid #ccc;
 		cursor: pointer;
 		border-radius: 0px;
@@ -504,12 +504,12 @@
 		text-align: center;
 		height: 60px;
 	}
-	.add-update-preview /deep/ .el-upload__tip {
+	.add-update-preview ::v-deep .el-upload__tip {
 		color: #666;
 		font-size: 15px;
 	}
 	
-	.add-update-preview .el-textarea /deep/ .el-textarea__inner {
+	.add-update-preview .el-textarea ::v-deep .el-textarea__inner {
 		border: 0px solid #ccc;
 		border-radius: 0px;
 		padding: 12px;
@@ -520,7 +520,7 @@
 		min-width: 400px;
 		height: 120px;
 	}
-	.add-update-preview .el-textarea /deep/ .el-textarea__inner[readonly="readonly"] {
+	.add-update-preview .el-textarea ::v-deep .el-textarea__inner[readonly="readonly"] {
 				border: 0;
 				cursor: not-allowed;
 				border-radius: 0px;

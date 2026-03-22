@@ -114,7 +114,7 @@ export default {
 			}
 		},
 		init(){
-			if(this.$storage.get('Token')){
+			if(this.$storage.get('Token') && this.$storage.get('sessionTable')){
 				this.$http({
 					url: `${this.$storage.get('sessionTable')}/session`,
 					method: "get"
@@ -122,6 +122,8 @@ export default {
 					if (data && data.code != 0) {
 						router.push({ name: 'login' })
 					}
+				}).catch(() => {
+					router.push({ name: 'login' })
 				});
 			}else{
 				router.push({ name: 'login' })

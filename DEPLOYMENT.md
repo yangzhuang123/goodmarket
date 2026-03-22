@@ -38,15 +38,23 @@ goodmarket/
 └── DEPLOYMENT.md            # 部署文档
 ```
 
+## 端口分配
+
+| 服务 | 端口 | 说明 |
+|------|------|------|
+| 后端 API | 8080 | Spring Boot 后端服务 |
+| 管理后台前端 | 8081 | Vue 开发服务器（如被占用会自动切换） |
+| 用户前端 | 8082 | Vue 开发服务器 |
+
 ## 开发环境部署
 
 ### 1. 启动后端服务
 
 ```bash
 # 进入后端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub/backend
+cd /Users/young/Desktop/shop/goodmarket/backend
 
-# 设置 JAVA_HOME 环境变量
+# 设置 JAVA_HOME 环境变量（如需要）
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home
 
 # 启动后端服务
@@ -63,16 +71,19 @@ java -jar target/goodmarket-0.0.1-SNAPSHOT.jar
 
 ```bash
 # 进入前端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub/frontend/admin
+cd /Users/young/Desktop/shop/goodmarket/frontend/admin
 
 # 安装依赖（首次运行需要）
 npm install
 
-# 启动前端开发服务器
+# 启动前端开发服务器（Node.js 17+ 需要添加环境变量）
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+
+# 如果使用 Node.js 14-16，可以直接运行
 npm run serve
 ```
 
-**前端服务地址**：`http://localhost:8081`
+**前端服务地址**：`http://localhost:8081`（端口被占用时会自动切换）
 
 ### 3. 开发环境配置
 
@@ -90,10 +101,10 @@ npm run serve
 
 ```bash
 # 进入前端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub/frontend/admin
+cd /Users/young/Desktop/shop/goodmarket/frontend/admin
 
-# 构建生产版本
-npm run build
+# 构建生产版本（Node.js 17+ 需要添加环境变量）
+NODE_OPTIONS=--openssl-legacy-provider npm run build
 
 # 构建产物生成在 dist/ 目录
 ```
@@ -149,7 +160,7 @@ server {
 
 ```bash
 # 进入后端项目目录
-cd /Users/young/Desktop/shop/springboot48cmuaub/backend
+cd /Users/young/Desktop/shop/goodmarket/backend
 
 # 打包项目
 mvn clean package -DskipTests
@@ -190,14 +201,13 @@ spring:
 - MySQL 5.7+
 
 ### 前端环境
-- Node.js 14+
-- npm 6+
+- Node.js 14+（推荐 Node.js 14-16，Node.js 17+ 需要额外配置）
 
 ## 访问地址
 
 ### 开发环境
 - **管理后台前端**：http://localhost:8081
-- **用户前端**：http://localhost:8083
+- **用户前端**：http://localhost:8082
 - **后端 API**：http://localhost:8080/goodmarket
 
 ### 生产环境
@@ -219,10 +229,48 @@ spring:
 - 检查浏览器控制台错误
 - 验证 API 地址配置
 
-### 2. 前端构建失败
+### 2. 前端构建/启动失败 - Node.js 版本问题
+
+**错误信息**：
+```
+Error: error:0308010C:digital envelope routines::unsupported
+```
+
+**原因**：Node.js 17+ 版本的 OpenSSL 与旧版 webpack 不兼容
+
+**解决方案**：
+
+方法一：使用环境变量（推荐）
+```bash
+# 启动开发服务器
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+
+# 构建生产版本
+NODE_OPTIONS=--openssl-legacy-provider npm run build
+```
+
+方法二：降级 Node.js 版本
+```bash
+# 使用 nvm 切换到兼容版本
+nvm install 16
+nvm use 16
+npm install
+npm run serve
+```
+
+方法三：修改 package.json（永久解决）
+```json
+{
+  "scripts": {
+    "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build"
+  }
+}
+```
+
+### 3. 前端构建失败 - 依赖问题
 
 **常见原因**：
-- Node.js 版本不兼容
 - 依赖安装失败
 - 构建配置错误
 
@@ -231,14 +279,9 @@ spring:
 # 清除缓存重新安装
 rm -rf node_modules package-lock.json
 npm install
-
-# 使用兼容的 Node.js 版本
-nvm install 14
-nvm use 14
-npm install
 ```
 
-### 3. 后端启动失败
+### 4. 后端启动失败
 
 **常见原因**：
 - JDK 版本不匹配
@@ -257,6 +300,15 @@ lsof -i :8080
 mysql -h localhost -u root -p
 ```
 
+### 5. 前端请求 500 错误
+
+**原因**：后端服务未启动或数据库连接失败
+
+**解决方案**：
+1. 确认后端服务已在 8080 端口运行
+2. 检查数据库是否正常启动
+3. 检查数据库连接配置是否正确
+
 ## 优势对比
 
 ### 前后端分离的优势
@@ -271,6 +323,22 @@ mysql -h localhost -u root -p
 2. **部署复杂度**：需要维护两套部署环境
 3. **调试难度**：前后端分离增加了调试复杂度
 4. **版本管理**：需要协调前后端版本兼容性
+
+## 快速启动命令汇总
+
+```bash
+# 终端1：启动后端
+cd /Users/young/Desktop/shop/goodmarket/backend
+mvn spring-boot:run
+
+# 终端2：启动管理后台前端
+cd /Users/young/Desktop/shop/goodmarket/frontend/admin
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+
+# 终端3：启动用户前端（如需要）
+cd /Users/young/Desktop/shop/goodmarket/frontend/front
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+```
 
 ## 总结
 

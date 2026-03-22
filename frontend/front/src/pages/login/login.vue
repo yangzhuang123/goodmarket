@@ -178,12 +178,18 @@ export default {
 		loginPost(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
-					this.$http.get(`${this.loginForm.tableName}/login`, {params: this.loginForm}).then(res => {
+					// 构建登录参数
+					let loginParams = {
+						username: this.loginForm.username,
+						password: this.loginForm.password
+					};
+					
+					// 发送登录请求
+					this.$http.get(`${this.loginForm.tableName}/login`, {params: loginParams}).then(res => {
 						if (res.data.code === 0) {
 							localStorage.setItem('frontToken', res.data.token);
 							localStorage.setItem('UserTableName', this.loginForm.tableName);
 							localStorage.setItem('username', this.loginForm.username);
-							// localStorage.setItem('adminName', this.loginForm.username);
 							localStorage.setItem('frontSessionTable', this.loginForm.tableName);
 							localStorage.setItem('frontRole', this.role);
 							localStorage.setItem('keyPath', 0);

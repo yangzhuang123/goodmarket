@@ -231,10 +231,6 @@ export default {
 			form: {
 				ask: '',
 			},
-			headportrait: localStorage.getItem('frontHeadportrait')?localStorage.getItem('frontHeadportrait'):'',
-			Token: localStorage.getItem('frontToken'),
-			username: localStorage.getItem('username'),
-			notAdmin: localStorage.getItem('frontSessionTable')!='"users"',
 			iconArr: [
 				'el-icon-star-off',
 				'el-icon-goods',
@@ -315,6 +311,18 @@ export default {
 			}
 			return path
 		},
+		Token() {
+			return localStorage.getItem('frontToken');
+		},
+		username() {
+			return localStorage.getItem('username');
+		},
+		headportrait() {
+			return localStorage.getItem('frontHeadportrait') || '';
+		},
+		notAdmin() {
+			return localStorage.getItem('frontSessionTable') !== '"users"';
+		},
 	},
 	watch: {
 		$route(newValue) {
@@ -326,15 +334,24 @@ export default {
 					this.activeIndex = x
 				}
 			}
-			this.Token = localStorage.getItem('frontToken')
 			if(arr[1]!='/index/home'){
 				window.scrollTo( 0, 70 )
 			}else{
 				window.scrollTo( 0, 0 )
 			}
 		},
-		headportrait(){
-			this.$forceUpdate()
+		// 监听localStorage变化
+		Token() {
+			this.$forceUpdate();
+		},
+		username() {
+			this.$forceUpdate();
+		},
+		headportrait() {
+			this.$forceUpdate();
+		},
+		notAdmin() {
+			this.$forceUpdate();
 		},
 	},
 	methods: {
@@ -354,12 +371,16 @@ export default {
 						localStorage.setItem('vip', res.data.data.vip);
 					}
 					if(res.data.data.touxiang) {
-						this.headportrait = res.data.data.touxiang
 						localStorage.setItem('frontHeadportrait', res.data.data.touxiang);
 					} else if(res.data.data.headportrait) {
-						this.headportrait = res.data.data.headportrait
 						localStorage.setItem('frontHeadportrait', res.data.data.headportrait);
 					}
+					if(res.data.data.username) {
+						localStorage.setItem('username', res.data.data.username);
+					} else if(res.data.data.name) {
+						localStorage.setItem('username', res.data.data.name);
+					}
+					this.$forceUpdate();
 				}
 			});
 		},

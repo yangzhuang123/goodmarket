@@ -365,7 +365,7 @@
 	.center-form-pv .el-input {
 		width: 100%;
 	}
-	.center-form-pv .el-input /deep/ .el-input__inner {
+	.center-form-pv .el-input ::v-deep .el-input__inner {
 		border: 1px solid #ddd;
 		border-radius: 0px;
 		padding: 0 12px;
@@ -377,7 +377,7 @@
 	.center-form-pv .el-select {
 		width: 100%;
 	}
-	.center-form-pv .el-select /deep/ .el-input__inner {
+	.center-form-pv .el-select ::v-deep .el-input__inner {
 		border: 1px solid #ddd;
 		border-radius: 0px;
 		padding: 0 10px;
@@ -390,7 +390,7 @@
 		width: 100%;
 	}
 	
-	.center-form-pv .el-date-editor /deep/ .el-input__inner {
+	.center-form-pv .el-date-editor ::v-deep .el-input__inner {
 		border: 1px solid #ddd;
 		border-radius: 0px;
 		padding: 0 10px 0 30px;
@@ -485,17 +485,17 @@
 	}
 	
 	// table
-	.el-table /deep/ .el-table__header-wrapper thead {
+	.el-table ::v-deep .el-table__header-wrapper thead {
 		color: #999;
 		font-weight: 500;
 		width: 100%;
 	}
 	
-	.el-table /deep/ .el-table__header-wrapper thead tr {
+	.el-table ::v-deep .el-table__header-wrapper thead tr {
 		background: #fff;
 	}
 	
-	.el-table /deep/ .el-table__header-wrapper thead tr th {
+	.el-table ::v-deep .el-table__header-wrapper thead tr th {
 		padding: 4px 0;
 		background: none;
 		border-color: #eee;
@@ -504,7 +504,7 @@
 		text-align: left;
 	}
 
-	.el-table /deep/ .el-table__header-wrapper thead tr th .cell {
+	.el-table ::v-deep .el-table__header-wrapper thead tr th .cell {
 		padding: 0 0 0 5px;
 		word-wrap: normal;
 		color: #666;
@@ -523,15 +523,15 @@
 	}
 
 	
-	.el-table /deep/ .el-table__body-wrapper tbody {
+	.el-table ::v-deep .el-table__body-wrapper tbody {
 		width: 100%;
 	}
 
-	.el-table /deep/ .el-table__body-wrapper tbody tr {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr {
 		background: #fff;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 4px 0;
 		color: #333;
 		background: #fff;
@@ -542,11 +542,11 @@
 		text-align: left;
 	}
 	
-		.el-table /deep/ .el-table__body-wrapper tbody tr.el-table__row--striped td {
+		.el-table ::v-deep .el-table__body-wrapper tbody tr.el-table__row--striped td {
 		background: #f8f8f8;
 	}
 		
-	.el-table /deep/ .el-table__body-wrapper tbody tr:hover td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 		padding: 4px 0;
 		color: #333;
 		background: #f0f0f0;
@@ -556,7 +556,7 @@
 		text-align: left;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 4px 0;
 		color: #333;
 		background: #fff;
@@ -567,7 +567,7 @@
 		text-align: left;
 	}
 
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .cell {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .cell {
 		padding: 0 0 0 5px;
 		overflow: hidden;
 		word-break: break-all;
@@ -577,7 +577,7 @@
 		text-overflow: ellipsis;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .view {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .view {
 		border: 0px solid #157ed2;
 		cursor: pointer;
 		border-radius: 2px;
@@ -590,17 +590,17 @@
 		height: 32px;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .view:hover {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .view:hover {
 		opacity: 0.8;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .add {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .add {
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .add:hover {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .add:hover {
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .edit {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .edit {
 		border: 0px solid #157ed2;
 		cursor: pointer;
 		border-radius: 2px;
@@ -613,11 +613,11 @@
 		height: 32px;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .edit:hover {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .edit:hover {
 		opacity: 0.8;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .del {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .del {
 		border: 0px solid #157ed2;
 		cursor: pointer;
 		border-radius: 2px;
@@ -630,11 +630,11 @@
 		height: 32px;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .del:hover {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .del:hover {
 		opacity: 0.8;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .btn8 {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .btn8 {
 		border: 0px solid #157ed2;
 		cursor: pointer;
 		border-radius: 2px;
@@ -647,12 +647,12 @@
 		height: 32px;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .btn8:hover {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .btn8:hover {
 		opacity: 0.8;
 	}
 	
 	// pagination
-	.main-content .el-pagination /deep/ .el-pagination__total {
+	.main-content .el-pagination ::v-deep .el-pagination__total {
 		margin: 0 10px 0 0;
 		color: #666;
 		font-weight: 400;
@@ -663,7 +663,7 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .btn-prev {
+	.main-content .el-pagination ::v-deep .btn-prev {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -678,7 +678,7 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .btn-next {
+	.main-content .el-pagination ::v-deep .btn-next {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -693,7 +693,7 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .btn-prev:disabled {
+	.main-content .el-pagination ::v-deep .btn-prev:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -708,7 +708,7 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .btn-next:disabled {
+	.main-content .el-pagination ::v-deep .btn-next:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -723,14 +723,14 @@
 		height: 48px;
 	}
 
-	.main-content .el-pagination /deep/ .el-pager {
+	.main-content .el-pagination ::v-deep .el-pager {
 		padding: 0;
 		margin: 0;
 		display: inline-block;
 		vertical-align: top;
 	}
 
-	.main-content .el-pagination /deep/ .el-pager .number {
+	.main-content .el-pagination ::v-deep .el-pager .number {
 		cursor: pointer;
 		border-radius: 2px;
 		padding: 0 20px;
@@ -745,7 +745,7 @@
 		height: 56px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pager .number:hover {
+	.main-content .el-pagination ::v-deep .el-pager .number:hover {
 		cursor: pointer;
 		border-radius: 2px;
 		padding: 0 20px;
@@ -760,7 +760,7 @@
 		height: 56px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pager .number.active {
+	.main-content .el-pagination ::v-deep .el-pager .number.active {
 		cursor: default;
 		border-radius: 2px;
 		padding: 0 20px;
@@ -775,7 +775,7 @@
 		height: 56px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__sizes {
+	.main-content .el-pagination ::v-deep .el-pagination__sizes {
 		display: inline-block;
 		vertical-align: top;
 		font-size: 16px;
@@ -783,13 +783,13 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__sizes .el-input {
+	.main-content .el-pagination ::v-deep .el-pagination__sizes .el-input {
 		margin: 0 5px;
 		width: 100px;
 		position: relative;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__sizes .el-input .el-input__inner {
+	.main-content .el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 25px 0 8px;
@@ -805,14 +805,14 @@
 		height: 28px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__sizes .el-input span.el-input__suffix {
+	.main-content .el-pagination ::v-deep .el-pagination__sizes .el-input span.el-input__suffix {
 		top: 0;
 		position: absolute;
 		right: 0;
 		height: 100%;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
+	.main-content .el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
 		cursor: pointer;
 		color: #C0C4CC;
 		width: 25px;
@@ -821,7 +821,7 @@
 		text-align: center;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__jump {
+	.main-content .el-pagination ::v-deep .el-pagination__jump {
 		margin: 0 0 0 24px;
 		color: #606266;
 		display: inline-block;
@@ -831,7 +831,7 @@
 		height: 48px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__jump .el-input {
+	.main-content .el-pagination ::v-deep .el-pagination__jump .el-input {
 		border-radius: 3px;
 		padding: 0 2px;
 		margin: 0 2px;
@@ -844,7 +844,7 @@
 		height: 28px;
 	}
 	
-	.main-content .el-pagination /deep/ .el-pagination__jump .el-input .el-input__inner {
+	.main-content .el-pagination ::v-deep .el-pagination__jump .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 3px;
@@ -941,7 +941,7 @@
 		align-items: center;
 		height: 30px;
 	}
-	.main-content .el-table .el-switch /deep/ .el-switch__label--left {
+	.main-content .el-table .el-switch ::v-deep .el-switch__label--left {
 		cursor: pointer;
 		margin: 0 10px 0 0;
 		color: #333;
@@ -952,7 +952,7 @@
 		transition: .2s;
 		height: 30px;
 	}
-	.main-content .el-table .el-switch /deep/ .el-switch__label--right {
+	.main-content .el-table .el-switch ::v-deep .el-switch__label--right {
 		cursor: pointer;
 		margin: 0 0 0 10px;
 		color: #333;
@@ -963,7 +963,7 @@
 		transition: .2s;
 		height: 30px;
 	}
-	.main-content .el-table .el-switch /deep/ .el-switch__core {
+	.main-content .el-table .el-switch ::v-deep .el-switch__core {
 		border: 1px solid #75c0d6;
 		cursor: pointer;
 		border-radius: 15px;
@@ -975,7 +975,7 @@
 		transition: border-color .3s,background-color .3s;
 		height: 20px;
 	}
-	.main-content .el-table .el-switch /deep/ .el-switch__core::after {
+	.main-content .el-table .el-switch ::v-deep .el-switch__core::after {
 		border-radius: 100%;
 		top: 1px;
 		left: 1px;
@@ -985,19 +985,19 @@
 		transition: all .3s;
 		height: 16px;
 	}
-	.main-content .el-table .el-switch.is-checked /deep/ .el-switch__core::after {
+	.main-content .el-table .el-switch.is-checked ::v-deep .el-switch__core::after {
 		margin: 0 0 0 -18px;
 		left: 100%;
 	}
 	
-	.main-content .el-table .el-rate /deep/ .el-rate__item {
+	.main-content .el-table .el-rate ::v-deep .el-rate__item {
 		cursor: pointer;
 		display: inline-block;
 		vertical-align: middle;
 		font-size: 0;
 		position: relative;
 	}
-	.main-content .el-table .el-rate /deep/ .el-rate__item .el-rate__icon {
+	.main-content .el-table .el-rate ::v-deep .el-rate__item .el-rate__icon {
 		margin: 0 3px;
 		display: inline-block;
 		font-size: 18px;

@@ -270,19 +270,19 @@
 			width: calc(100% - 0px);
 			line-height: 40px;
 			height: auto;
-			/deep/ .el-radio__input .el-radio__inner {
+			::v-deep .el-radio__input .el-radio__inner {
 				background: rgba(53, 53, 53, 0);
 				border-color: #666;
 			}
-			/deep/ .el-radio__input.is-checked .el-radio__inner {
+			::v-deep .el-radio__input.is-checked .el-radio__inner {
 				background: #0d6efd;
 				border-color: #0d6efd;
 			}
-			/deep/ .el-radio__label {
+			::v-deep .el-radio__label {
 				color: #666;
 				font-size: 16px;
 			}
-			/deep/ .el-radio__input.is-checked+.el-radio__label {
+			::v-deep .el-radio__input.is-checked+.el-radio__label {
 				color: #0d6efd;
 				font-size: 16px;
 			}

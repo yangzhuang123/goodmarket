@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
--- Host: localhost    Database: shop
+-- Host: localhost    Database: goodmarket
 -- ------------------------------------------------------
 -- Server version	5.7.31
 
@@ -16,14 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `shop`
+-- Current Database: `goodmarket`
 --
 
-/*!40000 DROP DATABASE IF EXISTS `shop`*/;
+/*!40000 DROP DATABASE IF EXISTS `goodmarket`*/;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `goodmarket` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `shop`;
+USE `goodmarket`;
 
 --
 -- Table structure for table `address`
@@ -548,7 +548,7 @@ CREATE TABLE `shangpinxinxi` (
 
 LOCK TABLES `shangpinxinxi` WRITE;
 /*!40000 ALTER TABLE `shangpinxinxi` DISABLE KEYS */;
-INSERT INTO `shangpinxinxi` VALUES (1,'2025-02-10 16:17:42','店铺名称1','商品名称1','商品分类1','upload/shangpinxinxi_tupian1.jpg,upload/shangpinxinxi_tupian2.jpg,upload/shangpinxinxi_tupian3.jpg','品牌1','规格1','商品参数1','商品介绍1',1,99,'2025-02-11 00:17:42',1,0,0,99.9,1,1),(2,'2025-02-10 16:17:42','店铺名称2','商品名称2','商品分类2','upload/shangpinxinxi_tupian2.jpg,upload/shangpinxinxi_tupian3.jpg,upload/shangpinxinxi_tupian4.jpg','品牌2','规格2','商品参数2','商品介绍2',2,99,'2025-02-11 00:17:42',2,0,0,99.9,1,2),(3,'2025-02-10 16:17:42','店铺名称3','商品名称3','商品分类3','upload/shangpinxinxi_tupian3.jpg,upload/shangpinxinxi_tupian4.jpg,upload/shangpinxinxi_tupian5.jpg','品牌3','规格3','商品参数3','商品介绍3',3,99,'2025-02-11 00:17:42',3,0,0,99.9,1,3),(4,'2025-02-10 16:17:42','店铺名称4','商品名称4','商品分类4','upload/shangpinxinxi_tupian4.jpg,upload/shangpinxinxi_tupian5.jpg,upload/shangpinxinxi_tupian6.jpg','品牌4','规格4','商品参数4','商品介绍4',4,99,'2025-02-11 00:17:42',4,0,0,99.9,1,4),(5,'2025-02-10 16:17:42','店铺名称5','商品名称5','商品分类5','upload/shangpinxinxi_tupian5.jpg,upload/shangpinxinxi_tupian6.jpg,upload/shangpinxinxi_tupian7.jpg','品牌5','规格5','商品参数5','商品介绍5',5,99,'2025-02-11 00:17:42',5,0,0,99.9,1,5),(6,'2025-02-10 16:17:42','店铺名称6','商品名称6','商品分类6','upload/shangpinxinxi_tupian6.jpg,upload/shangpinxinxi_tupian7.jpg,upload/shangpinxinxi_tupian8.jpg','品牌6','规格6','商品参数6','商品介绍6',6,99,'2025-02-11 00:17:42',6,0,0,99.9,1,6),(7,'2025-02-10 16:17:42','店铺名称7','商品名称7','商品分类7','upload/shangpinxinxi_tupian7.jpg,upload/shangpinxinxi_tupian8.jpg,upload/shangpinxinxi_tupian1.jpg','品牌7','规格7','商品参数7','商品介绍7',7,99,'2025-02-11 00:17:42',11,0,0,99.9,1,8),(8,'2025-02-10 16:17:42','店铺名称8','商品名称8','手机','upload/shangpinxinxi_tupian8.jpg,upload/shangpinxinxi_tupian1.jpg,upload/shangpinxinxi_tupian2.jpg','小米','规格8','商品参数8','商品介绍8',8,99,'2025-02-11 00:17:42',14,0,0,99.9,1,8),(9,'2025-02-11 00:13:13','店铺名称8','小米14','手机','upload/1739232767546.jpg,upload/1739232769774.jpg,upload/1739232771963.jpg','小米','小','111','<p><img src=\"http://localhost:8080/shop/upload/1739232787014.jpg\"></p><p><img src=\"http://localhost:8080/shop/upload/1739232790158.jpg\"></p><p>这里也可以发布一些相关介绍内容的</p>',100,7,NULL,8,1,5,2500,1,1);
+INSERT INTO `shangpinxinxi` VALUES (1,'2025-02-10 16:17:42','店铺名称1','商品名称1','商品分类1','upload/shangpinxinxi_tupian1.jpg,upload/shangpinxinxi_tupian2.jpg,upload/shangpinxinxi_tupian3.jpg','品牌1','规格1','商品参数1','商品介绍1',1,99,'2025-02-11 00:17:42',1,0,0,99.9,1,1),(2,'2025-02-10 16:17:42','店铺名称2','商品名称2','商品分类2','upload/shangpinxinxi_tupian2.jpg,upload/shangpinxinxi_tupian3.jpg,upload/shangpinxinxi_tupian4.jpg','品牌2','规格2','商品参数2','商品介绍2',2,99,'2025-02-11 00:17:42',2,0,0,99.9,1,2),(3,'2025-02-10 16:17:42','店铺名称3','商品名称3','商品分类3','upload/shangpinxinxi_tupian3.jpg,upload/shangpinxinxi_tupian4.jpg,upload/shangpinxinxi_tupian5.jpg','品牌3','规格3','商品参数3','商品介绍3',3,99,'2025-02-11 00:17:42',3,0,0,99.9,1,3),(4,'2025-02-10 16:17:42','店铺名称4','商品名称4','商品分类4','upload/shangpinxinxi_tupian4.jpg,upload/shangpinxinxi_tupian5.jpg,upload/shangpinxinxi_tupian6.jpg','品牌4','规格4','商品参数4','商品介绍4',4,99,'2025-02-11 00:17:42',4,0,0,99.9,1,4),(5,'2025-02-10 16:17:42','店铺名称5','商品名称5','商品分类5','upload/shangpinxinxi_tupian5.jpg,upload/shangpinxinxi_tupian6.jpg,upload/shangpinxinxi_tupian7.jpg','品牌5','规格5','商品参数5','商品介绍5',5,99,'2025-02-11 00:17:42',5,0,0,99.9,1,5),(6,'2025-02-10 16:17:42','店铺名称6','商品名称6','商品分类6','upload/shangpinxinxi_tupian6.jpg,upload/shangpinxinxi_tupian7.jpg,upload/shangpinxinxi_tupian8.jpg','品牌6','规格6','商品参数6','商品介绍6',6,99,'2025-02-11 00:17:42',6,0,0,99.9,1,6),(7,'2025-02-10 16:17:42','店铺名称7','商品名称7','商品分类7','upload/shangpinxinxi_tupian7.jpg,upload/shangpinxinxi_tupian8.jpg,upload/shangpinxinxi_tupian1.jpg','品牌7','规格7','商品参数7','商品介绍7',7,99,'2025-02-11 00:17:42',11,0,0,99.9,1,8),(8,'2025-02-10 16:17:42','店铺名称8','商品名称8','手机','upload/shangpinxinxi_tupian8.jpg,upload/shangpinxinxi_tupian1.jpg,upload/shangpinxinxi_tupian2.jpg','小米','规格8','商品参数8','商品介绍8',8,99,'2025-02-11 00:17:42',14,0,0,99.9,1,8),(9,'2025-02-11 00:13:13','店铺名称8','小米14','手机','upload/1739232767546.jpg,upload/1739232769774.jpg,upload/1739232771963.jpg','小米','小','111','<p><img src=\"http://localhost:8080/goodmarket/upload/1739232787014.jpg\"></p><p><img src=\"http://localhost:8080/goodmarket/upload/1739232790158.jpg\"></p><p>这里也可以发布一些相关介绍内容的</p>',100,7,NULL,8,1,5,2500,1,1);
 /*!40000 ALTER TABLE `shangpinxinxi` ENABLE KEYS */;
 UNLOCK TABLES;
 

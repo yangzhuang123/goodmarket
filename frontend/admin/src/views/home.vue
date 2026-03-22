@@ -263,13 +263,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 	.home-content {
-		padding: 10px 30px;
-		background: url(http://codegen.caihongy.cn/20241017/6d736551dbf7474082c219b2d49d078d.png) no-repeat center top / cover;
-		display: flex;
-		width: 100%;
-		min-height: 100vh;
-		justify-content: flex-start;
-		flex-wrap: wrap;
+	padding: 40px 30px;
+	background: url(http://codegen.caihongy.cn/20241017/6d736551dbf7474082c219b2d49d078d.png) no-repeat center top / cover;
+	display: flex;
+	width: 100%;
+	min-height: 80vh;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1000;
 		.home-title {
 			border-radius: 5px;
 			padding: 10px 0;

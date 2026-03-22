@@ -1,8 +1,8 @@
 <template>
-	<div class="main-content" :style='{"padding":"20px 30px","fontSize":"15px"}'>
+	<div class="main-content" :style='{"padding":"20px 30px 20px 0","fontSize":"15px"}'>
 		<!-- 列表页 -->
 		<template v-if="showFlag">
-			<el-form class="center-form-pv" :style='{"margin":"0 10px 20px"}' :inline="true" :model="searchForm">
+			<el-form class="center-form-pv" :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm">
 				<el-row :style='{"padding":"10px","background":"#fff","display":"block"}' >
 					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}'>
 						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">提问</label>
@@ -27,7 +27,7 @@
 
 				</el-row>
 			</el-form>
-			<div :style='{"width":"100%","padding":"0 10px","fontSize":"14px","color":"#000"}'>
+			<div :style='{"width":"100%","padding":"0","fontSize":"14px","color":"#000"}'>
 				<el-table class="tables"
 					:stripe='true'
 					:style='{"padding":"10px 0","borderColor":"#eee","borderRadius":"20px 20px 0 0","borderWidth":"1px 0 0 1px","background":"#fff","width":"100%","fontSize":"inherit","borderStyle":"solid"}' 

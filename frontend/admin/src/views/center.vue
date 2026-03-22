@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"20px 30px","fontSize":"15px"}'>
+	<div class="center-content">
 		<el-form
 			:style='{"padding":"0px","borderColor":"#eee","borderStyle":"solid","borderWidth":"0px 0 0"}'
 			class="add-update-preview"
@@ -7,95 +7,95 @@
 			:model="ruleForm"
 			label-width="180px"
 		>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="用户名" prop="yonghuming">
-					<el-input v-model="ruleForm.yonghuming" readonly						placeholder="用户名" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="姓名" prop="xingming">
-					<el-input v-model="ruleForm.xingming" 						placeholder="姓名" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='yonghu'" label="头像" prop="touxiang">
-					<file-upload
-						tip="点击上传头像"
-						action="file/upload"
-						:limit="3"
-						:multiple="true"
-						:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
-						@change="yonghutouxiangUploadChange"
-					></file-upload>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='yonghu'"  label="性别" prop="xingbie">
-					<el-select v-model="ruleForm.xingbie"  placeholder="请选择性别">
-						<el-option
-							v-for="(item,index) in yonghuxingbieOptions"
-							v-bind:key="index"
-							:label="item"
-							:value="item">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="年龄" prop="nianling">
-					<el-input v-model="ruleForm.nianling" 						placeholder="年龄" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="邮箱" prop="youxiang">
-					<el-input v-model="ruleForm.youxiang" 						placeholder="邮箱" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="手机号" prop="mobile">
-					<el-input v-model="ruleForm.mobile" 						placeholder="手机号" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="店铺名称" prop="dianpumingcheng">
-					<el-input v-model="ruleForm.dianpumingcheng" readonly						placeholder="店铺名称" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="商家姓名" prop="shangjiaxingming">
-					<el-input v-model="ruleForm.shangjiaxingming" 						placeholder="商家姓名" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='shangjia'" label="头像" prop="touxiang">
-					<file-upload
-						tip="点击上传头像"
-						action="file/upload"
-						:limit="3"
-						:multiple="true"
-						:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
-						@change="shangjiatouxiangUploadChange"
-					></file-upload>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='shangjia'"  label="性别" prop="xingbie">
-					<el-select v-model="ruleForm.xingbie"  placeholder="请选择性别">
-						<el-option
-							v-for="(item,index) in shangjiaxingbieOptions"
-							v-bind:key="index"
-							:label="item"
-							:value="item">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="年龄" prop="nianling">
-					<el-input v-model="ruleForm.nianling" 						placeholder="年龄" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="邮箱" prop="youxiang">
-					<el-input v-model="ruleForm.youxiang" 						placeholder="邮箱" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="手机号" prop="mobile">
-					<el-input v-model="ruleForm.mobile" 						placeholder="手机号" clearable></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='users'" label="用户名" prop="username">
-					<el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
-				</el-form-item>
-				<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='users'" label="头像" prop="image">
-					<file-upload
-						tip="点击上传头像"
-						action="file/upload"
-						:limit="1"
-						:multiple="false"
-						:fileUrls="ruleForm.image?ruleForm.image:''"
-						@change="usersimageUploadChange"
-					></file-upload>
-				</el-form-item>
-				<el-form-item :style='{"padding":"0","margin":"20px 0 0"}'>
-					<el-button class="btn3" :style='{"border":"0px solid #ccc","cursor":"pointer","padding":"0 10px","margin":"0 10px 0 0","color":"#fff","borderRadius":"4px","background":"#50adfd","width":"auto","fontSize":"16px","minWidth":"110px","height":"40px"}' type="primary" @click="onUpdateHandler">
-						<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"40px"}'></span>
-						提交
-					</el-button>
-				</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="用户名" prop="yonghuming">
+				<el-input v-model="ruleForm.yonghuming" readonly					placeholder="用户名" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="姓名" prop="xingming">
+				<el-input v-model="ruleForm.xingming" 					placeholder="姓名" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='yonghu'" label="头像" prop="touxiang">
+				<file-upload
+					tip="点击上传头像"
+					action="file/upload"
+					:limit="3"
+					:multiple="true"
+					:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
+					@change="yonghutouxiangUploadChange"
+				></file-upload>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='yonghu'"  label="性别" prop="xingbie">
+				<el-select v-model="ruleForm.xingbie"  placeholder="请选择性别">
+					<el-option
+						v-for="(item,index) in yonghuxingbieOptions"
+						v-bind:key="index"
+						:label="item"
+						:value="item">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="年龄" prop="nianling">
+				<el-input v-model="ruleForm.nianling" 					placeholder="年龄" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="邮箱" prop="youxiang">
+				<el-input v-model="ruleForm.youxiang" 					placeholder="邮箱" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='yonghu'"  label="手机号" prop="mobile">
+				<el-input v-model="ruleForm.mobile" 					placeholder="手机号" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="店铺名称" prop="dianpumingcheng">
+				<el-input v-model="ruleForm.dianpumingcheng" readonly					placeholder="店铺名称" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="商家姓名" prop="shangjiaxingming">
+				<el-input v-model="ruleForm.shangjiaxingming" 					placeholder="商家姓名" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='shangjia'" label="头像" prop="touxiang">
+				<file-upload
+					tip="点击上传头像"
+					action="file/upload"
+					:limit="3"
+					:multiple="true"
+					:fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
+					@change="shangjiatouxiangUploadChange"
+				></file-upload>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='shangjia'"  label="性别" prop="xingbie">
+				<el-select v-model="ruleForm.xingbie"  placeholder="请选择性别">
+					<el-option
+						v-for="(item,index) in shangjiaxingbieOptions"
+						v-bind:key="index"
+						:label="item"
+						:value="item">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="年龄" prop="nianling">
+				<el-input v-model="ruleForm.nianling" 					placeholder="年龄" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="邮箱" prop="youxiang">
+				<el-input v-model="ruleForm.youxiang" 					placeholder="邮箱" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}'   v-if="flag=='shangjia'"  label="手机号" prop="mobile">
+				<el-input v-model="ruleForm.mobile" 					placeholder="手机号" clearable></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='users'" label="用户名" prop="username">
+				<el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
+			</el-form-item>
+			<el-form-item :style='{"border":"0px solid #eee","width":"49%","padding":"0","margin":"0 0 26px 0","display":"inline-block"}' v-if="flag=='users'" label="头像" prop="image">
+				<file-upload
+					tip="点击上传头像"
+					action="file/upload"
+					:limit="1"
+					:multiple="false"
+					:fileUrls="ruleForm.image?ruleForm.image:''"
+					@change="usersimageUploadChange"
+				></file-upload>
+			</el-form-item>
+			<el-form-item :style='{"padding":"0","margin":"20px 0 0"}'>
+				<el-button class="btn3" :style='{"border":"0px solid #ccc","cursor":"pointer","padding":"0 10px","margin":"0 10px 0 0","color":"#fff","borderRadius":"4px","background":"#50adfd","width":"auto","fontSize":"16px","minWidth":"110px","height":"40px"}' type="primary" @click="onUpdateHandler">
+					<span class="icon iconfont icon-xihuan" :style='{"margin":"0 2px","fontSize":"14px","color":"#fff","display":"none","height":"40px"}'></span>
+					提交
+				</el-button>
+			</el-form-item>
 		</el-form>
 	</div>
 </template>
@@ -390,7 +390,15 @@ export default {
 			}
 	
 	.editor>.avatar-uploader {
-		line-height: 0;
-		height: 0;
-	}
+	line-height: 0;
+	height: 0;
+}
+
+.center-content {
+	padding: 40px 30px;
+	font-size: 15px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1000;
+}
 </style>

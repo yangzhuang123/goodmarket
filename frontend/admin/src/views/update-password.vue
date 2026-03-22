@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"30px"}'>
+	<div class="update-password-content">
 		<el-form
 			:style='{"padding":"0px","borderColor":"#eee","borderStyle":"solid","borderWidth":"0px 0 0"}'
 			class="add-update-preview"
@@ -279,4 +279,11 @@ export default {
 	.add-update-preview .btn3:hover {
 				opacity: 0.8;
 			}
+
+	.update-password-content {
+	padding: 40px 30px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1000;
+}
 </style>

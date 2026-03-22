@@ -1,8 +1,8 @@
 <template>
-	<div class="main-content" :style='{"padding":"20px 30px","fontSize":"15px"}'>
+	<div class="main-content" :style='{"padding":"20px 30px 20px 0","fontSize":"15px"}'>
 		<!-- 列表页 -->
 		<div v-if="!showFlag" style="width: 100%;">
-			<el-form :style='{"margin":"0 10px 20px"}' :inline="true" :model="searchForm" class="center-form-pv">
+			<el-form :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm" class="center-form-pv">
 				<el-row :style='{"padding":"10px","background":"#fff","display":"block"}'>
 					<div :style='{"margin":"0 10px 0 0","display":"inline-block"}'>
 						<label :style='{"margin":"0 10px 0 0","color":"#666","display":"inline-block","lineHeight":"40px","fontSize":"inherit","fontWeight":"500","height":"40px"}' class="item-label">是否回复</label>

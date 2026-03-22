@@ -37,7 +37,7 @@ export const routes = [{
 		path: '/',
 		name: '系统首页',
 		component: Home,
-		meta: {icon:'', title:'center', affix: true}
+		meta: {icon:'', title:'系统首页', affix: true}
 	}, {
 		path: '/updatePassword',
 		name: '修改密码',
@@ -52,7 +52,7 @@ export const routes = [{
 		path: '/center',
 		name: '个人信息',
 		component: center,
-		meta: {icon:'', title:'center'}
+		meta: {icon:'', title:'个人信息'}
 	}
 	,{
 		path: '/news',

@@ -1,379 +1,486 @@
 <template>
-	<div>
-		<div class="login-container">
-			<el-form class="login_form animate__animated animate__backInDown">
-				<div class="login_form2">
-					<div class="title-container">好物集市</div>
-					<div v-if="loginType==1" class="list-item">
-						<div class="lable">
-							账号：
-						</div>
-						<input placeholder="请输入账号：" name="username" type="text" v-model="rulesForm.username">
+	<div class="login-container">
+		<div class="login-left">
+			<div class="login-left-content">
+				<h1 class="brand-title">好物集市</h1>
+				<p class="brand-subtitle">一站式购物管理平台</p>
+				<div class="features">
+					<div class="feature-item">
+						<i class="el-icon-goods"></i>
+						<span>商品管理</span>
 					</div>
-					<div v-if="loginType==1" class="list-item">
-						<div class="lable">
-							密码：
-						</div>
-						<div class="password-box">
-							<input placeholder="请输入密码：" name="password" :type="showPassword?'text':'password'" v-model="rulesForm.password">
-							<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
-						</div>
+					<div class="feature-item">
+						<i class="el-icon-document"></i>
+						<span>订单处理</span>
 					</div>
-
-					<div class="list-item " v-if="roles.length>1">
-						<div class="lable">
-							角色：
-						</div>
-						<div prop="loginInRole" class="list-type">
-							<el-radio v-if="loginType==1||(loginType==2&&item.roleName!='管理员')" v-for="item in roles" v-bind:key="item.roleName" v-model="rulesForm.role" :label="item.roleName">{{item.roleName}}</el-radio>
-						</div>
-					</div>
-
-		
-					<div class="login-btn">
-						<div class="login-btn1">
-							<el-button v-if="loginType==1" type="primary" @click="login()" class="loginInBt">登录</el-button>
-						</div>
-						<div class="login-btn2">
-							<el-button type="primary" @click="register('shangjia')" class="register">
-								注册商家							</el-button>
-						</div>
-						<div class="login-btn3">
-						</div>
+					<div class="feature-item">
+						<i class="el-icon-user"></i>
+						<span>用户管理</span>
 					</div>
 				</div>
-				<div class="idea-box1">登录</div>
-				<div class="idea-box2">输入您的账号和密码以访问帐户</div>
-			</el-form>
+			</div>
+		</div>
+		<div class="login-right">
+			<div class="login-form-wrapper animate__animated animate__fadeInRight">
+				<div class="form-header">
+					<h2>欢迎登录</h2>
+					<p>请输入您的账号和密码</p>
+				</div>
+				<el-form class="login-form" :model="rulesForm">
+					<div class="form-group">
+						<label>账号</label>
+						<div class="input-wrapper">
+							<i class="el-icon-user"></i>
+							<input 
+								placeholder="请输入账号" 
+								name="username" 
+								type="text" 
+								v-model="rulesForm.username"
+								@keyup.enter="login()"
+							>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>密码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-lock"></i>
+							<input 
+								placeholder="请输入密码" 
+								name="password" 
+								:type="showPassword ? 'text' : 'password'" 
+								v-model="rulesForm.password"
+								@keyup.enter="login()"
+							>
+							<i 
+								class="toggle-password" 
+								:class="showPassword ? 'el-icon-view' : 'el-icon-hide'"
+								@click="showPassword = !showPassword"
+							></i>
+						</div>
+					</div>
+
+					<div class="form-group" v-if="roles.length > 1">
+						<label>角色</label>
+						<div class="role-list">
+							<el-radio 
+								v-for="item in roles" 
+								:key="item.roleName" 
+								v-model="rulesForm.role" 
+								:label="item.roleName"
+							>{{ item.roleName }}</el-radio>
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<el-button 
+							type="primary" 
+							@click="login()" 
+							class="login-btn"
+							:loading="loading"
+						>
+							<span v-if="!loading">登 录</span>
+							<span v-else>登录中...</span>
+						</el-button>
+					</div>
+
+					<div class="form-footer">
+						<span>还没有账号？</span>
+						<el-button type="text" @click="register('shangjia')">注册商家</el-button>
+					</div>
+				</el-form>
+			</div>
 		</div>
 	</div>
 </template>
+
 <script>
-	import 'animate.css'
-	import menu from "@/utils/menu";
-	export default {
-		data() {
-			return {
-				verifyCheck2: false,
-				flag: false,
-				baseUrl:this.$base.url,
-				loginType: 1,
-				rulesForm: {
-					username: "",
-					password: "",
-					role: "",
-				},
-				menus: [],
-				roles: [],
-				tableName: "",
-				showPassword: false,
-			};
-		},
-		mounted() {
-			let menus = menu.list();
-			this.menus = menus;
+import 'animate.css'
+import menu from "@/utils/menu";
 
-			for (let i = 0; i < this.menus.length; i++) {
-				if (this.menus[i].hasBackLogin=='是') {
-					this.roles.push(this.menus[i])
-				}
+export default {
+	data() {
+		return {
+			baseUrl: this.$base.url,
+			loginType: 1,
+			rulesForm: {
+				username: "",
+				password: "",
+				role: "",
+			},
+			menus: [],
+			roles: [],
+			tableName: "",
+			showPassword: false,
+			loading: false,
+		};
+	},
+	mounted() {
+		let menus = menu.list();
+		this.menus = menus;
+		for (let i = 0; i < this.menus.length; i++) {
+			if (this.menus[i].hasBackLogin == '是') {
+				this.roles.push(this.menus[i])
 			}
-
-		},
-		created() {
-
-		},
-		destroyed() {
-		},
-		components: {
-		},
-		methods: {
-
-			//注册
-			register(tableName){
-				this.$storage.set("loginTable", tableName);
-				this.$router.push({path:'/register',query:{pageFlag:'register'}})
-			},
-			// 登陆
-			login() {
-
-				if (!this.rulesForm.username) {
-					this.$message.error("请输入用户名");
-					return;
-				}
-				if (!this.rulesForm.password) {
-					this.$message.error("请输入密码");
-					return;
-				}
-				if(this.roles.length>1) {
-					if (!this.rulesForm.role) {
-						this.$message.error("请选择角色");
-						return;
-					}
-
-					let menus = this.menus;
-					for (let i = 0; i < menus.length; i++) {
-						if (menus[i].roleName == this.rulesForm.role) {
-							this.tableName = menus[i].tableName;
-						}
-					}
-				} else {
-					this.tableName = this.roles[0].tableName;
-					this.rulesForm.role = this.roles[0].roleName;
-				}
-		
-				this.loginPost()
-			},
-			loginPost() {
-				this.$http({
-					url: `${this.tableName}/login?username=${this.rulesForm.username}&password=${this.rulesForm.password}`,
-					method: "post"
-				}).then(({ data }) => {
-					if (data && data.code === 0) {
-						this.$storage.set("Token", data.token);
-						this.$storage.set("role", this.rulesForm.role);
-						this.$storage.set("sessionTable", this.tableName);
-						this.$storage.set("adminName", this.rulesForm.username);
-						this.$router.replace({ path: "/" });
-					} else {
-						this.$message.error(data.msg);
-					}
-				});
-			},
 		}
+	},
+	methods: {
+		register(tableName) {
+			this.$storage.set("loginTable", tableName);
+			this.$router.push({ path: '/register', query: { pageFlag: 'register' } })
+		},
+		login() {
+			if (!this.rulesForm.username) {
+				this.$message.error("请输入用户名");
+				return;
+			}
+			if (!this.rulesForm.password) {
+				this.$message.error("请输入密码");
+				return;
+			}
+			if (this.roles.length > 1) {
+				if (!this.rulesForm.role) {
+					this.$message.error("请选择角色");
+					return;
+				}
+				let menus = this.menus;
+				for (let i = 0; i < menus.length; i++) {
+					if (menus[i].roleName == this.rulesForm.role) {
+						this.tableName = menus[i].tableName;
+					}
+				}
+			} else {
+				this.tableName = this.roles[0].tableName;
+				this.rulesForm.role = this.roles[0].roleName;
+			}
+			this.loginPost()
+		},
+		loginPost() {
+			this.loading = true;
+			this.$http({
+				url: `${this.tableName}/login?username=${this.rulesForm.username}&password=${this.rulesForm.password}`,
+				method: "post"
+			}).then(({ data }) => {
+				this.loading = false;
+				if (data && data.code === 0) {
+					this.$storage.set("Token", data.token);
+					this.$storage.set("role", this.rulesForm.role);
+					this.$storage.set("sessionTable", this.tableName);
+					this.$storage.set("adminName", this.rulesForm.username);
+					this.$message.success("登录成功");
+					this.$router.replace({ path: "/" });
+				} else {
+					this.$message.error(data.msg);
+				}
+			}).catch(() => {
+				this.loading = false;
+				this.$message.error("登录失败，请稍后重试");
+			});
+		},
 	}
+}
 </script>
 
 <style lang="scss" scoped>
 .login-container {
+	display: flex;
 	min-height: 100vh;
-	position: relative;
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	background: url(http://codegen.caihongy.cn/20201206/eaa69c2b4fa742f2b5acefd921a772fc.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background: url(http://codegen.caihongy.cn/20201206/eaa69c2b4fa742f2b5acefd921a772fc.jpg);
-	display: block;
 	width: 100%;
-	min-height: 100vh;
-	justify-content: flex-start;
-	align-items: center;
-	background-position: center center;
+}
 
-	.login_form {
-		padding: 180px 40px 40px;
-		margin: 0;
-		z-index: 1000;
-		display: flex;
-		min-height: 100vh;
-		flex-wrap: wrap;
-		border-radius: 0;
-		box-shadow: inset 0px 0px 0px 0px #000;
-		flex-direction: column;
-		background: #fff;
-		width: 640px;
-		align-items: flex-start;
-		position: relative;
-		height: auto;
-		.login_form2 {
-			width: 100%;
+.login-left {
+	flex: 1;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+		animation: pulse 15s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.1); }
+	}
+
+	.login-left-content {
+		text-align: center;
+		color: #fff;
+		z-index: 1;
+		padding: 40px;
+
+		.brand-title {
+			font-size: 48px;
+			font-weight: 700;
+			margin-bottom: 16px;
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 		}
-		.title-container {
-			padding: 0 40px;
-			margin: 0 0 20px 0;
-			color: #000;
-			top: 60px;
-			left: 0;
-			background: none;
-			font-weight: 600;
-			width: 100%;
-			font-size: 28px;
-			line-height: 40px;
-			position: absolute;
-			text-align: left;
+
+		.brand-subtitle {
+			font-size: 18px;
+			opacity: 0.9;
+			margin-bottom: 60px;
 		}
-		.list-item {
-			padding: 0;
-			margin: 0 0 10px;
+
+		.features {
 			display: flex;
-			width: calc(100% - 0px);
-			align-items: center;
-			position: relative;
-			flex-wrap: wrap;
-			.lable {
-				color: #000;
-				width: 100%;
-				font-size: 16px;
-				line-height: 40px;
-				text-align: left;
-			}
-			input {
-				border: 1px solid #efeff7;
-				border-radius: 4px;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 40px;
-			}
-			input:focus {
-				border: 1px solid #efeff7;
-				padding: 0 10px;
-				color: #666;
-				width: 100%;
-				font-size: 16px;
-				height: 40px;
-			}
-			.password-box {
-				display: flex;
-				width: 100%;
-				position: relative;
-				align-items: center;
-				input {
-					border: 1px solid #efeff7;
-					padding: 0 10px;
-					color: rgba(64, 158, 255, 1);
-					width: 100%;
-					font-size: 14px;
-					height: 44px;
-				}
-				input:focus {
-					border: 1px solid #efeff7;
-					padding: 0 10px;
-					color: rgba(64, 158, 255, 1);
-					width: 100%;
-					font-size: 14px;
-					height: 44px;
-				}
-				.iconfont {
-					cursor: pointer;
-					z-index: 1;
-					color: #000;
-					top: 0;
-					font-size: 16px;
-					line-height: 44px;
-					position: absolute;
-					right: 5px;
-				}
-			}
-			input::placeholder {
-				color: #999;
-				font-size: 16px;
-			}
-		}
-		.list-type {
-			padding: 0;
-			margin: 0;
-			background: none;
-			width: calc(100% - 0px);
-			line-height: 40px;
-			height: auto;
-			::v-deep .el-radio__input .el-radio__inner {
-				background: rgba(53, 53, 53, 0);
-				border-color: #666;
-			}
-			::v-deep .el-radio__input.is-checked .el-radio__inner {
-				background: #0d6efd;
-				border-color: #0d6efd;
-			}
-			::v-deep .el-radio__label {
-				color: #666;
-				font-size: 16px;
-			}
-			::v-deep .el-radio__input.is-checked+.el-radio__label {
-				color: #0d6efd;
-				font-size: 16px;
-			}
-		}
-		.login-btn {
-			margin: 20px auto;
-			display: flex;
-			width: 100%;
+			gap: 40px;
 			justify-content: center;
-			align-items: center;
-			flex-wrap: wrap;
-			.login-btn1 {
-				width: 100%;
-			}
-			.login-btn2 {
+
+			.feature-item {
 				display: flex;
-				width: 100%;
-				justify-content: center;
+				flex-direction: column;
 				align-items: center;
-				flex-wrap: wrap;
-			}
-			.login-btn3 {
-				width: 100%;
-			}
-			.loginInBt {
-				border: 0px solid rgba(0, 0, 0, 1);
-				cursor: pointer;
-				border-radius: 4px;
-				padding: 0 10px;
-				margin: 0 0 10px;
-				color: #fff;
-				background: #0d6efd;
-				font-weight: 600;
-				width: 100%;
-				font-size: 16px;
-				min-width: 68px;
-				height: 44px;
-			}
-			.loginInBt:hover {
-				opacity: 0.8;
-			}
-			.register {
-				border: 0px solid rgba(0, 0, 0, 1);
-				cursor: pointer;
-				border-radius: 4px;
-				padding: 0 10px;
-				margin: 0 0 10px;
-				color: rgba(0, 0, 0, 1);
-				background: #fff;
-				width: auto;
-				font-size: 16px;
-				height: 34px;
-			}
-			.register:hover {
-				opacity: 0.8;
-			}
-			.forget {
-				border: 0;
-				cursor: pointer;
-				border-radius: 0;
-				padding: 0;
-				margin: 0 10px 10px 0;
-				color: #999;
-				background: none;
-				width: 100%;
-				font-size: 15px;
-				text-align: right;
-				height: 34px;
-			}
-			.forget:hover {
-				color: #0d6efd;
-				opacity: 1;
+				gap: 12px;
+
+				i {
+					font-size: 32px;
+					background: rgba(255,255,255,0.2);
+					width: 64px;
+					height: 64px;
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				span {
+					font-size: 14px;
+					opacity: 0.9;
+				}
 			}
 		}
-	}
-	.idea-box1 {
-		background: none;
-		font-weight: 600;
-		width: 560px;
-		font-size: 20px;
-		height: 30px;
-		order: -2;
-	}
-	.idea-box2 {
-		margin: 5px 0 40px;
-		background: #fff;
-		width: 100%;
-		font-size: 16px;
-		height: 30px;
-		order: -1;
 	}
 }
 
+.login-right {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f8fafc;
+	padding: 40px;
+
+	.login-form-wrapper {
+		width: 100%;
+		max-width: 400px;
+		background: #fff;
+		border-radius: 16px;
+		padding: 48px 40px;
+		box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+
+		.form-header {
+			text-align: center;
+			margin-bottom: 32px;
+
+			h2 {
+				font-size: 28px;
+				font-weight: 600;
+				color: #1a1a2e;
+				margin-bottom: 8px;
+			}
+
+			p {
+				color: #6b7280;
+				font-size: 14px;
+			}
+		}
+
+		.login-form {
+			.form-group {
+				margin-bottom: 24px;
+
+				label {
+					display: block;
+					font-size: 14px;
+					font-weight: 500;
+					color: #374151;
+					margin-bottom: 8px;
+				}
+
+				.input-wrapper {
+					position: relative;
+					display: flex;
+					align-items: center;
+
+					> i:first-child {
+						position: absolute;
+						left: 16px;
+						color: #9ca3af;
+						font-size: 18px;
+					}
+
+					input {
+						width: 100%;
+						height: 48px;
+						padding: 0 48px;
+						border: 2px solid #e5e7eb;
+						border-radius: 10px;
+						font-size: 15px;
+						color: #1f2937;
+						transition: all 0.3s ease;
+						background: #f9fafb;
+
+						&:focus {
+							outline: none;
+							border-color: #667eea;
+							background: #fff;
+							box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+						}
+
+						&::placeholder {
+							color: #9ca3af;
+						}
+					}
+
+					.toggle-password {
+						position: absolute;
+						right: 16px;
+						color: #9ca3af;
+						cursor: pointer;
+						font-size: 18px;
+						transition: color 0.3s;
+
+						&:hover {
+							color: #667eea;
+						}
+					}
+				}
+
+				.role-list {
+					display: flex;
+					flex-wrap: wrap;
+					gap: 16px;
+					padding: 12px 0;
+
+					::v-deep .el-radio {
+						margin-right: 0;
+
+						.el-radio__input {
+							.el-radio__inner {
+								width: 18px;
+								height: 18px;
+								border-color: #d1d5db;
+
+								&:hover {
+									border-color: #667eea;
+								}
+							}
+
+							&.is-checked .el-radio__inner {
+								border-color: #667eea;
+								background: #667eea;
+							}
+						}
+
+						.el-radio__label {
+							color: #4b5563;
+							font-size: 14px;
+						}
+
+						&.is-checked .el-radio__label {
+							color: #667eea;
+						}
+					}
+				}
+			}
+
+			.form-actions {
+				margin-top: 32px;
+
+				.login-btn {
+					width: 100%;
+					height: 48px;
+					font-size: 16px;
+					font-weight: 600;
+					border-radius: 10px;
+					background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+					border: none;
+					transition: all 0.3s ease;
+
+					&:hover {
+						transform: translateY(-2px);
+						box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+					}
+
+					&:active {
+						transform: translateY(0);
+					}
+				}
+			}
+
+			.form-footer {
+				text-align: center;
+				margin-top: 24px;
+				padding-top: 24px;
+				border-top: 1px solid #e5e7eb;
+				color: #6b7280;
+				font-size: 14px;
+
+				.el-button--text {
+					color: #667eea;
+					font-weight: 500;
+					padding: 0 4px;
+
+					&:hover {
+						color: #764ba2;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.login-container {
+		flex-direction: column;
+	}
+
+	.login-left {
+		padding: 60px 20px;
+
+		.login-left-content {
+			.brand-title {
+				font-size: 36px;
+			}
+
+			.brand-subtitle {
+				margin-bottom: 30px;
+			}
+
+			.features {
+				gap: 20px;
+
+				.feature-item {
+					i {
+						font-size: 24px;
+						width: 50px;
+						height: 50px;
+					}
+
+					span {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+
+	.login-right {
+		padding: 30px 20px;
+
+		.login-form-wrapper {
+			padding: 32px 24px;
+		}
+	}
+}
 </style>

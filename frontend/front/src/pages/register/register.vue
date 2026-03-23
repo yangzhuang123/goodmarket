@@ -364,8 +364,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.container {
-		background-repeat: no-repeat;
-		background: url(http://codegen.caihongy.cn/20241104/f36a96ebedfc4cbb9a6cfb7e1443ebb5.webp);
+		background: #f5f5f5;
 		display: flex;
 		width: 100%;
 		min-height: 100vh;
@@ -373,73 +372,61 @@ export default {
 		align-items: center;
 		background-position: center center;
 		position: relative;
-		background: url(http://codegen.caihongy.cn/20241104/f36a96ebedfc4cbb9a6cfb7e1443ebb5.webp);
 		.rgs-form {
-			scrollbar-width: thin;
 			padding: 0;
 			margin: 0;
-			overflow: auto;
-			background: #fff;
-			width: auto;
-			overflow-x: hidden;
-			height: calc(100vh - 100px);
+			background: rgba(255, 255, 255, 0.95);
+			width: 500px;
+			height: auto;
+			border-radius: 20px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			backdrop-filter: blur(10px);
 			.rgs-form2 {
-				padding: 0 89px;
+				padding: 40px 50px;
 				margin: 0;
-				background: #FFF;
-				width: 600px;
+				background: transparent;
+				width: 100%;
 				.title {
-					margin: 30px 0 20px -40px;
-					color: #000;
+					margin: 0 0 40px 0;
+					color: #5DB5B7;
 					font-weight: 700;
-					width: calc(100% + 80px);
-					font-size: 18px;
-					line-height: auto;
-					text-align: center;
-				}
-				.subtitle {
-					margin: 0 0 10px 0;
-					text-shadow: 4px 4px 2px rgba(64, 158, 255, .5);
-					color: rgba(64, 158, 255, 1);
 					width: 100%;
-					font-size: 20px;
-					line-height: 44px;
+					font-size: 32px;
+					line-height: 1;
 					text-align: center;
+					letter-spacing: 2px;
 				}
 				.list-item {
-					border: 1px solid #CACACA;
-					border-radius: 30px;
-					box-shadow: inset 0px 4px 10px 0px rgba(0,0,0,0.3);
-					margin: 0 0 30px 0;
-					background: none;
+					border: 2px solid #e0e0e0;
+					border-radius: 12px;
+					box-shadow: none;
+					margin: 0 0 25px 0;
+					background: #fff;
 					display: flex;
 					width: 100%;
 					align-items: center;
-					flex-wrap: wrap;
+					transition: all 0.3s ease;
 					::v-deep .el-form-item__content {
-						padding: 0 0 0 120px;
-						display: block;
-						width: calc(100% - 0px);
+						padding: 0;
+						display: flex;
+						width: 100%;
+						flex: 1;
 						.label {
-							padding: 0 5px 0 0;
-							z-index: 9;
-							color: #333;
-							left: 0;
-							width: 120px;
-							font-size: 16px;
-							line-height: 60px;
-							position: absolute !important;
-							text-align: right;
+							color: #666;
+							width: 80px;
+							font-size: 15px;
+							line-height: 50px;
+							text-align: center;
+							font-weight: 500;
 						}
 						
 						.required {
 							position: relative;
 						}
 						.required::after{
-							margin: 0 10px 0 0;
+							margin: 0 5px 0 0;
 							color: red;
-							left: 110px;
-							position: inherit;
+							position: relative;
 							content: "*";
 						}
 						.el-input {
@@ -448,22 +435,23 @@ export default {
 						}
 						.el-input .el-input__inner {
 							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
-							background: none;
+							padding: 0 15px;
+							color: #333;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.el-input .el-input__inner:focus {
-							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
+							border: 0px solid #f7db61;
+							padding: 0 15px;
+							outline: none;
+							color: #333;
 							flex: 1;
-							background: none;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.el-input-number {
 							flex: 1;
@@ -472,12 +460,12 @@ export default {
 						.el-input-number .el-input__inner {
 							text-align: left;
 							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
-							background: none;
+							padding: 0 15px;
+							color: #333;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.el-input-number .el-input-number__decrease {
 							display: none;
@@ -490,48 +478,25 @@ export default {
 							width: 100%;
 						}
 						.el-select .el-input__inner {
-							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
-							flex: 1;
-							background: none;
+							border: none;
+							padding: 0 15px;
+							box-shadow: none;
+							color: #333;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
-						.el-select .el-input__inner:focus {
-							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
-							flex: 1;
-							background: none;
+						.el-select .is-focus .el-input__inner {
+							border: none;
+							padding: 0 15px;
+							box-shadow: none;
+							outline: none;
+							color: #333;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
-						}
-						.el-date-editor {
-							flex: 1;
-							width: 100%;
-						}
-						.el-date-editor .el-input__inner {
-							border: 0px solid #ddd;
-							padding: 0 10px 0 40px;
-							color: #000000;
-							flex: 1;
-							background: none;
-							width: 100%;
-							font-size: 15px;
-							height: 60px;
-						}
-						.el-date-editor .el-input__inner:focus {
-							border: 0px solid #ddd;
-							padding: 0 10px 0 40px;
-							color: #000000;
-							flex: 1;
-							background: none;
-							width: 100%;
-							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.el-upload--picture-card {
 							background: transparent;
@@ -545,108 +510,105 @@ export default {
 						.upload .upload-img {
 							border: 1px solid #ddd;
 							cursor: pointer;
-							border-radius: 0px;
-							margin: 10px 0 0;
+							border-radius: 8px;
+							margin: 0;
 							color: #999;
 							background: #fff;
 							object-fit: cover;
 							width: 80px;
 							font-size: 24px;
-							line-height: 60px;
+							line-height: 50px;
 							text-align: center;
-							height: 60px;
+							height: 50px;
 						}
 						.el-upload-list .el-upload-list__item {
 							border: 1px solid #ddd;
 							cursor: pointer;
-							border-radius: 0px;
-							margin: 10px 0 0;
+							border-radius: 8px;
+							margin: 0;
 							color: #999;
 							background: #fff;
 							object-fit: cover;
 							width: 80px;
 							font-size: 24px;
-							line-height: 60px;
+							line-height: 50px;
 							text-align: center;
-							height: 60px;
+							height: 50px;
 							font-size: 14px;
 							line-height: 1.8;
 						}
 						.el-upload .el-icon-plus {
 							border: 1px solid #ddd;
 							cursor: pointer;
-							border-radius: 0px;
-							margin: 10px 0 0;
+							border-radius: 8px;
+							margin: 0;
 							color: #999;
 							background: #fff;
 							object-fit: cover;
 							width: 80px;
 							font-size: 24px;
-							line-height: 60px;
+							line-height: 50px;
 							text-align: center;
-							height: 60px;
+							height: 50px;
 						}
 						.el-upload__tip {
 							margin: 0;
 							color: #666;
-							font-size: 15px;
+							font-size: 14px;
 						}
 						.emailInput {
 							border: 0px solid #ddd;
-							padding: 0 10px;
+							padding: 0 15px;
 							outline: none;
-							color: #000000;
+							color: #333;
 							flex: 1;
-							background: none;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.emailInput:focus {
 							border: 0px solid #ddd;
-							padding: 0 10px;
-							color: #000000;
+							padding: 0 15px;
+							color: #333;
 							flex: 1;
-							background: none;
+							background: transparent;
 							width: 100%;
 							font-size: 15px;
-							height: 60px;
+							height: 50px;
 						}
 						.el-btn {
 							border: none;
 							cursor: pointer;
-							border-radius: 0 30px 30px 0;
-							padding: 0 10px;
+							border-radius: 0 12px 12px 0;
+							padding: 0 15px;
 							margin: 0;
 							color: #fff;
 							background: #5DB5B7;
 							width: 110px;
-							font-size: 15px;
+							font-size: 14px;
 							border-width: 1px 1px 1px 0;
 							float: right;
-							height: 60px;
+							height: 50px;
+							transition: all 0.3s ease;
 						}
 						.el-btn:hover {
-							background: #2d7173;
+							background: #4aa5a7;
 						}
 						
 						.el-input__inner::placeholder {
-							color: #e9e9e9;
-							font-size: 15px;
+							color: #bbb;
+							font-size: 14px;
 						}
 						input::placeholder {
-							color: #e9e9e9;
-							font-size: 15px;
-						}
-						.editor {
-							border-radius: 30px;
-							padding: 20px;
-							margin: 0 0 0 0px;
-							background: none;
-							width: calc(100% - 0px);
-							height: auto;
+							color: #bbb;
+							font-size: 14px;
 						}
 					}
+				}
+				.list-item:hover {
+					border-color: #5DB5B7;
+					box-shadow: 0 4px 12px rgba(93, 181, 183, 0.2);
 				}
 				.register-btn {
 					margin: 0;
@@ -655,42 +617,50 @@ export default {
 					width: 100%;
 				}
 				.register-btn1 {
-					padding: 20px 0 30px 0;
+					padding: 0 0 20px 0;
 					width: 100%;
-					order: 2;
 				}
 				.register-btn2 {
 					padding: 0;
-					margin: 0;
+					margin: 0 auto;
 					width: 100%;
 					text-align: center;
 				}
 				.register_btn {
 					border: 0;
 					cursor: pointer;
-					border-radius: 30px;
+					border-radius: 12px;
 					padding: 0 30px;
 					margin: 0 0px;
 					color: #fff;
-					background: #5DB5B7;
+					background: linear-gradient(135deg, #5DB5B7 0%, #3a9a9c 100%);
 					width: 100%;
-					font-size: 24px;
-					height: 60px;
+					font-size: 18px;
+					height: 55px;
+					font-weight: 600;
+					letter-spacing: 1px;
+					transition: all 0.3s ease;
+					box-shadow: 0 8px 20px rgba(93, 181, 183, 0.3);
 				}
 				.register_btn:hover {
-					background: #2d7173;
+					background: linear-gradient(135deg, #4aa5a7 0%, #2d8587 100%);
+					transform: translateY(-2px);
+					box-shadow: 0 12px 28px rgba(93, 181, 183, 0.4);
 				}
 				.has_btn {
 					cursor: pointer;
-					padding: 0;
-					color: #555;
+					padding: 8px 20px;
+					color: #5DB5B7;
 					display: inline-block;
 					text-decoration: none;
 					font-size: 15px;
-					line-height: 30px;
+					border: 1px solid #5DB5B7;
+					border-radius: 20px;
+					transition: all 0.3s ease;
 				}
 				.has_btn:hover {
-					color: #5db5b7;
+					color: #fff;
+					background: #5DB5B7;
 				}
 			}
 			.idea1 {

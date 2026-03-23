@@ -35,20 +35,6 @@
 							<el-input v-model="ruleForm.yonghuming" autocomplete="off" placeholder="请输入用户名" type="text" />
 						</div>
 					</div>
-					<div class="form-group">
-						<label :class="changeRules('mima')?'required':''">密码</label>
-						<div class="input-wrapper">
-							<i class="el-icon-lock"></i>
-							<el-input v-model="ruleForm.mima" autocomplete="off" placeholder="请输入密码" type="password" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label :class="changeRules('mima')?'required':''">确认密码</label>
-						<div class="input-wrapper">
-							<i class="el-icon-lock"></i>
-							<el-input v-model="ruleForm.mima2" autocomplete="off" placeholder="请确认密码" type="password" />
-						</div>
-					</div>
 					<div class="form-group" v-if="tableName=='yonghu'">
 						<label :class="changeRules('xingming')?'required':''">姓名</label>
 						<div class="input-wrapper">
@@ -68,6 +54,20 @@
 						<div class="input-wrapper">
 							<i class="el-icon-user"></i>
 							<el-input v-model="ruleForm.shangjiaxingming" autocomplete="off" placeholder="请输入商家姓名" type="text" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mima')?'required':''">密码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-lock"></i>
+							<el-input v-model="ruleForm.mima" autocomplete="off" placeholder="请输入密码" type="password" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label :class="changeRules('mima')?'required':''">确认密码</label>
+						<div class="input-wrapper">
+							<i class="el-icon-lock"></i>
+							<el-input v-model="ruleForm.mima2" autocomplete="off" placeholder="请确认密码" type="password" />
 						</div>
 					</div>
 					<div class="form-group">

@@ -37,8 +37,8 @@ import Editor from "@/components/Editor";
 import aplayer from 'vue-aplayer';
 import store from './store'
 import { encryptDes,decryptDes,encryptAes,decryptAes } from '@/common/des.js'
-import VueLuckyCanvas from '@lucky-canvas/vue'
-Vue.use(VueLuckyCanvas)
+// import VueLuckyCanvas from '@lucky-canvas/vue'
+// Vue.use(VueLuckyCanvas)
 Vue.config.productionTip = false;
 
 Vue.prototype.$config = config;
